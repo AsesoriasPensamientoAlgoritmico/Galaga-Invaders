@@ -51,8 +51,17 @@ class BaseCriatura{
         setStatus(false);
     }
 
-    //Get y set, metodos para hablar con las propiedades de una instancia de la clase (objeto)
-    
+    //resetea la posicion de la criatura a su posicon inicial
+    void resetearAPosicionInicial(){
+        setX(posicionInicialX);
+        setY(posicionInicialY);
+    }
+
+    //-----------
+    //Get y set
+    // metodos para hablar con las propiedades de una instancia de la clase (objeto)
+    //-----------
+
     void setX(int x) {
         this.x = x;
     }
