@@ -1,4 +1,4 @@
-clase Enemigo extends BaseCriatura{
+class Enemigo extends BaseCriatura{
     //-----------
     //CONSTANTES
     //-----------
@@ -6,7 +6,6 @@ clase Enemigo extends BaseCriatura{
     //-----------
     //ATRIBUTOS
     //-----------
-
 
     //-----------
     //CONSTRUCTOR

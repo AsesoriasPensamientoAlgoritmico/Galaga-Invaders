@@ -1,4 +1,4 @@
-clase Jugador extends BaseCriatura{
+class Jugador extends BaseCriatura{
     //-----------
     //CONSTANTES
     //-----------
@@ -25,11 +25,16 @@ clase Jugador extends BaseCriatura{
     //El puntaje maximo que ha alcanzando en todos sus juegos
     int maximoPuntajeHistorico;
 
-
     //-----------
     //CONSTRUCTOR
     //-----------
 
+    Jugador(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla ){
+        
+        super(posicionInicialX,posicionInicialY,altoPantalla,anchoPantalla);
+
+
+    }
 
     //-----------
     //FUNCIONES
