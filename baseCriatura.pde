@@ -21,14 +21,23 @@ class BaseCriatura{
     //Indica si la criatura esta viva o muerta (viva es true y muerta es false) (esto defnira si se genera o no en la interfaz)
     boolean estatus;
 
+    //Alto de la pantalla (se usara para ubicar a la ciratura en relacion al ambiente en el eje y)
+    int altoPantalla;
+    
+    //Ancho de la pantalla ( se usara para ubicar a la criatura en relacion al amabiente en el eje x)
+    int anchoPantalla;
+
     //-----------
     //CONSTRUCTOR
     //-----------
     
     //El constructor de un objeto de baseCriatura (instancia de la clase)
-    BaseCriatura(int posicionInicialX, int posicionInicialY){
+    BaseCriatura(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla ){
         this.posicionInicialX = posicionInicialX;
         this.posicionInicialY = posicionInicialY;
+
+        this.altoPantalla = altoPantalla;
+        this.anchoPantalla = anchoPantalla;
         
         //la posicion actual siempre inciia como la poscion inicial 
         this.x = posicionInicialX;
