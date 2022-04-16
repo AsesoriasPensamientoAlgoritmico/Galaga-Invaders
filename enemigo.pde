@@ -1,4 +1,4 @@
-class Enemigo extends BaseCriatura{
+class Enemigo extends BaseEntidad{
     //-----------
     //CONSTANTES
     //-----------

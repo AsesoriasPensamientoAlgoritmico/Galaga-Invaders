@@ -1,38 +1,38 @@
-class BaseCriatura{
+class BaseEntidad{
     //-----------
     //ATRIBUTOS
     //-----------
 
-    //Posicion inicial en la que se genera la criatura en la pantalla en el eje X
+    //Posicion inicial en la que se genera la entidad en la pantalla en el eje X
     int posicionInicialX;
 
-    //Posicion inicial en la que se genera la criatura en la pantalla en el eje Y
+    //Posicion inicial en la que se genera la entidad en la pantalla en el eje Y
     int posicionInicialY;
 
-    //Posicion en la que esta la criatura en el eje X actualmente
+    //Posicion en la que esta la entidad en el eje X actualmente
     int x;
 
-    //Posicion en la que esta la criatura en el eje Y actualmente
+    //Posicion en la que esta la entidad en el eje Y actualmente
     int y;
 
-    //El sprite, o imagen, de la criatura. Se queda en vacio por ahora y despues se inicializa en las subclases (enemigo y jugador)
+    //El sprite, o imagen, de la entidad. Se queda en vacio por ahora y despues se inicializa en las subclases (enemigo y jugador)
     PShape sprite;
 
-    //Indica si la criatura esta viva o muerta (viva es true y muerta es false) (esto defnira si se genera o no en la interfaz)
+    //Indica si la entidad esta viva o muerta (viva es true y muerta es false) (esto defnira si se genera o no en la interfaz)
     boolean estatus;
 
     //Alto de la pantalla (se usara para ubicar a la ciratura en relacion al ambiente en el eje y)
     int altoPantalla;
     
-    //Ancho de la pantalla ( se usara para ubicar a la criatura en relacion al amabiente en el eje x)
+    //Ancho de la pantalla ( se usara para ubicar a la entidad en relacion al amabiente en el eje x)
     int anchoPantalla;
 
     //-----------
     //CONSTRUCTOR
     //-----------
     
-    //El constructor de un objeto de baseCriatura (instancia de la clase)
-    BaseCriatura(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla ){
+    //El constructor de un objeto de baseentidad (instancia de la clase)
+    BaseEntidad(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla ){
         this.posicionInicialX = posicionInicialX;
         this.posicionInicialY = posicionInicialY;
 
@@ -42,7 +42,7 @@ class BaseCriatura{
         //la posicion actual siempre inciia como la poscion inicial 
         this.x = posicionInicialX;
         this.y = posicionInicialY;
-        this.estatus = true;//todas las criaturas creadas inician como vivas
+        this.estatus = true;//todas las entidads creadas inician como vivas
 
         //Sprite no se incializa aqui (mientras tanto dejo un circulo)
         //Saque lo de PShape de la documentacion de processing en -> https://processing.org/reference/PShape.html
@@ -55,12 +55,12 @@ class BaseCriatura{
 
     //funciones como avanzar y todo eso estaran en enemigo y jugador
 
-    //mata a la criatura al cambiar su estatus(que indica si esta viva o no) a falso para indicar que esta muerta
+    //mata a la entidad al cambiar su estatus(que indica si esta viva o no) a falso para indicar que esta muerta
     void morir(){
         setStatus(false);
     }
 
-    //resetea la posicion de la criatura a su posicon inicial
+    //resetea la posicion de la entidad a su posicon inicial
     void resetearAPosicionInicial(){
         setX(posicionInicialX);
         setY(posicionInicialY);
