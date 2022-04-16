@@ -52,4 +52,73 @@ class Jugador extends BaseEntidad{
     //-----------
     //FUNCIONES
     //-----------
+
+    //se encarga de dibujar la figura del jugador
+    void renderJugador(){
+
+    }
+
+
+    //sonido del jugador cuando dispara
+    void sonido(){
+        //TODO: en el archivo principal se tienen que llamar esto cuando se detecte que se presiona el boton izquierdo
+        System.out.println("Pew Pew");
+    }
+
+    //le quita una vida al jugador cuando le pegan o deja pasar a un invasor
+    void quitarVida(){
+        
+    }
+
+    void revisarSiMuerto(){
+
+    }
+
+
+
+
+    ///--------
+    // gets y sets
+    //---------
+
+    void setVelocidadDeMovimiento(int velocidadDeMovimiento){
+        this.velocidadDeMovimiento = velocidadDeMovimiento;
+    }
+
+    void setMaximoPuntajeHistorico(int maximoPuntajeHistorico){
+        this.maximoPuntajeHistorico = maximoPuntajeHistorico;
+    }
+
+    void setPuntajeActual(int puntajeActual){
+        this.puntajeActual = puntajeActual;
+    }
+
+    void setVidas(int vidas){
+        this.vidas = vidas;
+    }
+
+    void setNombreJugador(String nombre){
+        this.nombreJugador = nombre;
+    }
+
+    int getVelocidadDeMovimiento(){
+        return this.velocidadDeMovimiento;
+    }
+
+    int getMaximoPuntajeHistorico(){
+        return this.maximoPuntajeHistorico;
+    }
+
+    int getPuntajeActual(){
+        return this.puntajeActual;
+    }
+
+    int getVidas(){
+        return this.vidas;
+    }
+
+    String getNombreJugador(){
+        return this.nombreJugador;
+    }
+    
 }
