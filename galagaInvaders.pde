@@ -22,8 +22,18 @@ int modo = MENU_PRINCIPAL;
 Jugador jugador;
 
 //Manejo de balas
-//NO SE POR UQE NO ESTA FUNCIONANDO, ESTA IMPRIMIENDO EN CONSOLA PERO SLO NO MUESTRA LAS BALAS Y SI LES ESTOY HACIENDO RENDER 
 ArrayList<Bala> listaBalas = new ArrayList<Bala>();
+
+
+//Listas de enemigos
+// no me dejaba crear una lista sin tipo entonces hice listas por enemigos por nivel y despues losmeti en otra lista
+ArrayList<EnemigoNivel1> listaEnemigosNivel1 = new ArrayList<EnemigoNivel1>();
+ArrayList<EnemigoNivel2> listaEnemigosNivel2 = new ArrayList<EnemigoNivel2>();
+ArrayList<EnemigoNivel3> listaEnemigosNivel3 = new ArrayList<EnemigoNivel3>();
+ArrayList<EnemigoNivel4> listaEnemigosNivel4 = new ArrayList<EnemigoNivel4>();
+Arraylist<ArrayList> listaTodosLosEnemigos = new ArrayList<ArrayList>();
+
+
 
 void setup(){
     size(1000,1000);
@@ -35,6 +45,11 @@ void setup(){
     //crea el jugador(existe pero aun no se ha dibujado)
     jugador = new Jugador(posicionInicialX,posicionInicialY,altoPantalla,anchoPantalla, "Felipe");
     
+    //a~nade listas de enemigos a lista con todas las listas
+    listaTodosLosEnemigos.add(listaEnemigosNivel1);
+    listaTodosLosEnemigos.add(listaEnemigosNivel2);
+    listaTodosLosEnemigos.add(listaEnemigosNivel3);
+    listaTodosLosEnemigos.add(listaEnemigosNivel4);
 }
 
 
@@ -101,9 +116,6 @@ void drawJuego(){
     //Dibujar jugador
     jugador.renderJugador();
 
-    
-
-
     //lo de key coded lo saque esta pagina por que queria que funcionara con las flechas -> https://processing.org/reference/keyCode.html
     if(keyPressed == true){
 
@@ -130,6 +142,9 @@ void drawJuego(){
         }
         //TODO: ENCONTRAR OTRA TECLA PARA LAS BALAS ESPECIALES
     }
+
+    //Enemigos
+
 
     //MANEJO BALAS
     
