@@ -117,6 +117,20 @@ class Jugador extends BaseEntidad{
         }
     }
 
+    //Cuando algun bono se alcanze se aplica un acelere enla velocidad de movimiento base
+    void boostVelocidadMovimiento(int boostVelocidad){
+        int nuevaVelocidad = getVelocidadDeMovimiento();
+        nuevaVelocidad += boostVelocidad;
+        setY(nuevaVelocidad);
+    }
+
+    //Cuando alguna penalizacion se de se da un acelere enla velocidad de movimiento base
+    void penalizacionVelocidadMovimiento(int penalizacionVelocidad){
+        int nuevaVelocidad = getVelocidadDeMovimiento();
+        nuevaVelocidad -= penalizacionVelocidad;
+        setY(nuevaVelocidad);
+    }
+
     //dispara un proyectil normal
     void disparar(){
         sonido();
