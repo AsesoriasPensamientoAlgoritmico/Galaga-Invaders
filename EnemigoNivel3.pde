@@ -23,4 +23,6 @@ class EnemigoNivel3 extends Enemigo{
     //-----------
     //FUNCIONES
     //-----------
+
+    
 }

@@ -1,10 +1,5 @@
 class Jugador extends BaseEntidad{
-    //-----------
-    //CONSTANTES
-    //-----------
-
-    //velocidad en la que se va a mover en el eje x 
-    static final int VELOCIDAD_MOVIMIENTO_BASE = 5;
+    
 
     //numero de vidas con las que inicia un jugador
     static final int NUMERO_VIDAS_INICIAL = 3;
@@ -28,11 +23,6 @@ class Jugador extends BaseEntidad{
     //El puntaje maximo que ha alcanzando en todos sus juegos
     int maximoPuntajeHistorico;
 
-    //La velocidad con la que se mueve horizontalmente la figura
-    int velocidadDeMovimiento;
-
-    //ESTO NO ES UNA BALA BALA ES MAS COMO QUE PA ACCEDER A LAS CONSTANTES DE BALA ME TOCA COMO TENEER UN OBJETO (NO SE EN GOOGLE NO ENCONTRE COMO SOLO ACCEDER A LAS CONSTANTES SIN UN OBJETO YA CREADO) ESTA BALA NO SE USARA PARA NADA POR ESO TODO EN CERO
-    Bala templateBala = new Bala(true,0,0,0,0,0);
 
     //-----------
     //CONSTRUCTOR
@@ -47,7 +37,7 @@ class Jugador extends BaseEntidad{
         this.vidas = NUMERO_VIDAS_INICIAL;//el numero de vidas actuales de un jugador se inicializa con la constante dada 
         this.puntajeActual = 0; //el puntaje de un jugador siempre inicia en cero
         this.maximoPuntajeHistorico = 0; //al crear un jugador su puntaje maximo inicia en cero
-        this.velocidadDeMovimiento = VELOCIDAD_MOVIMIENTO_BASE;//Se inicializa con una velocidad base (esto es para que despues con un poder se pueda modificar)
+        this.velocidadDeMovimiento = VELOCIDAD_MOVIMIENTO_BASE_JUGADOR;//Se inicializa con una velocidad base (esto es para que despues con un poder se pueda modificar)
     }
 
     //-----------
@@ -180,23 +170,7 @@ class Jugador extends BaseEntidad{
 
     //sonido del jugador cuando dispara
     void sonido(){
-        //TODO: en el archivo principal se tienen que llamar esto cuando se detecte que se presiona el boton que este asignado a disparar
-        System.out.println("Pew");
-    }
-
-    //le quita una vida al jugador cuando le pegan o deja pasar a un invasor
-    void quitarVida(){
-        setVidas(getVidas()-1);
-    }
-
-    //revisa si se ha llegado a 0 vidas
-    boolean revisarSiMuerto(){
-         if(getVidas()==0){
-            return true;
-        }
-        else{
-            return false;
-        }
+       System.out.println("Pew");
     }
 
     //suma un numero de puntos al puntaje actual
@@ -237,9 +211,6 @@ class Jugador extends BaseEntidad{
         this.nombreJugador = nombre;
     }
 
-    int getVelocidadDeMovimiento(){
-        return this.velocidadDeMovimiento;
-    }
 
     int getMaximoPuntajeHistorico(){
         return this.maximoPuntajeHistorico;

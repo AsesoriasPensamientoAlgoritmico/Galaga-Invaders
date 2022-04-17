@@ -3,8 +3,6 @@ class EnemigoNivel1 extends Enemigo{
     //CONSTANTES
     //-----------
 
-   
-
     //-----------
     //ATRIBUTOS
     //-----------
@@ -23,4 +21,10 @@ class EnemigoNivel1 extends Enemigo{
     //-----------
     //FUNCIONES
     //-----------
+
+    void renderEnemigo(){
+
+    }
+
+    
 }

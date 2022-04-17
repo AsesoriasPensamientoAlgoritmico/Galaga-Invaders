@@ -1,5 +1,14 @@
 class BaseEntidad{
     //-----------
+    //CONSTANTES
+    //-----------
+    //velocidad en la que se va a mover en el eje x el jugador
+    static final int VELOCIDAD_MOVIMIENTO_BASE_JUGADOR = 5;
+
+    //velocidad en la que se va a mover en el eje y el jugador
+    static final int VELOCIDAD_MOVIMIENTO_BASE_ENEMIGO = 50;
+
+    //-----------
     //ATRIBUTOS
     //-----------
 
@@ -29,6 +38,12 @@ class BaseEntidad{
     
     //Ancho de la pantalla ( se usara para ubicar a la entidad en relacion al amabiente en el eje x)
     int anchoPantalla;
+
+    //La velocidad con la que se mueve horizontalmente la figura
+    int velocidadDeMovimiento;
+
+    //ESTO NO ES UNA BALA BALA ES MAS COMO QUE PA ACCEDER A LAS CONSTANTES DE BALA ME TOCA COMO TENEER UN OBJETO (NO SE EN GOOGLE NO ENCONTRE COMO SOLO ACCEDER A LAS CONSTANTES SIN UN OBJETO YA CREADO) ESTA BALA NO SE USARA PARA NADA POR ESO TODO EN CERO
+    Bala templateBala = new Bala(true,0,0,0,0,0);
 
     //-----------
     //CONSTRUCTOR
@@ -67,6 +82,21 @@ class BaseEntidad{
     void resetearAPosicionInicial(){
         setX(posicionInicialX);
         setY(posicionInicialY);
+    }
+
+    //le quita una vida a la entidad cuando le pegan o deja pasar a un invasor
+    void quitarVida(){
+        setVidas(getVidas()-1);
+    }
+
+    //revisa si se ha llegado a 0 vidas
+    boolean revisarSiMuerto(){
+         if(getVidas()==0){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     //-----------
@@ -136,6 +166,10 @@ class BaseEntidad{
 
     boolean getStatus(){
         return estatus;
+    }
+
+    int getVelocidadDeMovimiento(){
+        return velocidadDeMovimiento;
     }
 
 
