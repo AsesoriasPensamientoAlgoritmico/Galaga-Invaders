@@ -224,7 +224,7 @@ void dibujarYAvanzarEnemigos(){
     for(int i = 0; i < listaEnemigosNivel1.size();i++){
         EnemigoNivel1 enemigo = listaEnemigosNivel1.get(i);
         enemigo.render();
-        if(contadorVecesFondoGenerado%500==0){
+        if(contadorVecesFondoGenerado==500){
             enemigo.avanzar();
         }
     }
@@ -232,7 +232,7 @@ void dibujarYAvanzarEnemigos(){
      for(int i = 0; i < listaEnemigosNivel2.size();i++){
         EnemigoNivel2 enemigo = listaEnemigosNivel2.get(i);
         enemigo.render();
-        if(contadorVecesFondoGenerado%500==0){
+        if(contadorVecesFondoGenerado==500){
             enemigo.avanzar();
         }
     }
@@ -240,7 +240,7 @@ void dibujarYAvanzarEnemigos(){
      for(int i = 0; i < listaEnemigosNivel3.size();i++){
         EnemigoNivel3 enemigo = listaEnemigosNivel3.get(i);
         enemigo.render();
-        if(contadorVecesFondoGenerado%500==0){
+        if(contadorVecesFondoGenerado==500){
             enemigo.avanzar();
         }
     }
@@ -248,7 +248,7 @@ void dibujarYAvanzarEnemigos(){
      for(int i = 0; i < listaEnemigosNivel4.size();i++){
         EnemigoNivel4 enemigo = listaEnemigosNivel4.get(i);
         enemigo.render();
-        if(contadorVecesFondoGenerado%500==0){
+        if(contadorVecesFondoGenerado==500){
             enemigo.avanzar();
         }
     }
