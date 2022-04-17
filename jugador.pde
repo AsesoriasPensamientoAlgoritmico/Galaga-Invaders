@@ -38,6 +38,7 @@ class Jugador extends BaseEntidad{
     //CONSTRUCTOR
     //-----------
 
+    //NOTA: La posicion del jugador se calcula desde el centro de la figura del jugador
     Jugador(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla, String nombreJugador ,  ){
         //Hereda de la clase padre que es base criatura
         super(posicionInicialX,posicionInicialY,altoPantalla,anchoPantalla);
@@ -55,13 +56,75 @@ class Jugador extends BaseEntidad{
 
     //se encarga de dibujar la figura del jugador
     void renderJugador(){
+        //TODO: PSHAPE DEL JUGADOR
+        PShape figura = createShape(GROUP);
+
+        //calculos basados en posicion de jugador y tamaño
+        
+        //posicion mitad de triangulo sera X
+        int punto2X = getX();
+
+        //posicion punto izquierdo triangulo sera X menos la mitad del ancho total de la figura del jugador
+        int punto1X = getX() - ANCHO_JUGADOR/2;
+
+        //posicion punto derecho triangulo sera X mas la mitad del ancho total de la figura del jugador
+        int punto3X = getX() + ANCHO_JUGADOR/2;
+
+        //posicion y del punto izquierdo es Y mas la mitad del alto del jugador (por que Y va de 0 en el techo a max en el piso)
+        int punto1Y = getY() + ANCHO_JUGADOR/2;
+        
+        //posicion y del punto derecho es Y mas la mitad del alto del jugador (por que Y va de 0 en el techo a max en el piso)
+        int punto3Y = getY() + ANCHO_JUGADOR/2;
+
+        //posicion y del punto izquierdo es Y menos la mitad del alto del jugador (por que Y va de 0 en el techo a max en el piso)
+        int punto2y = getY() - ANCHO_JUGADOR/2;
+        
+        //Crea el triangulo
+        PShape cuerpoNave = createShape(TRIANGLE,punto1X,punto1Y,punto2X,punto2Y,punto3X,punto2Y);
+
+        //color del cuerpo sera rojo asi es visible y contrasta con el fondo
+        cuerpoNave.setFill(color(255,0,0));
+
+        //TODO: Añadir mas detalles y figuras
+
+        //añade figuras individuales al grupo de figuras
+        figura.addChild(cuerpoNave);
+
+        //dibuja la figura
+
+        shape(figura);
+
+    }
+
+
+    //mueve la figura a la derecha (eje Y) con una velocidad dada
+    void moverDerecha(){
+        int nuevoY = getY();
+        nuevoY += getVelocidadDeMovimiento();
+        setY(nuevoY);
+    }
+
+    //mueve la figura a la izquierda
+    void moverIzquierda(){
+        int nuevoY = getY();
+        nuevoY -= getVelocidadDeMovimiento();
+        setY(nuevoY);
+    }
+
+    //dispara un proyectil normal
+    void disparar(){
+
+    }
+
+    //dispara un proyectil especial (a mitad de velocidad de uno normal)
+    void dispararEspecial(){
 
     }
 
 
     //sonido del jugador cuando dispara
     void sonido(){
-        //TODO: en el archivo principal se tienen que llamar esto cuando se detecte que se presiona el boton izquierdo
+        //TODO: en el archivo principal se tienen que llamar esto cuando se detecte que se presiona el boton que este asignado a disparar
         System.out.println("Pew Pew");
     }
 
