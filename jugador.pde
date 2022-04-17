@@ -73,43 +73,13 @@ class Jugador extends BaseEntidad{
     }
 
     void sumarAPuntajeActual(int puntos){
-        setPuntajeActual(getPuntajeActual()+puntos);
+        puntajeActual = puntajeActual+puntos;
     }
 
     void actualizarMaximoPuntajeHistorico(){
-        if(getPuntajeActual()>getMaximoPuntajeHistorico()){
-            setMaximoPuntajeHistorico(puntajeActual);
+        if(puntajeActual>maximoPuntajeHistorico){
+            maximoPuntajeHistorico=puntajeActual;
         }
-    }
-
-
-    void setVelocidadDeMovimiento(int velocidadDeMovimiento){
-        this.velocidadDeMovimiento = velocidadDeMovimiento;
-    }
-
-    void setMaximoPuntajeHistorico(int maximoPuntajeHistorico){
-        this.maximoPuntajeHistorico = maximoPuntajeHistorico;
-    }
-
-    void setPuntajeActual(int puntajeActual){
-        this.puntajeActual = puntajeActual;
-    }
-
-    void setNombreJugador(String nombre){
-        this.nombreJugador = nombre;
-    }
-
-
-    int getMaximoPuntajeHistorico(){
-        return this.maximoPuntajeHistorico;
-    }
-
-    int getPuntajeActual(){
-        return this.puntajeActual;
-    }
-
-    String getNombreJugador(){
-        return this.nombreJugador;
     }
     
 }
