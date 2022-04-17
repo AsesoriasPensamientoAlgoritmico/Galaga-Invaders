@@ -192,25 +192,52 @@ void revisarBalasFueraDeRango(){
 
 
 void revisarBalasColisonaron(){
-
   for(int i = 0 ; i < listaBalas.size();i++){
       Bala balaI = listaBalas.get(i);
       for(int j = 0 ; j < listaBalas.size();i++){
-      Bala balaJ = listaBalas.get(j);
-      
-      //ver si rango X bala I se cruza con bala J
-      //ver si rango Y bala I se cruza con bala J
-      //Si ambos se cruzan las balas se destruyen , por lo tanto se vuelve invisible
-      if(balaI.getX() < balaJ.getX() && balaJ.getX() < balaI.getX() + balaI.getAnchoBala()){
-        if(balaI.getY() < balaJ.getY() && balaJ.getY() < balaI.getY() + balaI.getAltoBala()){
-            balaJ.setVisible(false);
+        Bala balaJ = listaBalas.get(j);
+        
+        //ver si rango X bala I se cruza con bala J
+        //ver si rango Y bala I se cruza con bala J
+        //Si ambos se cruzan las balas se destruyen , por lo tanto se vuelve invisible
+        if(balaI.getX() < balaJ.getX() && balaJ.getX() < balaI.getX() + balaI.getAnchoBala()){
+            if(balaI.getY() < balaJ.getY() && balaJ.getY() < balaI.getY() + balaI.getAltoBala()){
+                balaJ.setVisible(false);
+            }
         }
-      }
-
-      
-
+    }
   }
-  }
+}
+
+void enemigosDisparan(){
+    for(int i = 0; i < listaEnemigosNivel1.size();i++){
+        EnemigoNivel1 enemigo = listaEnemigosNivel1.get(i);
+        if(contadorVecesFondoGenerado%100==0){
+            enemigo.disparar();
+        }
+    }
+
+     for(int i = 0; i < listaEnemigosNivel2.size();i++){
+        EnemigoNivel2 enemigo = listaEnemigosNivel2.get(i);
+        if(contadorVecesFondoGenerado%100==0){
+            enemigo.disparar();
+        }
+    }
+
+     for(int i = 0; i < listaEnemigosNivel3.size();i++){
+        EnemigoNivel3 enemigo = listaEnemigosNivel3.get(i);
+        if(contadorVecesFondoGenerado%100==0){
+            enemigo.disparar();
+        }
+    }
+
+     for(int i = 0; i < listaEnemigosNivel4.size();i++){
+        EnemigoNivel4 enemigo = listaEnemigosNivel4.get(i);
+        if(contadorVecesFondoGenerado%100==0){
+            enemigo.disparar();
+        }
+    }
+
 }
 
 //pinta todas las balas activas y despues las avanza
