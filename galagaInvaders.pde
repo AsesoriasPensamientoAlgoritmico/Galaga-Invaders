@@ -26,6 +26,8 @@ ArrayList<Bala> listaBalas = new ArrayList<Bala>();
 
 
 //Listas de enemigos
+//Cuando haga lo de niveles todo esto tendra que cambiar y ahi si tocara una matriz  si o si por que toca revisar quien puede disparar basado si tiene alguien en frente
+//Probablemente tambien en enemigo me va a tocar crear unatributo diciendo si se puede disparar o no
 ArrayList<EnemigoNivel1> listaEnemigosNivel1 = new ArrayList<EnemigoNivel1>();
 ArrayList<EnemigoNivel2> listaEnemigosNivel2 = new ArrayList<EnemigoNivel2>();
 ArrayList<EnemigoNivel3> listaEnemigosNivel3 = new ArrayList<EnemigoNivel3>();
@@ -141,6 +143,14 @@ void drawJuego(){
         //TODO: ENCONTRAR OTRA TECLA PARA LAS BALAS ESPECIALES
     }
 
+
+    //TOOD:CUANDO IMPLEMENTE LO DE INVELES TODO ESTO VA A TENER QUE CAMBIAR BASADO EN EL GRID
+    //TODO: TAMBIEN TOCA IMPELMENTAR LO DE MOVMIENTO SIDE TOSIDE DE LOS ENEMIGOS
+    //TODO: TAMBIEN VA A TOCAR IMPLEMENTAR LO DE DISPARAR PARA LOS ENEMIGOS, QUE SE TIENE QUE HACER UN CHECK DE UN ATRIBUTO SI ESTAN CLEARED PARA DISPARAR
+    //TODO: TOCA HACER UNA FUNCION PARA RANDOMIZAR QUE ENEMIGO DISPARA POR QUE NO TODOS DISPARARN AL TIEMPO
+
+    //TODO PROBABLEMENTE ME VA A TOCAR BORRAR TODO ESTO PARA CUADRAR LO DE NIVELES, TAMBIEN SERIA BUENO QUE AGRUPE LAS COSAS EN FUNCIONES ASI NO ME TOCA TOCAR TANTO DIRECTAMENTE LO DE DRAW JUEGO
+
     //Enemigos
 
     //mueve a todos los enemigos
@@ -193,6 +203,8 @@ void revisarBalasColisonaron(){
         //ver si rango X bala I se cruza con bala J
         //ver si rango Y bala I se cruza con bala J
         //Si ambos se cruzan las balas se destruyen , por lo tanto se vuelve invisible
+
+        //Creo que va a tocar expandir el rango o algo por que ciertas balas estan overlaping pero no se destruyen.
         if(balaI.getX() < balaJ.getX() && balaJ.getX() < balaI.getX() + balaI.getAnchoBala()){
             if(balaI.getY() < balaJ.getY() && balaJ.getY() < balaI.getY() + balaI.getAltoBala()){
                 balaJ.setVisible(false);
