@@ -45,19 +45,19 @@ void setup(){
     
     int posicionInicialYEnemigos = int(altoPantalla*0.1);
 
-    int posicionInicialXEnemigoN1 = int(anchoPantalla*0.1);
+    int posicionInicialXEnemigoN1 = int(anchoPantalla*1/5);
     EnemigoNivel1 eneN1 = new EnemigoNivel1( posicionInicialXEnemigoN1,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
     listaEnemigosNivel1.add(eneN1);
 
-    int posicionInicialXEnemigoN2 = int(anchoPantalla*0.2);
+    int posicionInicialXEnemigoN2 = int(anchoPantalla*2/5);
     EnemigoNivel2 eneN2 = new EnemigoNivel2( posicionInicialXEnemigoN2,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
     listaEnemigosNivel2.add(eneN2);
 
-    int posicionInicialXEnemigoN3 = int(anchoPantalla*0.3);
+    int posicionInicialXEnemigoN3 = int(anchoPantalla*3/5);
     EnemigoNivel3 eneN3 = new EnemigoNivel3( posicionInicialXEnemigoN3,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
     listaEnemigosNivel3.add(eneN3);
 
-    int posicionInicialXEnemigoN4 = int(anchoPantalla*0.4);
+    int posicionInicialXEnemigoN4 = int(anchoPantalla*4/5);
     EnemigoNivel4 eneN4 = new EnemigoNivel4( posicionInicialXEnemigoN4,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
     listaEnemigosNivel4.add(eneN4);
 
@@ -151,6 +151,8 @@ void drawJuego(){
 
     //mueve a todos los enemigos
     dibujarYAvanzarEnemigos();
+    //disparan todos los enemigos en la primer fila (no he implementado eso aun pero por ahora no tocare lo de fila por que aun no he pensado como lo voy a manejar)
+    enemigosDisparan();
 
     //MANEJO BALAS
     
@@ -160,6 +162,8 @@ void drawJuego(){
     revisarImpactosBalas();
     //revisa que balas se salieron del rango
     revisarBalasFueraDeRango();
+    //revisar que balas colisionaron entre si
+    revisarBalasColisonaron();
     //sacar balas inactivas (que ya le pegaron a algo o se salieron del espacio)
     sacarBalasInactivas();
     
@@ -183,6 +187,29 @@ void revisarBalasFueraDeRango(){
   for(int i = 0 ; i < listaBalas.size();i++){
       Bala bala = listaBalas.get(i);
       bala.volverInvisibleSiFueraDeRangoPantalla();//automaticamente las vuelve invisibles si estan fuera del rango
+  }
+}
+
+
+void revisarBalasColisonaron(){
+
+  for(int i = 0 ; i < listaBalas.size();i++){
+      Bala balaI = listaBalas.get(i);
+      for(int j = 0 ; j < listaBalas.size();i++){
+      Bala balaJ = listaBalas.get(j);
+      
+      //ver si rango X bala I se cruza con bala J
+      //ver si rango Y bala I se cruza con bala J
+      //Si ambos se cruzan las balas se destruyen , por lo tanto se vuelve invisible
+      if(balaI.getX() < balaJ.getX() && balaJ.getX() < balaI.getX() + balaI.getAnchoBala()){
+        if(balaI.getY() < balaJ.getY() && balaJ.getY() < balaI.getY() + balaI.getAltoBala()){
+            balaJ.setVisible(false);
+        }
+      }
+
+      
+
+  }
   }
 }
 
