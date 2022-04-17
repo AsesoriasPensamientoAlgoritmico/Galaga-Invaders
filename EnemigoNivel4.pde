@@ -12,11 +12,10 @@ void render(){
 
     int puntoX = getX() - ANCHO_ENEMIGO/2;int puntoY = getY() - ALTO_ENEMIGO/2;
 
-    PShape cuerpoEnemigo = createShape(RECT,puntoX,puntoY,ANCHO_ENEMIGO,ALTO_ENEMIGO);
-        cuerpoEnemigo.setFill(colorEnemigoN4);
-        sprite.addChild(cuerpoEnemigo);
-        shape(sprite);
-    }
+PShape cuerpoEnemigo = createShape(RECT,puntoX,puntoY,ANCHO_ENEMIGO,ALTO_ENEMIGO);
+cuerpoEnemigo.setFill(colorEnemigoN4);sprite.addChild(cuerpoEnemigo);
+shape(sprite);
+}
 
-    
+
 }
