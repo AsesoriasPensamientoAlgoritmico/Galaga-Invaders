@@ -34,6 +34,9 @@ class Jugador extends BaseEntidad{
     //La velocidad con la que se mueve horizontalmente la figura
     int velocidadDeMovimiento;
 
+    //ESTO NO ES UNA BALA BALA ES MAS COMO QUE PA ACCEDER A LAS CONSTANTES DE BALA ME TOCA COMO TENEER UN OBJETO (NO SE EN GOOGLE NO ENCONTRE COMO SOLO ACCEDER A LAS CONSTANTES SIN UN OBJETO YA CREADO) ESTA BALA NO SE USARA PARA NADA POR ESO TODO EN CERO
+    Bala templateBala = new Bala(true,0,0,0,0,0,0);
+
     //-----------
     //CONSTRUCTOR
     //-----------
@@ -132,25 +135,50 @@ class Jugador extends BaseEntidad{
     }
 
     //dispara un proyectil normal
-    void disparar(){
+    //crea un proyectil tipo jugador desde la posicion del jugador para que el mundo como añada a su lista de proyectiles vivos
+    Bala disparar(){
+     
+        //TODO: Aun no se como voy a manejar esto 100%
+        //La idea es que el mundo tiene una lista de como proyectiles activos (que n le han pegado a nada y que no se han salido de la pantalla).
+        //El mundo en cada draw va avanzando los proyectiles y cuando se salen de la pantalla o le pegan a algo le aplican el daño y desaparece el proyectil
+
+        //este metodo solo creara el proyectil para darselo al mundo para añadirlo a su lista.
+        
+        //Imprime sonido pew en consola
         sonido();
 
-        //TODO: Aun no se como voy a manejar esto, creo que depende del mundo
-        //Depronto hare el mundo como una grilla y en un arreglo de la grilla registro donde se disparo y calculo que en x segundos le pegaria 
-        //Depronto delego lo de render a la interfaz del juego
+        //saca cual deberia ser el daño
+        int danio = templateBala.getDanioBalaNormalJ();
 
-        //Es que el disparo es independiente del jugador entonces funciona particular
+        //crea la bala y la retorna
+        //le añado 10 a Y para que no se pegue a si mismo el jugador
+        Bala bala = new Bala(true,getX(),getY()+10,getAltoPantalla(),getAnchoPantalla(),danio);
+
+
+        return bala;
+        
     }
 
     //dispara un proyectil especial (a mitad de velocidad de uno normal)
-    void dispararEspecial(){
+    //crea un proyectil tipo jugador desde la posicion del jugador para que el mundo como añada a su lista de proyectiles vivos
+    Bala dispararEspecial(){
+        //TODO: Aun no se como voy a manejar esto 100%
+        //La idea es que el mundo tiene una lista de como proyectiles activos (que n le han pegado a nada y que no se han salido de la pantalla).
+        //El mundo en cada draw va avanzando los proyectiles y cuando se salen de la pantalla o le pegan a algo le aplican el daño y desaparece el proyectil
+
+        //este metodo solo creara el proyectil para darselo al mundo para añadirlo a su lista.
+
+    
+        //Imprime sonido pew en consola
         sonido();
 
-        //TODO: Aun no se como voy a manejar esto, creo que depende del mundo
-        //Depronto hare el mundo como una grilla y en un arreglo de la grilla registro donde se disparo y calculo que en x segundos le pegaria 
-        //Depronto delego lo de render a la interfaz del juego
+        int danio = templateBala.getDanioBalaEspecialJ();
 
-        //Es que el disparo es independiente del jugador entonces funciona particular
+        //crea la bala y la retorna
+        //le añado 10 a Y para que no se pegue a si mismo el jugador
+        Bala bala = new Bala(true,getX(),getY()+10,getAltoPantalla(),getAnchoPantalla(),danio);
+        
+        return bala;
     }
 
     //sonido del jugador cuando dispara

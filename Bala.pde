@@ -71,7 +71,7 @@ class Bala{
     //-----------
 
     //esJugador , si es true es una bala de jugador , si es false 
-    Bala(boolean esJugador ,int posicionInicialX, int posicionInicialY, int altoPantalla, int anchoPantalla, int danioHecho, int velocidadBala){
+    Bala(boolean esJugador ,int posicionInicialX, int posicionInicialY, int altoPantalla, int anchoPantalla, int danioHecho){
         this.x = posicionInicialX;
         this.y = posicionInicialY;
 
@@ -217,6 +217,18 @@ class Bala{
 
     int getVelocidadBala(){
         return velocidadBala;
+    }
+
+    int getDanioBalaNormalJ(){
+        return DANIO_BALA_NORMAL_J;
+    }
+
+    int getDanioBalaNormalE(){
+        return DANIO_BALA_NORMAL_E;
+    }
+
+    int getDanioBalaEspecialJ(){
+        return DANIO_BALA_ESPECIAL_J;
     }
 
 }
