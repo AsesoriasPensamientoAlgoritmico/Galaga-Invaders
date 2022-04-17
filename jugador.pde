@@ -22,9 +22,6 @@ class Jugador extends BaseEntidad{
     //El nombre del jugador
     String nombreJugador;
 
-    //El numero de vidas que tienen actualmente un jugador
-    int vidas;
-
     //El puntaje que tiene actualmente en el juego
     int puntajeActual;
 
