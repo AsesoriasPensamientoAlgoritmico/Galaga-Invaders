@@ -123,7 +123,7 @@ class Bala{
 
     //pregunta si la bala esta fuera de las dimensiones de la pantalla
     //si es cierto se vuelve invisible y despues el programa la eleminara
-    boolean estaFueraDeRango(){
+    boolean revisarSiFueraDeRango(){
         if(0 < getX() && getX() < getAnchoPantalla()){
             if(0 < getY() && getY() < getAltoPantalla()){
                 setVisible(false);//vuelve la bala invisible por que se salio de rango
@@ -134,8 +134,8 @@ class Bala{
     //dibuja la bala
     //el dibujo de una bala en el programa principal tiene que hacerse despues de avanze
     void render(){
-        ellipseMode(CENTER);//asi es mas facil como pensar en crear el rectangulo
-        ellipse(getX(),getY(), ALTO_BALA , ANCHO_BALA);//TODO: CREO QUE ESTO VA A CAUSAR UN ERROR POR QUE SI SE GENERA DONDE ESTA EL JUGADOR O EL ENEMIGO EN ELSIGUIENTE CICLO DE DRAW HABRA UN PROBLEMA POR QUE SE VA A PEGAR A SI MISMO
+        rectMode(CENTER);//asi es mas facil como pensar en crear el rectangulo
+        rect(getX(),getY(), ALTO_BALA , ANCHO_BALA);//TODO: CREO QUE ESTO VA A CAUSAR UN ERROR POR QUE SI SE GENERA DONDE ESTA EL JUGADOR O EL ENEMIGO EN ELSIGUIENTE CICLO DE DRAW HABRA UN PROBLEMA POR QUE SE VA A PEGAR A SI MISMO
     }
 
     //-------
@@ -154,7 +154,7 @@ class Bala{
         this.x = x;
     }
 
-    int getX(int x){
+    int getX(){
         return x;
     }
 
