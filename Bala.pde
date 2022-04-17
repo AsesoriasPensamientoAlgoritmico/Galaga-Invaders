@@ -133,8 +133,8 @@ class Bala{
         shape(figura);
 
 
-        //rectMode(CENTER);//asi es mas facil como pensar en crear el rectangulo
-        //rect(x,y, altoBala , anchoBala);//TODO: CREO QUE ESTO VA A CAUSAR UN ERROR POR QUE SI SE GENERA DONDE ESTA EL JUGADOR O EL ENEMIGO EN ELSIGUIENTE CICLO DE DRAW HABRA UN PROBLEMA POR QUE SE VA A PEGAR A SI MISMO
+        //rectMode(CENTER);
+        //rect(x,y, altoBala , anchoBala);
     }
 
 

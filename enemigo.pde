@@ -1,29 +1,22 @@
 class Enemigo extends BaseEntidad{
-    //-----------
-    //CONSTANTES
-    //-----------
+    
 
     //Numero de vidas que tiene un enemigo nivel 1
-    static final int NUMERO_VIDAS_NIVEL_1 = 1;
+    int vidasN1 = 1;
 
     //Numero de vidas que tiene un enemigo nivel 2
-    static final int NUMERO_VIDAS_NIVEL_2 = 2;
+    int vidasN2 = 2;
 
     //Numero de vidas que tiene un enemigo nivel 3
-    static final int NUMERO_VIDAS_NIVEL_3 = 3;
+    int vidasN3 = 3;
 
     //Numero de vidas que tiene un enemigo nivel 4
-    static final int NUMERO_VIDAS_NIVEL_4 = 4;
+    int vidasN4 = 4;
 
-    //ancho de la figura del jugador
-    static final int ANCHO_ENEMIGO = 40;
+    int anchoEnemigo = 40;
+    int altoEnemigo = 40;
 
-    //alto de la figura del jugador
-    static final int ALTO_ENEMIGO = 40;
-
-    //-----------
-    //CONSTRUCTOR
-    //-----------
+    
 
     Enemigo(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla){
         super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
@@ -32,15 +25,11 @@ class Enemigo extends BaseEntidad{
         this.velocidadDeMovimiento = VELOCIDAD_MOVIMIENTO_BASE_ENEMIGO;
     }
 
-    //-----------
-    //FUNCIONES
-    //-----------
+    
 
-     //dispara un proyectil normal
-    //crea un proyectil tipo enemigo desde la posicion del enemigo para que el mundo como añada a su lista de proyectiles vivos
     Bala disparar(){
         sonido();
-        Bala bala = new Bala(false,getX()-1,getY()+templateBala.altoBala-25,getAltoPantalla(),getAnchoPantalla(),templateBala.danioBalaNE);
+        Bala bala = new Bala(false,x-1,y+templateBala.altoBala-25,altoPantalla,anchoPantalla,templateBala.danioBalaNE);
         return bala;
     }
 
@@ -50,19 +39,14 @@ class Enemigo extends BaseEntidad{
     }
 
     //Mueve el enemigo X posiciones abajo despues de que cierto tiempo ha pasado
-    //Con el contador se controla cada cuanto tiempo entre avances
     void avanzar(){
-        if(0 < getY() && getY() < getAltoPantalla()){
-            int nuevoY = getY();
-            nuevoY += getVelocidadDeMovimiento();
-            setY(nuevoY);
+        if(0 < y && y < altoPantalla){
+            y += velocidadDeMovimiento;
         }
     }
 
-    //revisa si el enemigo esta al final de la pantalla (Y)
-    //se usa para indicar que se ha terminado el juego (llegaron a la fila del jugador)
     boolean estaAlFinalDePantalla(){
-        if(getY() > getAltoPantalla()){
+        if(y > altoPantalla){
             return true;
         }
         return false;
@@ -72,34 +56,24 @@ class Enemigo extends BaseEntidad{
 
 class EnemigoNivel1 extends Enemigo{
 
-    //-----------
-    //CONSTANTE
-    //-----------
-
     color colorEnemigoN1= color(255,255,255);
 
-    //-----------
-    //CONSTRUCTOR
-    //-----------
+    
 
     EnemigoNivel1(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla){
         super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
 
         //inicializa vidas
-        this.vidas = NUMERO_VIDAS_NIVEL_1;
+        this.vidas = vidasN1;
     }
-
-    //-----------
-    //FUNCIONES
-    //-----------
 
     void render(){
         sprite = createShape(GROUP);
 
-        int puntoX = getX() - ANCHO_ENEMIGO/2;
-        int puntoY = getY() - ALTO_ENEMIGO/2;
+        int puntoX = x - anchoEnemigo/2;
+        int puntoY = y - altoEnemigo/2;
 
-        PShape cuerpoEnemigo = createShape(RECT,puntoX,puntoY,ANCHO_ENEMIGO,ALTO_ENEMIGO);
+        PShape cuerpoEnemigo = createShape(RECT,puntoX,puntoY,anchoEnemigo,altoEnemigo);
         cuerpoEnemigo.setFill(colorEnemigoN1);
         sprite.addChild(cuerpoEnemigo);
         shape(sprite);
@@ -111,34 +85,26 @@ class EnemigoNivel1 extends Enemigo{
 
 class EnemigoNivel2 extends Enemigo{
 
-    //-----------
-    //CONSTANTE
-    //-----------
-
     color colorEnemigoN2= color(201, 201, 201);
 
-    //-----------
-    //CONSTRUCTOR
-    //-----------
+    
 
     EnemigoNivel2(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla){
         super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
 
         //inicializa vidas
-        this.vidas = NUMERO_VIDAS_NIVEL_2;
+        this.vidas = vidasN2;
     }
 
-    //-----------
-    //FUNCIONES
-    //-----------
+    
 
     void render(){
         sprite = createShape(GROUP);
 
-        int puntoX = getX() - ANCHO_ENEMIGO/2;
-        int puntoY = getY() - ALTO_ENEMIGO/2;
+        int puntoX = x - anchoEnemigo/2;
+        int puntoY = y - altoEnemigo/2;
 
-        PShape cuerpoEnemigo = createShape(RECT,puntoX,puntoY,ANCHO_ENEMIGO,ALTO_ENEMIGO);
+        PShape cuerpoEnemigo = createShape(RECT,puntoX,puntoY,anchoEnemigo,altoEnemigo);
         cuerpoEnemigo.setFill(colorEnemigoN2);
         sprite.addChild(cuerpoEnemigo);
         shape(sprite);
@@ -150,34 +116,26 @@ class EnemigoNivel2 extends Enemigo{
 
 class EnemigoNivel3 extends Enemigo{
 
-    //-----------
-    //CONSTANTE
-    //-----------
-
     color colorEnemigoN3= color(135, 135, 135);
 
-    //-----------
-    //CONSTRUCTOR
-    //-----------
+    
 
     EnemigoNivel3(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla){
         super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
 
         //inicializa vidas
-        this.vidas = NUMERO_VIDAS_NIVEL_3;
+        this.vidas = vidasN3;
     }
 
-    //-----------
-    //FUNCIONES
-    //-----------
+    
 
     void render(){
         sprite = createShape(GROUP);
 
-        int puntoX = getX() - ANCHO_ENEMIGO/2;
-        int puntoY = getY() - ALTO_ENEMIGO/2;
+        int puntoX = x - anchoEnemigo/2;
+        int puntoY = y - altoEnemigo/2;
 
-        PShape cuerpoEnemigo = createShape(RECT,puntoX,puntoY,ANCHO_ENEMIGO,ALTO_ENEMIGO);
+        PShape cuerpoEnemigo = createShape(RECT,puntoX,puntoY,anchoEnemigo,altoEnemigo);
         cuerpoEnemigo.setFill(colorEnemigoN3);
         sprite.addChild(cuerpoEnemigo);
         shape(sprite);
@@ -189,34 +147,26 @@ class EnemigoNivel3 extends Enemigo{
 
 class EnemigoNivel4 extends Enemigo{
 
-    //-----------
-    //CONSTANTE
-    //-----------
-
     color colorEnemigoN4= color(94, 94, 94);
 
-    //-----------
-    //CONSTRUCTOR
-    //-----------
+    
 
     EnemigoNivel4(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla){
         super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
 
         //inicializa vidas
-        this.vidas = NUMERO_VIDAS_NIVEL_4;
+        this.vidas = vidasN4;
     }
 
-    //-----------
-    //FUNCIONES
-    //-----------
+    
 
     void render(){
         sprite = createShape(GROUP);
 
-        int puntoX = getX() - ANCHO_ENEMIGO/2;
-        int puntoY = getY() - ALTO_ENEMIGO/2;
+        int puntoX = x - anchoEnemigo/2;
+        int puntoY = y - altoEnemigo/2;
 
-        PShape cuerpoEnemigo = createShape(RECT,puntoX,puntoY,ANCHO_ENEMIGO,ALTO_ENEMIGO);
+        PShape cuerpoEnemigo = createShape(RECT,puntoX,puntoY,anchoEnemigo,altoEnemigo);
         cuerpoEnemigo.setFill(colorEnemigoN4);
         sprite.addChild(cuerpoEnemigo);
         shape(sprite);
