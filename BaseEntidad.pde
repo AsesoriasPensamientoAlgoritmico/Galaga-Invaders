@@ -95,6 +95,22 @@ class BaseEntidad{
         this.estatus = estatus;
     }
 
+    void setAltoPantalla(int altoPantalla){
+        this.altoPantalla = altoPantalla;
+    }
+
+    void setAnchoPantalla(int anchoPantalla){
+        this.anchoPantalla = anchoPantalla;
+    }
+
+    int getAltoPantalla(){
+        return altoPantalla;
+    }
+
+    int getAnchoPantalla(){
+        return anchoPantalla;
+    }
+
     int getY() {
         return y;
     }

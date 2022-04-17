@@ -56,8 +56,10 @@ class Jugador extends BaseEntidad{
 
     //se encarga de dibujar la figura del jugador
     void renderJugador(){
-        //TODO: PSHAPE DEL JUGADOR
-        PShape figura = createShape(GROUP);
+        //TODO: PSHAPE DEL JUGADOR BONITO
+
+        //Guarda la figura en el atributo de sprite(para ver mas de este atributo ver en base entidad)
+        sprite = createShape(GROUP);
 
         //calculos basados en posicion de jugador y tamaño
         
@@ -88,32 +90,37 @@ class Jugador extends BaseEntidad{
         //TODO: Añadir mas detalles y figuras
 
         //añade figuras individuales al grupo de figuras
-        figura.addChild(cuerpoNave);
+        sprite.addChild(cuerpoNave);
 
         //dibuja la figura
-
         shape(figura);
 
     }
 
-    //mueve la figura a la derecha (eje Y) con una velocidad dada
+    //mueve la figura a la derecha (eje Y)con una velocidad dada
+    //revisa que no se este en el borde, si esta en el borde derecho se queda quieto
     void moverDerecha(){
-        int nuevoY = getY();
-        nuevoY += getVelocidadDeMovimiento();
-        setY(nuevoY);
+        if(getX()<getAnchoPantalla()){
+            int nuevoY = getY();
+            nuevoY += getVelocidadDeMovimiento();
+            setY(nuevoY);
+        }
     }
 
     //mueve la figura a la izquierda
+    //revisa que no se este en el borde, si esta en el borde izquierdo se queda quieto
     void moverIzquierda(){
-        int nuevoY = getY();
-        nuevoY -= getVelocidadDeMovimiento();
-        setY(nuevoY);
+        if(getX() > 0 ){
+            int nuevoY = getY();
+            nuevoY -= getVelocidadDeMovimiento();
+            setY(nuevoY);
+        }
     }
 
     //dispara un proyectil normal
     void disparar(){
         sonido();
-        
+
         //TODO: Aun no se como voy a manejar esto, creo que depende del mundo
         //Depronto hare el mundo como una grilla y en un arreglo de la grilla registro donde se disparo y calculo que en x segundos le pegaria 
         //Depronto delego lo de render a la interfaz del juego
