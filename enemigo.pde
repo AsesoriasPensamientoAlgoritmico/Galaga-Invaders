@@ -41,7 +41,7 @@ class Enemigo extends BaseEntidad{
     Bala disparar(){
         sonido();
         int danio = templateBala.getDanioBalaNormalE();
-        Bala bala = new Bala(true,getX()-1,getY()+templateBala.ALTO_BALA-25,getAltoPantalla(),getAnchoPantalla(),danio);
+        Bala bala = new Bala(false,getX()-1,getY()+templateBala.ALTO_BALA-25,getAltoPantalla(),getAnchoPantalla(),danio);
         return bala;
     }
 
