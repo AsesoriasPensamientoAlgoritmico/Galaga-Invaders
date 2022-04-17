@@ -80,21 +80,33 @@ class Bala{
     //pregunta si la bala esta fuera de las dimensiones de la pantalla
     void volverInvisibleSiFueraDeRangoPantalla(){
         if(!(0 < getX() && getX() < getAnchoPantalla())){
-            setVisible(false);
+            setVisible(false);//vuelve la bala invisible por que se salio de rango
         }
         if(!(0 < getY() && getY() < getAltoPantalla())){
-            setVisible(false);
+            setVisible(false);//vuelve la bala invisible por que se salio de rango
         }
     }
 
     //dibuja la bala
-   void render(){
+    //el dibujo de una bala en el programa principal tiene que hacerse despues de avanze
+    void render(){
         figura = createShape(GROUP);
-    PShape cuerpo = createShape(RECT,getX(),getY() , ANCHO_BALA,ALTO_BALA);
-    cuerpo.setFill(getColorBala());
+
+        PShape cuerpo = createShape(RECT,getX(),getY() , ANCHO_BALA,ALTO_BALA);
+        cuerpo.setFill(getColorBala());
+
         figura.addChild(cuerpo);
+        
         shape(figura);
-}
+
+
+        //rectMode(CENTER);//asi es mas facil como pensar en crear el rectangulo
+        //rect(getX(),getY(), ALTO_BALA , ANCHO_BALA);//TODO: CREO QUE ESTO VA A CAUSAR UN ERROR POR QUE SI SE GENERA DONDE ESTA EL JUGADOR O EL ENEMIGO EN ELSIGUIENTE CICLO DE DRAW HABRA UN PROBLEMA POR QUE SE VA A PEGAR A SI MISMO
+    }
+
+    //-------
+    //get y set
+    //-------
 
     void setColorBala(color colorBala){
         this.colorBala = colorBala;

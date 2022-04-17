@@ -12,11 +12,11 @@ int nivelActual = 0;
 
 //Modo de ejecucion ayuda a diferenciar entre si se esta en el menu principal , el menu de pausa o el juego en si 
 
-int MENU_PRINCIPAL = 0;
-int JUEGO = 1;
-int MENU_PAUSA = 2;
+int menuprincipal = 0;
+int juego = 1;
+int menupausa = 2;
 
-int modo = MENU_PRINCIPAL;
+int modo = menuprincipal;
 
 //el jugador tiene que poderse acceder desde todos lados
 Jugador jugador;
@@ -47,7 +47,7 @@ fill(color(100));
             fill(color(200));
     ellipse(anchoPantalla-30,30,20,20);
     if(mousePressed && mouseButton == LEFT){
-         modo = MENU_PAUSA;
+         modo = menupausa;
                 contadorVecesFondoGenerado = 500;
         dibujarFondo();
             }          
@@ -283,7 +283,7 @@ fill(color(30));
 textSize(40);
 text("Iniciar",4*(anchoPantalla/10),5.65*(altoPantalla/10));
             if(mousePressed && mouseButton == LEFT ){
-                modo = JUEGO;
+                modo = juego;
                 contadorVecesFondoGenerado = 500;
                 dibujarFondo();
             }
@@ -312,7 +312,7 @@ fill(color(0));
 textSize(50);
 text("retornar",anchoPantalla*0.4 + 15, altoPantalla*0.675);
 if(mousePressed && mouseButton == LEFT){
-        modo = JUEGO;
+        modo = juego;
         contadorVecesFondoGenerado = 500;
         dibujarFondo();
     }
@@ -349,15 +349,16 @@ EnemigoNivel4 eneN4 = new EnemigoNivel4( posicionInicialXEnemigoN4,  posicionIni
 listaEnemigosNivel4.add(eneN4);}
 
 
-    void draw(){
+void draw(){
 
-    dibujarFondo();
+dibujarFondo();
     
-if(modo == MENU_PRINCIPAL){
-        drawMenuPrincipal();
+if(modo == menuprincipal){
+     drawMenuPrincipal();
     }
-            else if(modo == JUEGO){
+else if(modo == juego){
         drawJuego();
-    }else if(modo == MENU_PAUSA){
+    }
+else if(modo == menupausa){
         drawMenuPausa();
 }}

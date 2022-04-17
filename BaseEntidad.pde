@@ -46,7 +46,7 @@ void morir(){
 
     //le quita una vida a la entidad cuando le pegan o deja pasar a un invasor
 void quitarVida(){
-vidas-1;
+ vidas =vidas-1;
     }
 
     //revisa si se ha llegado a 0 vidas
@@ -59,6 +59,7 @@ vidas-1;
         }
     }
 
+    
     void setX(int x) {
         this.x = x;
     }

@@ -33,9 +33,10 @@ class Enemigo extends BaseEntidad{
 
     //revisa si el enemigo esta al final de la pantalla (Y)
     boolean estaAlFinalDePantalla(){
-if(getY() > getAltoPantalla()){
-    return true;
-}return false;
+    if(getY() > getAltoPantalla()){
+        return true;
+    }
+        return false;
     }
 
 
