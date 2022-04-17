@@ -96,7 +96,6 @@ class Jugador extends BaseEntidad{
 
     }
 
-
     //mueve la figura a la derecha (eje Y) con una velocidad dada
     void moverDerecha(){
         int nuevoY = getY();
@@ -113,31 +112,59 @@ class Jugador extends BaseEntidad{
 
     //dispara un proyectil normal
     void disparar(){
+        sonido();
+        
+        //TODO: Aun no se como voy a manejar esto, creo que depende del mundo
+        //Depronto hare el mundo como una grilla y en un arreglo de la grilla registro donde se disparo y calculo que en x segundos le pegaria 
+        //Depronto delego lo de render a la interfaz del juego
 
+        //Es que el disparo es independiente del jugador entonces funciona particular
     }
 
     //dispara un proyectil especial (a mitad de velocidad de uno normal)
     void dispararEspecial(){
+        sonido();
 
+        //TODO: Aun no se como voy a manejar esto, creo que depende del mundo
+        //Depronto hare el mundo como una grilla y en un arreglo de la grilla registro donde se disparo y calculo que en x segundos le pegaria 
+        //Depronto delego lo de render a la interfaz del juego
+
+        //Es que el disparo es independiente del jugador entonces funciona particular
     }
-
 
     //sonido del jugador cuando dispara
     void sonido(){
         //TODO: en el archivo principal se tienen que llamar esto cuando se detecte que se presiona el boton que este asignado a disparar
-        System.out.println("Pew Pew");
+        System.out.println("Pew");
     }
 
     //le quita una vida al jugador cuando le pegan o deja pasar a un invasor
     void quitarVida(){
-        
+        setVidas(getVidas()-1);
     }
 
-    void revisarSiMuerto(){
-
+    //revisa si se ha llegado a 0 vidas
+    boolean revisarSiMuerto(){
+         if(getVidas()==0){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
+    //suma un numero de puntos al puntaje actual
+    void sumarAPuntajeActual(int puntos){
+        setPuntajeActual(getPuntajeActual()+puntos);
+    }
 
+    //cada draw se va a revisar si el puntaje actual es mayor al puntaje historico.
+    //si es mayor se actualiza, de lo contrario no se hace nada
+    void actualizarMaximoPuntajeHistorico(){
+        if(getPuntajeActual()>getMaximoPuntajeHistorico()){
+            setMaximoPuntajeHistorico(puntajeActual);
+        }
+    }
 
 
     ///--------
