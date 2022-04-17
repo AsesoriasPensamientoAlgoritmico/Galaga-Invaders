@@ -244,4 +244,12 @@ class Bala{
         return DANIO_BALA_ESPECIAL_J;
     }
 
+    int getAnchoBala(){
+        return ANCHO_BALA;
+    }
+
+    int getAltoBala(){
+        return ALTO_BALA;
+    }
+
 }

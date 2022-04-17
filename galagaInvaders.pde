@@ -163,7 +163,7 @@ void drawJuego(){
     //revisa que balas se salieron del rango
     revisarBalasFueraDeRango();
     //revisar que balas colisionaron entre si
-    revisarBalasColisonaron();
+    //revisarBalasColisonaron();//POR ALGUNA RAZON CUANDO LO PRENDO SE CRASHEA PERO EL METODO EN SI ESTA BIEN, PREGUNTAR MONITOR COMO PODRIA ARREGLAR ESTO
     //sacar balas inactivas (que ya le pegaron a algo o se salieron del espacio)
     sacarBalasInactivas();
     
@@ -213,28 +213,32 @@ void enemigosDisparan(){
     for(int i = 0; i < listaEnemigosNivel1.size();i++){
         EnemigoNivel1 enemigo = listaEnemigosNivel1.get(i);
         if(contadorVecesFondoGenerado%100==0){
-            enemigo.disparar();
+            Bala bala = enemigo.disparar();
+            listaBalas.add(bala);
         }
     }
 
      for(int i = 0; i < listaEnemigosNivel2.size();i++){
         EnemigoNivel2 enemigo = listaEnemigosNivel2.get(i);
         if(contadorVecesFondoGenerado%100==0){
-            enemigo.disparar();
+            Bala bala = enemigo.disparar();
+            listaBalas.add(bala);
         }
     }
 
      for(int i = 0; i < listaEnemigosNivel3.size();i++){
         EnemigoNivel3 enemigo = listaEnemigosNivel3.get(i);
         if(contadorVecesFondoGenerado%100==0){
-            enemigo.disparar();
+            Bala bala = enemigo.disparar();
+            listaBalas.add(bala);
         }
     }
 
      for(int i = 0; i < listaEnemigosNivel4.size();i++){
         EnemigoNivel4 enemigo = listaEnemigosNivel4.get(i);
         if(contadorVecesFondoGenerado%100==0){
-            enemigo.disparar();
+            Bala bala = enemigo.disparar();
+            listaBalas.add(bala);
         }
     }
 
