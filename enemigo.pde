@@ -18,11 +18,11 @@ class Enemigo extends BaseEntidad{
 
     
 
-    Enemigo(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla){
-        super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
+    Enemigo(int pix, int piy,int altoP, int anchoP){
+        super( pix,  piy, altoP,  anchoP);
 
         //resto de cosas
-        this.velocidadDeMovimiento = velMovimientoE;
+        velocidadDeMovimiento = velMovimientoE;
     }
 
     
@@ -64,7 +64,7 @@ class EnemigoNivel1 extends Enemigo{
         super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
 
         //inicializa vidas
-        this.vidas = vidasN1;
+        vidas = vidasN1;
     }
 
     void render(){
@@ -87,13 +87,11 @@ class EnemigoNivel2 extends Enemigo{
 
     color colorEnemigoN2= color(201, 201, 201);
 
-    
-
     EnemigoNivel2(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla){
         super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
 
         //inicializa vidas
-        this.vidas = vidasN2;
+        vidas = vidasN2;
     }
 
     
@@ -124,7 +122,7 @@ class EnemigoNivel3 extends Enemigo{
         super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
 
         //inicializa vidas
-        this.vidas = vidasN3;
+        vidas = vidasN3;
     }
 
     
@@ -155,7 +153,7 @@ class EnemigoNivel4 extends Enemigo{
         super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
 
         //inicializa vidas
-        this.vidas = vidasN4;
+        vidas = vidasN4;
     }
 
     

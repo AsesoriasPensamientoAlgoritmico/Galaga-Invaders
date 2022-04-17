@@ -18,20 +18,20 @@ class BaseEntidad{
 
    
     //El constructor de un objeto de baseentidad (instancia de la clase)
-    BaseEntidad(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla ){
-        this.posicionInicialX = posicionInicialX;
-        this.posicionInicialY = posicionInicialY;
+    BaseEntidad(int pix, int piy,int altoP, int anchoP ){
+        posicionInicialX = pix;
+        posicionInicialY = piy;
 
-        this.altoPantalla = altoPantalla;
-        this.anchoPantalla = anchoPantalla;
+        altoPantalla = altoP;
+        anchoPantalla = anchoP;
         
         //la posicion actual siempre inciia como la poscion inicial 
-        this.x = posicionInicialX;
-        this.y = posicionInicialY;
-        this.estatus = true;//todas las entidads creadas inician como vivas
+        x = pix;
+        y = piy;
+        estatus = true;//todas las entidads creadas inician como vivas
 
         //Saque lo de PShape de la documentacion de processing en -> https://processing.org/reference/PShape.html
-        this.sprite = createShape(ELLIPSE, x, y, 80, 80);//circulo 80 diametro en la posicion inicial
+        sprite = createShape(ELLIPSE, x, y, 80, 80);//circulo 80 diametro en la posicion inicial
     }
 
     //mata a la entidad al cambiar su estatus(que indica si esta viva o no) a falso para indicar que esta muerta

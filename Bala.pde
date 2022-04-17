@@ -1,24 +1,16 @@
 class Bala{
 
-    //alto del objeto de bala
     int altoBala = 20;
-
-    //ancho del objeto de la bala
     int anchoBala = 20;
 
-    //velocidad de movimiento base de la bala normal de un jugador
     int velocidadBalaJugador = 3;
 
-    //velocidad de movimiento base de la bala de un enemigo
     int velocidadBalaEnemigo = 2;
 
-    //color verde
     color verde = color(0,255,0);
 
-    //color rojo
     color rojo = color(255,0,0);
 
-    //color azul
     color azul = color(0,0,255);
 
     //daño bala normal (jugador)
@@ -30,70 +22,63 @@ class Bala{
     //daño bala enemiga
     int danioBalaNE = 1;
 
-    //figura de la bala
     PShape figura ;
-
-    //color de la bala (verde/azul(jugador) o rojo(enemigo))
     color colorBala;
 
     //Posicion bala en el eje x(la poscion inicial sera la de la entidad que lo lanze)
-    int x;//sera constante 
+    int x;
 
     //Posicion bala en el eje y(la posicion incial sera la de la entidad que lo lanze)
     int y;
 
     //si la bala es visible o no. Una bala solo sera visible si no le ha pegado a una entidad y si esta dentro del marco 
-    boolean visible;//esto existe para asegurar que "mate" las balas cuando ya le pegaron a algo o cuando ya se salieron de la pantalla
+    boolean visible;
 
     //el daño hecho por la bala
     int danio;
 
-    //Alto de la pantalla (se usara para ubicar a la ciratura en relacion al ambiente en el eje y)
     int altoPantalla;
-    
-    //Ancho de la pantalla ( se usara para ubicar a la entidad en relacion al amabiente en el eje x)
     int anchoPantalla;
 
     //la direccion de la bala. Si es 1(positiva) ira de arriba a abajo, si es -1(negativa) ira de abajo a arriba
     int direccionBala;
 
-    //la velocidad de la bala (otra variable definira la direccion)
     int velocidadBala;
 
     
 
     //esJugador , si es true es una bala de jugador , si es false 
-    Bala(boolean esJugador ,int posicionInicialX, int posicionInicialY, int altoPantalla, int anchoPantalla, int danioHecho){
-        this.x = posicionInicialX;
-        this.y = posicionInicialY;
+    Bala(boolean esJugador ,int pix, int piy, int altoP, int anchoP, int danio){
+        x = pix;
+        y = piy;
 
-        this.altoPantalla = altoPantalla;
-        this.anchoPantalla = anchoPantalla;
+        altoPantalla = altoP;
+        anchoPantalla = anchoP;
 
-        this.visible = true;
+        visible = true;
 
-        this.figura = createShape(RECT,x,y,altoBala,anchoBala);
+        figura = createShape(RECT,x,y,altoBala,anchoBala);
 
         //Es jugador
         if(esJugador == true){
-            this.direccionBala =  -1;//van de abajo a arriba (en direccion de los enemigos)
-            this.velocidadBala = velocidadBalaJugador;
+            direccionBala =  -1;//van de abajo a arriba (en direccion de los enemigos)
+            velocidadBala = velocidadBalaJugador;
 
-            if(danioHecho == danioBalaNJ){
-                this.colorBala = verde ;
-                this.danio = danioBalaNJ;
+            if(danio == danioBalaNJ){
+                colorBala = verde ;
+                danio = danioBalaNJ;
             }
-            else if(danioHecho == danioBalaEJ){
-                this.colorBala = azul;
-                this.danio = danioBalaEJ;
+            else if(danio == danioBalaEJ){
+                colorBala = azul;
+                danio = danioBalaEJ;
             }
         }
         //Es enemigo
         else if(esJugador == false){
-            this.direccionBala =  1;//van de arriba a abajo (en direccion al jugador)
-            this.colorBala = rojo;
-            this.danio = danioBalaNE;//por default es uno (no me importa que pasen por parametro por que siempre quitara solo una vida)
-            this.velocidadBala = velocidadBalaEnemigo;//un poco mas lenta que la de jugador por default
+            direccionBala =  1;//van de arriba a abajo (en direccion al jugador)
+            colorBala = rojo;
+            danio = danioBalaNE;//por default es uno (no me importa que pasen por parametro por que siempre quitara solo una vida)
+            velocidadBala = velocidadBalaEnemigo;//un poco mas lenta que la de jugador por default
         }
     }
 
