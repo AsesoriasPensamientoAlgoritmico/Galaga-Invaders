@@ -22,7 +22,7 @@ class Enemigo extends BaseEntidad{
         super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
 
         //resto de cosas
-        this.velocidadDeMovimiento = VELOCIDAD_MOVIMIENTO_BASE_ENEMIGO;
+        this.velocidadDeMovimiento = velMovimientoE;
     }
 
     

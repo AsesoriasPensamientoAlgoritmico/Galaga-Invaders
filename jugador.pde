@@ -15,7 +15,7 @@ class Jugador extends BaseEntidad{
         vidas = numeroVidasComienzo;
         puntajeActual = 0; //el puntaje de un jugador siempre inicia en cero
         maximoPuntajeHistorico = 0; //al crear un jugador su puntaje maximo inicia en cero
-        velocidadDeMovimiento = VELOCIDAD_MOVIMIENTO_BASE_JUGADOR;
+        velocidadDeMovimiento = velMovimientoJ;
     }
 
     void renderJugador(){
