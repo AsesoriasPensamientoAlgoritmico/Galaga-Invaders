@@ -1,83 +1,130 @@
 class Bala{
+    //-----------
+    //CONSTANTES
+    //-----------
 
-    int ALTO_BALA = 20;
-    int ANCHO_BALA = 20;
-    int VELOCIDAD_BAJA_JUGADOR_BASE = 3;
-    int VELOCIDAD_BAJA_ENEMIGO_BASE = 2;
-    color VERDE = color(0,255,0);
-    color ROJO = color(255,0,0);
-    color AZUL = color(0,0,255);
-    int DANIO_BALA_NORMAL_J = 5;//bala normal jugador
-    //bala especial jugador
-    int DANIO_BALA_ESPECIAL_J = 10;
-    //bala normal enemigo
-    int DANIO_BALA_NORMAL_E = 1;
+    //alto del objeto de bala
+    static final int ALTO_BALA = 20;
 
+    //ancho del objeto de la bala
+    static final int ANCHO_BALA = 20;
 
+    //velocidad de movimiento base de la bala normal de un jugador
+    static final int VELOCIDAD_BAJA_JUGADOR_BASE = 3;
+
+    //velocidad de movimiento base de la bala de un enemigo
+    static final int VELOCIDAD_BAJA_ENEMIGO_BASE = 2;
+
+    //SEGURAMENTE AÑADA MAS VELOCIDADES DEPENDIENDO DEL NIVEL PERO WELL GET THERE WHEN WE GET THERE
+
+    //color verde
+    final color VERDE = color(0,255,0);
+
+    //color rojo
+    final color ROJO = color(255,0,0);
+
+    //color azul
+    final color AZUL = color(0,0,255);
+
+    //daño bala normal (solo son para jugador)
+    static final int DANIO_BALA_NORMAL_J = 5;
+
+    //daño bala especial (solo son para jugador)
+    static final int DANIO_BALA_ESPECIAL_J = 10;
+
+    //daño bala enemiga (solo pueden quitar una vida)
+    static final int DANIO_BALA_NORMAL_E = 1;
+
+    //-----------
+    //ATRIBUTOS
+    //-----------
+
+    //figura de la bala
     PShape figura = createShape(RECT,getX(),getY(),ALTO_BALA , ANCHO_BALA);
+
     //color de la bala (verde/azul(jugador) o rojo(enemigo))
     color colorBala;
 
-    //Posicion bala en el eje x
-    int x;
-    //Posicion bala en el eje y
+    //Posicion bala en el eje x(la poscion inicial sera la de la entidad que lo lanze)
+    int x;//sera constante 
+
+    //Posicion bala en el eje y(la posicion incial sera la de la entidad que lo lanze)
     int y;
 
+    //si la bala es visible o no. Una bala solo sera visible si no le ha pegado a una entidad y si esta dentro del marco 
     boolean visible;//esto existe para asegurar que "mate" las balas cuando ya le pegaron a algo o cuando ya se salieron de la pantalla
 
+    //el daño hecho por la bala
     int danio;
 
+    //Alto de la pantalla (se usara para ubicar a la ciratura en relacion al ambiente en el eje y)
     int altoPantalla;
+    
+    //Ancho de la pantalla ( se usara para ubicar a la entidad en relacion al amabiente en el eje x)
     int anchoPantalla;
 
     //la direccion de la bala. Si es 1(positiva) ira de arriba a abajo, si es -1(negativa) ira de abajo a arriba
     int direccionBala;
+
+    //la velocidad de la bala (otra variable definira la direccion)
     int velocidadBala;
-    
+
+    //-----------
+    //CONSTRUCTOR
+    //-----------
 
     //esJugador , si es true es una bala de jugador , si es false 
     Bala(boolean esJugador ,int posicionInicialX, int posicionInicialY, int altoPantalla, int anchoPantalla, int danioHecho){
-    x = posicionInicialX;
-    y = posicionInicialY;
+        this.x = posicionInicialX;
+        this.y = posicionInicialY;
 
-    altoPantalla = altoPantalla;
-    anchoPantalla = anchoPantalla;
+        this.altoPantalla = altoPantalla;
+        this.anchoPantalla = anchoPantalla;
 
-    visible = true;
+        this.visible = true;
 
-            //Es jugador
-    if(esJugador == true){
-            direccionBala =  -1;//van de abajo a arriba (en direccion de los enemigos)
-            velocidadBala = VELOCIDAD_BAJA_JUGADOR_BASE;
+        //Es jugador
+        if(esJugador == true){
+            this.direccionBala =  -1;//van de abajo a arriba (en direccion de los enemigos)
+            this.velocidadBala = VELOCIDAD_BAJA_JUGADOR_BASE;
 
             if(danioHecho == DANIO_BALA_NORMAL_J){
-            colorBala = VERDE ;
-            danio = DANIO_BALA_NORMAL_J;
+                this.colorBala = VERDE ;
+                this.danio = DANIO_BALA_NORMAL_J;
             }
             else if(danioHecho == DANIO_BALA_ESPECIAL_J){
-        colorBala = AZUL;
-        danio = DANIO_BALA_ESPECIAL_J;
+                this.colorBala = AZUL;
+                this.danio = DANIO_BALA_ESPECIAL_J;
             }
         }
         //Es enemigo
         else if(esJugador == false){
-            direccionBala =  1;//van de arriba a abajo (en direccion al jugador)
-    colorBala = ROJO;
-    danio = DANIO_BALA_NORMAL_E;
-    velocidadBala = VELOCIDAD_BAJA_ENEMIGO_BASE;
+            this.direccionBala =  1;//van de arriba a abajo (en direccion al jugador)
+            this.colorBala = ROJO;
+            this.danio = DANIO_BALA_NORMAL_E;//por default es uno (no me importa que pasen por parametro por que siempre quitara solo una vida)
+            this.velocidadBala = VELOCIDAD_BAJA_ENEMIGO_BASE;//un poco mas lenta que la de jugador por default
         }
     }
 
+
+    //-----------
+    //FUNCIONES
+    //-----------
+
+    //avanza la posicion de la bala dependiendo de su velocidad y direccion
     void avanzar(){
         int avance = getDireccionBala() * getVelocidadBala();//se multiplica para que tenga la direccion correcta sin importar que tipo de bala sea
-        int nuevaPosicionY = getY() + avance;
+        int nuevaPosicionY = getY() + avance;//si es negativo el avance pues se resta y ya
         setY(nuevaPosicionY);
     }
+
+    //en la parte principal del programa se tiene que usar en conjunto con quitar la vida y con quitar la bala de como la lista de balas que aparecen
     void impacto(){
         setVisible(false);//vuelve a la bala no visible y la parte principal del programa se encarga de quitar la bala de la pantalla basado en este atributo de visible
     }
 
     //pregunta si la bala esta fuera de las dimensiones de la pantalla
+    //si es cierto se vuelve invisible y despues el programa la eleminara
     void volverInvisibleSiFueraDeRangoPantalla(){
         if(!(0 < getX() && getX() < getAnchoPantalla())){
             setVisible(false);//vuelve la bala invisible por que se salio de rango
