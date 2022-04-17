@@ -197,6 +197,9 @@ void revisarBalasColisonaron(){
       for(int j = 0 ; j < listaBalas.size();i++){
         Bala balaJ = listaBalas.get(j);
         
+
+        System.out.println("here");
+
         //ver si rango X bala I se cruza con bala J
         //ver si rango Y bala I se cruza con bala J
         //Si ambos se cruzan las balas se destruyen , por lo tanto se vuelve invisible
