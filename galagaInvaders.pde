@@ -10,13 +10,12 @@ ArrayList<PShape> estrellas = new ArrayList<PShape>();
 
 int nivelActual = 0;
 
-//Modo de ejecucion ayuda a diferenciar entre si se esta en el menu principal , el menu de pausa o el juego en si 
+//Modo de ejecucion
+int modomenuprincipal = 0;
+int modojuego = 1;
+int modomenupausa = 2;
 
-int MENU_PRINCIPAL = 0;
-int JUEGO = 1;
-int MENU_PAUSA = 2;
-
-int modo = MENU_PRINCIPAL;
+int modo = modomenuprincipal;
 
 //el jugador tiene que poderse acceder desde todos lados
 Jugador jugador;
@@ -24,10 +23,7 @@ Jugador jugador;
 //Manejo de balas
 ArrayList<Bala> listaBalas = new ArrayList<Bala>();
 
-
 //Listas de enemigos
-//Cuando haga lo de niveles todo esto tendra que cambiar y ahi si tocara una matriz  si o si por que toca revisar quien puede disparar basado si tiene alguien en frente
-//Probablemente tambien en enemigo me va a tocar crear unatributo diciendo si se puede disparar o no
 ArrayList<EnemigoNivel1> listaEnemigosNivel1 = new ArrayList<EnemigoNivel1>();
 ArrayList<EnemigoNivel2> listaEnemigosNivel2 = new ArrayList<EnemigoNivel2>();
 ArrayList<EnemigoNivel3> listaEnemigosNivel3 = new ArrayList<EnemigoNivel3>();
@@ -38,11 +34,9 @@ ArrayList<EnemigoNivel4> listaEnemigosNivel4 = new ArrayList<EnemigoNivel4>();
 void setup(){
     size(1000,1000);
 
-    //toca inicializar el jugador aca si no manda un error raro
     int posicionInicialXJugador = anchoPantalla/2;
     int posicionInicialYJugador = int(altoPantalla*0.9);
 
-    //crea el jugador(existe pero aun no se ha dibujado)
     jugador = new Jugador(posicionInicialXJugador,posicionInicialYJugador,altoPantalla,anchoPantalla, "Felipe");
     
     int posicionInicialYEnemigos = int(altoPantalla*0.1);
@@ -62,9 +56,6 @@ void setup(){
     int posicionInicialXEnemigoN4 = int(anchoPantalla*4/5);
     EnemigoNivel4 eneN4 = new EnemigoNivel4( posicionInicialXEnemigoN4,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
     listaEnemigosNivel4.add(eneN4);
-    
-
-
 }
 
 
@@ -73,38 +64,32 @@ void draw(){
     dibujarFondo();
     
     //Menu Principal
-    if(modo == MENU_PRINCIPAL){
-        drawMenuPrincipal();
+    if(modo == modomenuprincipal){
+        drawmodomenuprincipal();
     }
-    //Juego
-    else if(modo == JUEGO){
-        drawJuego();
+    //modojuego
+    else if(modo == modojuego){
+        drawmodojuego();
         
     }
     //Menu de Pausa
-    else if(modo == MENU_PAUSA){
+    else if(modo == modomenupausa){
         drawMenuPausa();
     }    
 }
 
-
-/**
- *
-*/
-void drawJuego(){
+void drawmodojuego(){
     
     //Dibuja el boton de pausa
     fill(color(100));
     ellipse(anchoPantalla-30,30,20,20);
 
-    //Revisa si se esta oprimiendo el boton de pausa 
-    //AUN NO SE COMO VOY A HACER QUE ESTO PAUSE TODO 
     if(mouseY>0 && mouseY < 60){
         if(mouseX > anchoPantalla-30 && mouseX < anchoPantalla ){
             fill(color(200));
             ellipse(anchoPantalla-30,30,20,20);
             if(mousePressed && mouseButton == LEFT){
-                modo = MENU_PAUSA;
+                modo = modomenupausa;
                 //Re dibujar el fonodo para borrar el menu
                 contadorVecesFondoGenerado = 500;
                 dibujarFondo();
@@ -112,15 +97,12 @@ void drawJuego(){
         }
     }
 
-    //TODO: Crear el resto de elementos del juego
 
     //Dibujar jugador
     jugador.renderJugador();
 
-    //lo de key coded lo saque esta pagina por que queria que funcionara con las flechas -> https://processing.org/reference/keyCode.html
+    //https://processing.org/reference/keyCode.html
     if(keyPressed == true){
-
-        //maneja las flechas que controlan el movimiento del jugador
         if(key == CODED || esTeclaAD()){
             if(keyCode == LEFT || key == 'a' || key == 'A'){
                 jugador.moverIzquierda();
@@ -130,67 +112,40 @@ void drawJuego(){
             }
         }
         if(key != CODED && !esTeclaAD()){
-            //maneja cuando se oprime espacio, que controla las balas normales
-            
-            //este if existe por que el draw es tan rapido que estaba registrando multiples disparos con solo oprimir una tecla y entonces lo solucione con el contador que tenia para el fondo
-            //% es modulo que revisa cual es el residuo de el contador divido 10. Entonces solo dejo hacer disparo cada vez que es un multiplo de 10. Por que 10, con prueba y error era como un tiempo normal
-
             if(contadorVecesFondoGenerado%10==0){
                 Bala nuevaBala = jugador.disparar();//crea bala    
                 listaBalas.add(nuevaBala);//añade bala a lista de balas activas
             }
-            
         }
-        //TODO: ENCONTRAR OTRA TECLA PARA LAS BALAS ESPECIALES
     }
-
-
-    //TOOD:CUANDO IMPLEMENTE LO DE INVELES TODO ESTO VA A TENER QUE CAMBIAR BASADO EN EL GRID
-    //TODO: TAMBIEN TOCA IMPELMENTAR LO DE MOVMIENTO SIDE TOSIDE DE LOS ENEMIGOS
-    //TODO: TAMBIEN VA A TOCAR IMPLEMENTAR LO DE DISPARAR PARA LOS ENEMIGOS, QUE SE TIENE QUE HACER UN CHECK DE UN ATRIBUTO SI ESTAN CLEARED PARA DISPARAR
-    //TODO: TOCA HACER UNA FUNCION PARA RANDOMIZAR QUE ENEMIGO DISPARA POR QUE NO TODOS DISPARARN AL TIEMPO
-
-    //TODO PROBABLEMENTE ME VA A TOCAR BORRAR TODO ESTO PARA CUADRAR LO DE NIVELES, TAMBIEN SERIA BUENO QUE AGRUPE LAS COSAS EN FUNCIONES ASI NO ME TOCA TOCAR TANTO DIRECTAMENTE LO DE DRAW JUEGO
 
     //Enemigos
 
-    //mueve a todos los enemigos
     dibujarYAvanzarEnemigos();
-    //disparan todos los enemigos en la primer fila (no he implementado eso aun pero por ahora no tocare lo de fila por que aun no he pensado como lo voy a manejar)
     enemigosDisparan();
 
     //MANEJO BALAS
     
-    //dibujar balas en lista de balas activas y avanzarlas
     dibujarYAvanzarTodasLasBalasActivas();
-    //revisa que balas impactaron , hace lo que tiene que hacer(vidas y todo eso) y vuelve invisibles a las balas que impactaron
-    revisarImpactosBalas();
-    //revisa que balas se salieron del rango
+     revisarImpactosBalas();
     revisarBalasFueraDeRango();
-    //revisar que balas colisionaron entre si
     revisarBalasColisonaron();
-    //sacar balas inactivas (que ya le pegaron a algo o se salieron del espacio)
     sacarBalasInactivas();
-    
-
 }
 
-//recorre la lista de balas para revisar cuales estan inactivas (visible == false)
-// comom reviarImpactoBalas y revisarBalasFueraDeRango ya volvieron invisibles a las balas que debian es solo revisar en la lista cuales estan invisibles
 void sacarBalasInactivas(){
     for(int i = 0 ; i < listaBalas.size();i++){
         Bala balaActual = listaBalas.get(i);
         if(balaActual.getVisible()==false){
-            listaBalas.remove(i);//en esta pagina aparecia que asi podia remover con el indice -> https://beginnersbook.com/2013/12/java-arraylist-remove-method-example/#:~:text=Method%20remove(int%20index)%20is,(index%20size%20of%20ArrayList).
+            listaBalas.remove(i);// https://beginnersbook.com/2013/12/java-arraylist-remove-method-example/#:~:text=Method%20remove(int%20index)%20is,(index%20size%20of%20ArrayList).
         }
     }
 }
 
 void revisarBalasFueraDeRango(){
-
   for(int i = 0 ; i < listaBalas.size();i++){
       Bala bala = listaBalas.get(i);
-      bala.volverInvisibleSiFueraDeRangoPantalla();//automaticamente las vuelve invisibles si estan fuera del rango
+      bala.volverInvisibleSiFueraDeRangoPantalla();
   }
 }
 
@@ -200,13 +155,7 @@ void revisarBalasColisonaron(){
       Bala balaI = listaBalas.get(i);
       for(int j = 0 ; j < listaBalas.size();j++){
         Bala balaJ = listaBalas.get(j);
-
-        //ver si rango X bala I se cruza con bala J
-        //ver si rango Y bala I se cruza con bala J
-        //Si ambos se cruzan las balas se destruyen , por lo tanto se vuelve invisible
-
-        //Creo que va a tocar expandir el rango o algo por que ciertas balas estan overlaping pero no se destruyen.
-        if(balaI.getX() < balaJ.getX() && balaJ.getX() < balaI.getX() + balaI.getAnchoBala()){
+if(balaI.getX() < balaJ.getX() && balaJ.getX() < balaI.getX() + balaI.getAnchoBala()){
             if(balaI.getY() < balaJ.getY() && balaJ.getY() < balaI.getY() + balaI.getAltoBala()){
                 balaJ.setVisible(false);
                 balaI.setVisible(false);
@@ -216,6 +165,7 @@ void revisarBalasColisonaron(){
   }
 }
 
+//toca cambiar esto para que sea aleatorio
 void enemigosDisparan(){
     for(int i = 0; i < listaEnemigosNivel1.size();i++){
         EnemigoNivel1 enemigo = listaEnemigosNivel1.get(i);
@@ -251,7 +201,6 @@ void enemigosDisparan(){
 
 }
 
-//pinta todas las balas activas y despues las avanza
 void dibujarYAvanzarTodasLasBalasActivas(){
     for(int i = 0 ; i < listaBalas.size();i++){
         Bala bala = listaBalas.get(i);
@@ -260,20 +209,14 @@ void dibujarYAvanzarTodasLasBalasActivas(){
     }
 }
 
-//Revisa si alguna de las balas en la lista de balas le impacto a alguien 
-//Tambien esta encargado de hacer todas las operaciones de quitar vidas restar hp de los enemigos si le pegaron , etc
+//Revisa si alguna de las balas en la lista de balas le impacto a alguien
 void revisarImpactosBalas(){
-    //Arreglo para guardar balas que impactaron
     ArrayList<Bala> listaBalasQueImpactaron = new ArrayList<Bala>();
 
-    //TODO: hacer lo de vidas y todo lo demas que toque y poner balas que impactaron een la lista
-    //cada operacion de impacto termina con que se remueve la bala
-
-    //Sacar balas que impactaron
     for(int i = 0; i < listaBalasQueImpactaron.size();i++){
         Bala balaQueImpacto = listaBalasQueImpactaron.get(i);//saca una de las balas que impacto
        
-        balaQueImpacto.setVisible(false);//vuelve invisibles o inactivas a las balas que impactaron
+        balaQueImpacto.setVisible(false);
     }
 }
 
@@ -283,8 +226,6 @@ void dibujarYAvanzarEnemigos(){
         enemigo.render();
         if(contadorVecesFondoGenerado%500==0){
             enemigo.avanzar();
-
-            //TODO: poner un if para revisar si se llego al final o ver que hago
         }
     }
 
@@ -293,8 +234,6 @@ void dibujarYAvanzarEnemigos(){
         enemigo.render();
         if(contadorVecesFondoGenerado%500==0){
             enemigo.avanzar();
-
-            //TODO: poner un if para revisar si se llego al final o ver que hago
         }
     }
 
@@ -303,8 +242,6 @@ void dibujarYAvanzarEnemigos(){
         enemigo.render();
         if(contadorVecesFondoGenerado%500==0){
             enemigo.avanzar();
-
-            //TODO: poner un if para revisar si se llego al final o ver que hago
         }
     }
 
@@ -313,16 +250,11 @@ void dibujarYAvanzarEnemigos(){
         enemigo.render();
         if(contadorVecesFondoGenerado%500==0){
             enemigo.avanzar();
-
-            //TODO: poner un if para revisar si se llego al final o ver que hago
         }
     }
 
 }
 
-/*
- * Dibuja el espacio
-*/
 void dibujarFondo(){
 
     //cada 500 iteraciones del draw dibuja un set de nuevas estrellas en el espacio
@@ -391,7 +323,7 @@ boolean esTeclaAD(){
 
 
 
-void drawMenuPrincipal(){
+void drawmodomenuprincipal(){
     //Base menu
     fill(color(200));
     rect(0, altoPantalla/10, anchoPantalla, altoPantalla*0.8);
@@ -423,7 +355,7 @@ void drawMenuPrincipal(){
             text("Iniciar",4*(anchoPantalla/10),5.65*(altoPantalla/10));
             if(mousePressed && mouseButton == LEFT ){
                 //Cambiar modo
-                modo = JUEGO;
+                modo = modojuego;
 
                 //Re dibujar el fonodo para borrar el menu
                 contadorVecesFondoGenerado = 500;
@@ -455,7 +387,7 @@ void drawMenuPausa(){
             textSize(50);
             text("retornar",anchoPantalla*0.4 + 15, altoPantalla*0.675);
             if(mousePressed && mouseButton == LEFT){
-                modo = JUEGO;
+                modo = modojuego;
                 //Re dibujar el fonodo para borrar el menu
                 contadorVecesFondoGenerado = 500;
                 dibujarFondo();
