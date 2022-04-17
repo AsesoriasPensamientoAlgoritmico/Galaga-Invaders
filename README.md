@@ -1,2 +1,0 @@
-# GlagaInvaders
-Este juego es un clon basado en Space Invaders y Galaga. Posteriormente lo convertire en un juego que cambia a aliens por zombies, aunque las mecanicas del juego seguiran siendo las mismas que space invaders.
