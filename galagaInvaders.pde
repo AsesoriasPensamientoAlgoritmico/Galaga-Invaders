@@ -136,7 +136,7 @@ void drawmodojuego(){
 void sacarBalasInactivas(){
     for(int i = 0 ; i < listaBalas.size();i++){
         Bala balaActual = listaBalas.get(i);
-        if(balaActual.getVisible()==false){
+        if(balaActual.visible==false){
             listaBalas.remove(i);// https://beginnersbook.com/2013/12/java-arraylist-remove-method-example/#:~:text=Method%20remove(int%20index)%20is,(index%20size%20of%20ArrayList).
         }
     }
@@ -157,8 +157,8 @@ void revisarBalasColisonaron(){
         Bala balaJ = listaBalas.get(j);
 if(balaI.x < balaJ.x && balaJ.x < balaI.x + balaI.anchoBala){
             if(balaI.y < balaJ.y && balaJ.y < balaI.y + balaI.altoBala){
-                balaJ.setVisible(false);
-                balaI.setVisible(false);
+                balaJ.visible = false;
+                balaI.visible = false;
             }
         }
     }
@@ -216,7 +216,7 @@ void revisarImpactosBalas(){
     for(int i = 0; i < listaBalasQueImpactaron.size();i++){
         Bala balaQueImpacto = listaBalasQueImpactaron.get(i);//saca una de las balas que impacto
        
-        balaQueImpacto.setVisible(false);
+        balaQueImpacto.visible = false;
     }
 }
 

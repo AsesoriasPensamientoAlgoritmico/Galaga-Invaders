@@ -1,7 +1,4 @@
 class Bala{
-    //-----------
-    //CONSTANTES
-    //-----------
 
     //alto del objeto de bala
     int altoBala = 20;
@@ -63,9 +60,7 @@ class Bala{
     //la velocidad de la bala (otra variable definira la direccion)
     int velocidadBala;
 
-    //-----------
-    //CONSTRUCTOR
-    //-----------
+    
 
     //esJugador , si es true es una bala de jugador , si es false 
     Bala(boolean esJugador ,int posicionInicialX, int posicionInicialY, int altoPantalla, int anchoPantalla, int danioHecho){
@@ -103,30 +98,25 @@ class Bala{
     }
 
 
-    //-----------
-    //FUNCIONES
-    //-----------
-
     //avanza la posicion de la bala dependiendo de su velocidad y direccion
     void avanzar(){
-        int avance = getDireccionBala() * getVelocidadBala();//se multiplica para que tenga la direccion correcta sin importar que tipo de bala sea
-        int nuevaPosicionY = y + avance;//si es negativo el avance pues se resta y ya
-        setY(nuevaPosicionY);
+        int avance = direccionBala * velocidadBala;//se multiplica para que tenga la direccion correcta sin importar que tipo de bala sea
+        y += avance;
     }
 
     //en la parte principal del programa se tiene que usar en conjunto con quitar la vida y con quitar la bala de como la lista de balas que aparecen
     void impacto(){
-        setVisible(false);//vuelve a la bala no visible y la parte principal del programa se encarga de quitar la bala de la pantalla basado en este atributo de visible
+        visible = false;//vuelve a la bala no visible y la parte principal del programa se encarga de quitar la bala de la pantalla basado en este atributo de visible
     }
 
     //pregunta si la bala esta fuera de las dimensiones de la pantalla
     //si es cierto se vuelve invisible y despues el programa la eleminara
     void volverInvisibleSiFueraDeRangoPantalla(){
-        if(!(0 < x && x < getAnchoPantalla())){
-            setVisible(false);//vuelve la bala invisible por que se salio de rango
+        if(!(0 < x && x < anchoPantalla)){
+            visible = false;//vuelve la bala invisible por que se salio de rango
         }
-        if(!(0 < y && y < getAltoPantalla())){
-            setVisible(false);//vuelve la bala invisible por que se salio de rango
+        if(!(0 < y && y < altoPantalla)){
+            visible = false;//vuelve la bala invisible por que se salio de rango
         }
     }
 
@@ -136,7 +126,7 @@ class Bala{
         figura = createShape(GROUP);
 
         PShape cuerpo = createShape(RECT,x,y , anchoBala,altoBala);
-        cuerpo.setFill(getColorBala());
+        cuerpo.setFill(colorBala);
 
         figura.addChild(cuerpo);
         
@@ -147,100 +137,5 @@ class Bala{
         //rect(x,y, altoBala , anchoBala);//TODO: CREO QUE ESTO VA A CAUSAR UN ERROR POR QUE SI SE GENERA DONDE ESTA EL JUGADOR O EL ENEMIGO EN ELSIGUIENTE CICLO DE DRAW HABRA UN PROBLEMA POR QUE SE VA A PEGAR A SI MISMO
     }
 
-    //-------
-    //get y set
-    //-------
-
-    void setColorBala(color colorBala){
-        this.colorBala = colorBala;
-    }
-
-    color getColorBala(){
-        return colorBala;
-    }
-
-    void setX(int x){
-        this.x = x;
-    }
-
-    
-
-    void setY(int y){
-        this.y = y;
-    }
-
-
-    void setVisible(boolean visible){
-        this.visible = visible;
-    }
-
-    boolean getVisible(){
-        return visible;
-    }
-
-    void setDanio(int danio){
-        this.danio = danio;
-    }
-
-    int getDanio(){
-        return danio;
-    }
-
-    void setAltoPantalla(int altoPantalla){
-        this.altoPantalla = altoPantalla;
-    }
-
-    void setAnchoPantalla(int anchoPantalla){
-        this.anchoPantalla = anchoPantalla;
-    }
-
-    int getAltoPantalla(){
-        return altoPantalla;
-    }
-
-    int getAnchoPantalla(){
-        return anchoPantalla;
-    }
-
-    void setDireccionBala(int direccion){
-        if(direccion < 0){
-            this.direccionBala = -1;
-        }
-        else if(direccion > 0 ){
-            this.direccionBala = 1;
-        }
-    }
-
-    int getDireccionBala(){
-        return direccionBala;
-    }
-
-    void setVelocidadBala(int velocidadBala){
-        this.velocidadBala = velocidadBala;
-    }
-
-    int getVelocidadBala(){
-        return velocidadBala;
-    }
-
-    int getdanioBalaNJormalJ(){
-        return danioBalaNJ;
-    }
-
-    int getdanioBalaNJormalE(){
-        return danioBalaNE;
-    }
-
-    int getdanioBalaEJspecialJ(){
-        return danioBalaEJ;
-    }
-
-    int getAnchoBala(){
-        return anchoBala;
-    }
-
-    int getAltoBala(){
-        return altoBala;
-    }
 
 }
