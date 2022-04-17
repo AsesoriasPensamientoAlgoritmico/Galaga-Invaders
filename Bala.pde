@@ -109,15 +109,34 @@ class Bala{
     //FUNCIONES
     //-----------
 
+    //avanza la posicion de la bala dependiendo de su velocidad y direccion
     void avanzarBala(){
-
+        int avance = getDireccionBala() * getVelocidadBala();//se multiplica para que tenga la direccion correcta sin importar que tipo de bala sea
+        int nuevaPosicionY = getY() + avance;//si es negativo el avance pues se resta y ya
+        setY(nuevaPosicionY);
     }
 
     //en la parte principal del programa se tiene que usar en conjunto con quitar la vida y con quitar la bala de como la lista de balas que aparecen
     void impacto(){
-
+        setVisible(false);//vuelve a la bala no visible y la parte principal del programa se encarga de quitar la bala de la pantalla basado en este atributo de visible
     }
 
+    //pregunta si la bala esta fuera de las dimensiones de la pantalla
+    //si es cierto se vuelve invisible y despues el programa la eleminara
+    boolean estaFueraDeRango(){
+        if(0 < getX() && getX() < getAnchoPantalla()){
+            if(0 < getY() && getY() < getAltoPantalla()){
+                setVisible(false);//vuelve la bala invisible por que se salio de rango
+            }    
+        }
+    }
+
+    //dibuja la bala
+    //el dibujo de una bala en el programa principal tiene que hacerse despues de avanze
+    void render(){
+        ellipseMode(CENTER);//asi es mas facil como pensar en crear el rectangulo
+        ellipse(getX(),getY(), ALTO_BALA , ANCHO_BALA);//TODO: CREO QUE ESTO VA A CAUSAR UN ERROR POR QUE SI SE GENERA DONDE ESTA EL JUGADOR O EL ENEMIGO EN ELSIGUIENTE CICLO DE DRAW HABRA UN PROBLEMA POR QUE SE VA A PEGAR A SI MISMO
+    }
 
     //-------
     //get y set
