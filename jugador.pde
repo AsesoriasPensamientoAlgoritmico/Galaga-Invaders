@@ -54,8 +54,7 @@ class Jugador extends BaseEntidad{
         //Imprime sonido pew en consola
         sonido();
 
-        int danio = templateBala.getDanioBalaNormalJ();
-        Bala bala = new Bala(true,x-1,y-templateBala.ALTO_BALA-25,altoPantalla,anchoPantalla,danio);
+        Bala bala = new Bala(true,x-1,y-templateBala.altoBala-25,altoPantalla,anchoPantalla,templateBala.danioBalaNJ);
         return bala;
     }
 
@@ -64,9 +63,7 @@ class Jugador extends BaseEntidad{
         //Imprime sonido pew en consola
         sonido();
 
-        int danio = templateBala.getDanioBalaEspecialJ();
-
-        Bala bala = new Bala(true,x,y+10,altoPantalla,anchoPantalla,danio);
+        Bala bala = new Bala(true,x,y+10,altoPantalla,anchoPantalla,templateBala.danioBalaEJ);
         return bala;
     }
 

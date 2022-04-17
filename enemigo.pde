@@ -40,8 +40,7 @@ class Enemigo extends BaseEntidad{
     //crea un proyectil tipo enemigo desde la posicion del enemigo para que el mundo como añada a su lista de proyectiles vivos
     Bala disparar(){
         sonido();
-        int danio = templateBala.getDanioBalaNormalE();
-        Bala bala = new Bala(false,getX()-1,getY()+templateBala.ALTO_BALA-25,getAltoPantalla(),getAnchoPantalla(),danio);
+        Bala bala = new Bala(false,getX()-1,getY()+templateBala.altoBala-25,getAltoPantalla(),getAnchoPantalla(),templateBala.danioBalaNE);
         return bala;
     }
 

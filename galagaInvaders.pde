@@ -155,8 +155,8 @@ void revisarBalasColisonaron(){
       Bala balaI = listaBalas.get(i);
       for(int j = 0 ; j < listaBalas.size();j++){
         Bala balaJ = listaBalas.get(j);
-if(balaI.getX() < balaJ.getX() && balaJ.getX() < balaI.getX() + balaI.getAnchoBala()){
-            if(balaI.getY() < balaJ.getY() && balaJ.getY() < balaI.getY() + balaI.getAltoBala()){
+if(balaI.x < balaJ.x && balaJ.x < balaI.x + balaI.anchoBala){
+            if(balaI.y < balaJ.y && balaJ.y < balaI.y + balaI.altoBala){
                 balaJ.setVisible(false);
                 balaI.setVisible(false);
             }
