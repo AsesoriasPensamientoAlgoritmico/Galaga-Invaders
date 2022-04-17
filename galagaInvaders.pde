@@ -21,16 +21,21 @@ Jugador jugador;
 
 //Manejo de balas
 ArrayList<Bala> listaBalas = new ArrayList<Bala>();
+ 
 
 void setup(){
     size(1000,1000);
 
     //toca inicializar el jugador aca si no manda un error raro
     int posicionInicialX = anchoPantalla/2;
-    int posicionInicialY = altoPantalla*0.9;
+    int posicionInicialY = int(altoPantalla*0.9);
 
     //crea el jugador(existe pero aun no se ha dibujado)
     jugador = new Jugador(posicionInicialX,posicionInicialY,altoPantalla,anchoPantalla, "Felipe");
+    
+    
+    Bala templateBala = new Bala(true,anchoPantalla/2,altoPantalla/2,altoPantalla,anchoPantalla,0);
+    listaBalas.add(templateBala);
 
 }
 
@@ -177,12 +182,18 @@ void drawJuego(){
                 jugador.moverDerecha();
             }
         }
-        
-        //maneja cuando se oprime espacio, que controla las balas normales
-        if(key == ' '){
-            Bala nuevaBala = jugador.disparar();//crea bala
-            listaBalas.add(nuevaBala);//añade bala a lista de balas activas
+        else if(key != CODED && !esTeclaAD()){
+            //maneja cuando se oprime espacio, que controla las balas normales
+            
+            //este if existe por que el draw es tan rapido que estaba registrando multiples disparos con solo oprimir una tecla y entonces lo solucione con el contador que tenia para el fondo
+            //% es modulo que revisa cual es el residuo de el contador divido 10. Entonces solo dejo hacer disparo cada vez que es un multiplo de 10. Por que 10, con prueba y error era como un tiempo normal
+            if(contadorVecesFondoGenerado%10==0){
+                Bala nuevaBala = jugador.disparar();//crea bala
+                listaBalas.add(nuevaBala);//añade bala a lista de balas activas    
+            }
+            
         }
+        
 
         //TODO: ENCONTRAR OTRA TECLA PARA LAS BALAS ESPECIALES
     }
@@ -210,6 +221,13 @@ void sacarBalasInactivas(){
             listaBalas.remove(i);//en esta pagina aparecia que asi podia remover con el indice -> https://beginnersbook.com/2013/12/java-arraylist-remove-method-example/#:~:text=Method%20remove(int%20index)%20is,(index%20size%20of%20ArrayList).
         }
     }
+}
+
+void revisarBalasFueraDeRango(){
+  for(int i = 0 ; i < listaBalas.size();i++){
+      Bala bala = listaBalas.get(i);
+      bala.volverInvisibleSiFueraDeRangoPantalla();//automaticamente las vuelve invisibles si estan fuera del rango
+  }
 }
 
 //pinta todas las balas activas y despues las avanza
@@ -262,6 +280,7 @@ void dibujarFondo(){
     //Si no se esta en la iteracion 500 se sigue dibujando las estrellas que se guardaron antes
     else{
         contadorVecesFondoGenerado += 1;
+        background(color(0));
         for(int i = 0;i < estrellas.size();i++){
             shape(estrellas.get(i));
         }

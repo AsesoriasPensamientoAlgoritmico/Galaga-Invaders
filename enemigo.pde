@@ -4,7 +4,7 @@ class Enemigo extends BaseEntidad{
     //-----------
 
     //velocidad en la que se va a mover en el eje y 
-    static final VELOCIDAD_MOVIMIENTO_BASE = 1;
+    static final int VELOCIDAD_MOVIMIENTO_BASE = 1;
 
     //la dificultad de matar al enemigo estara en las sub clases de enemigos
 
@@ -16,6 +16,11 @@ class Enemigo extends BaseEntidad{
     //CONSTRUCTOR
     //-----------
 
+    Enemigo(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla){
+        super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
+
+        //resto de cosas
+    }
 
     //-----------
     //FUNCIONES

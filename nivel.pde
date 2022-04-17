@@ -1,4 +1,4 @@
-clase Nivel{
+class Nivel{
     //-----------
     //CONSTANTES
     //-----------

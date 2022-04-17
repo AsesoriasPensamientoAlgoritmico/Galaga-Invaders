@@ -18,13 +18,13 @@ class Bala{
     //SEGURAMENTE AÑADA MAS VELOCIDADES DEPENDIENDO DEL NIVEL PERO WELL GET THERE WHEN WE GET THERE
 
     //color verde
-    static final color VERDE = color(0,255,0);
+    final color VERDE = color(0,255,0);
 
     //color rojo
-    static final color ROJO = color(255,0,0);
+    final color ROJO = color(255,0,0);
 
     //color azul
-    static final color AZUL = color(0,0,255);
+    final color AZUL = color(0,0,255);
 
     //daño bala normal (solo son para jugador)
     static final int DANIO_BALA_NORMAL_J = 5;
@@ -92,7 +92,10 @@ class Bala{
             else if(danioHecho == DANIO_BALA_ESPECIAL_J){
                 this.colorBala = AZUL;
                 this.danio = DANIO_BALA_ESPECIAL_J;
-                
+            }
+            else{
+                this.colorBala = VERDE ;
+                this.danio = DANIO_BALA_NORMAL_J;
             }
         }
         //Es enemigo
@@ -110,7 +113,7 @@ class Bala{
     //-----------
 
     //avanza la posicion de la bala dependiendo de su velocidad y direccion
-    void avanzarBala(){
+    void avanzar(){
         int avance = getDireccionBala() * getVelocidadBala();//se multiplica para que tenga la direccion correcta sin importar que tipo de bala sea
         int nuevaPosicionY = getY() + avance;//si es negativo el avance pues se resta y ya
         setY(nuevaPosicionY);
@@ -123,7 +126,7 @@ class Bala{
 
     //pregunta si la bala esta fuera de las dimensiones de la pantalla
     //si es cierto se vuelve invisible y despues el programa la eleminara
-    boolean revisarSiFueraDeRango(){
+    void volverInvisibleSiFueraDeRangoPantalla(){
         if(0 < getX() && getX() < getAnchoPantalla()){
             if(0 < getY() && getY() < getAltoPantalla()){
                 setVisible(false);//vuelve la bala invisible por que se salio de rango
@@ -170,7 +173,7 @@ class Bala{
         this.visible = visible;
     }
 
-    int getVisible(){
+    boolean getVisible(){
         return visible;
     }
 
@@ -202,7 +205,7 @@ class Bala{
         if(direccion < 0){
             this.direccionBala = -1;
         }
-        else(direccion > 0 ){
+        else if(direccion > 0 ){
             this.direccionBala = 1;
         }
     }

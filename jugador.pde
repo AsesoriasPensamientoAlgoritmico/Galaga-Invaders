@@ -35,14 +35,14 @@ class Jugador extends BaseEntidad{
     int velocidadDeMovimiento;
 
     //ESTO NO ES UNA BALA BALA ES MAS COMO QUE PA ACCEDER A LAS CONSTANTES DE BALA ME TOCA COMO TENEER UN OBJETO (NO SE EN GOOGLE NO ENCONTRE COMO SOLO ACCEDER A LAS CONSTANTES SIN UN OBJETO YA CREADO) ESTA BALA NO SE USARA PARA NADA POR ESO TODO EN CERO
-    Bala templateBala = new Bala(true,0,0,0,0,0,0);
+    Bala templateBala = new Bala(true,0,0,0,0,0);
 
     //-----------
     //CONSTRUCTOR
     //-----------
 
     //NOTA: La posicion del jugador se calcula desde el centro de la figura del jugador
-    Jugador(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla, String nombreJugador ,  ){
+    Jugador(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla, String nombreJugador ){
         //Hereda de la clase padre que es base criatura
         super(posicionInicialX,posicionInicialY,altoPantalla,anchoPantalla);
 
@@ -82,10 +82,10 @@ class Jugador extends BaseEntidad{
         int punto3Y = getY() + ANCHO_JUGADOR/2;
 
         //posicion y del punto izquierdo es Y menos la mitad del alto del jugador (por que Y va de 0 en el techo a max en el piso)
-        int punto2y = getY() - ANCHO_JUGADOR/2;
+        int punto2Y = getY() - ANCHO_JUGADOR/2;
         
         //Crea el triangulo
-        PShape cuerpoNave = createShape(TRIANGLE,punto1X,punto1Y,punto2X,punto2Y,punto3X,punto2Y);
+        PShape cuerpoNave = createShape(TRIANGLE,punto1X,punto1Y,punto2X,punto2Y,punto3X,punto3Y);
 
         //color del cuerpo sera rojo asi es visible y contrasta con el fondo
         cuerpoNave.setFill(color(255,0,0));
@@ -96,7 +96,7 @@ class Jugador extends BaseEntidad{
         sprite.addChild(cuerpoNave);
 
         //dibuja la figura
-        shape(figura);
+        shape(sprite);
 
     }
 
@@ -104,9 +104,9 @@ class Jugador extends BaseEntidad{
     //revisa que no se este en el borde, si esta en el borde derecho se queda quieto
     void moverDerecha(){
         if(getX()<getAnchoPantalla()){
-            int nuevoY = getY();
-            nuevoY += getVelocidadDeMovimiento();
-            setY(nuevoY);
+            int nuevoX = getX();
+            nuevoX += getVelocidadDeMovimiento();
+            setX(nuevoX);
         }
     }
 
@@ -114,9 +114,9 @@ class Jugador extends BaseEntidad{
     //revisa que no se este en el borde, si esta en el borde izquierdo se queda quieto
     void moverIzquierda(){
         if(getX() > 0 ){
-            int nuevoY = getY();
-            nuevoY -= getVelocidadDeMovimiento();
-            setY(nuevoY);
+            int nuevoX = getX();
+            nuevoX -= getVelocidadDeMovimiento();
+            setX(nuevoX);
         }
     }
 
