@@ -135,6 +135,14 @@ class BaseEntidad{
     void setAnchoPantalla(int anchoPantalla){
         this.anchoPantalla = anchoPantalla;
     }
+    
+    void setVidas(int vidas){
+        this.vidas = vidas;
+    }
+    
+    int getVidas(){
+        return this.vidas;
+    }
 
     int getAltoPantalla(){
         return altoPantalla;

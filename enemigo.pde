@@ -52,7 +52,7 @@ class Enemigo extends BaseEntidad{
 
     //Mueve el enemigo X posiciones abajo despues de que cierto tiempo ha pasado
     //Con el contador se controla cada cuanto tiempo entre avances
-    void mover(){
+    void avanzar(){
         if(0 < getY() && getY() < getAltoPantalla()){
             int nuevoY = getY();
             nuevoY += getVelocidadDeMovimiento();

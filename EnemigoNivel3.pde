@@ -4,7 +4,7 @@ class EnemigoNivel3 extends Enemigo{
     //CONSTANTE
     //-----------
 
-    color colorEnemigoN1= color(135, 135, 135);
+    color colorEnemigoN3= color(135, 135, 135);
 
     //-----------
     //CONSTRUCTOR
@@ -21,8 +21,8 @@ class EnemigoNivel3 extends Enemigo{
     //FUNCIONES
     //-----------
 
-    void renderEnemigo(){
-        sprite = sprite = createShape(GROUP);
+    void render(){
+        sprite = createShape(GROUP);
 
         int puntoX = getX() - ANCHO_ENEMIGO/2;
         int puntoY = getY() - ALTO_ENEMIGO/2;

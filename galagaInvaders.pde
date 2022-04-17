@@ -26,12 +26,10 @@ ArrayList<Bala> listaBalas = new ArrayList<Bala>();
 
 
 //Listas de enemigos
-// no me dejaba crear una lista sin tipo entonces hice listas por enemigos por nivel y despues losmeti en otra lista
 ArrayList<EnemigoNivel1> listaEnemigosNivel1 = new ArrayList<EnemigoNivel1>();
 ArrayList<EnemigoNivel2> listaEnemigosNivel2 = new ArrayList<EnemigoNivel2>();
 ArrayList<EnemigoNivel3> listaEnemigosNivel3 = new ArrayList<EnemigoNivel3>();
 ArrayList<EnemigoNivel4> listaEnemigosNivel4 = new ArrayList<EnemigoNivel4>();
-Arraylist<ArrayList> listaTodosLosEnemigos = new ArrayList<ArrayList>();
 
 
 
@@ -39,27 +37,37 @@ void setup(){
     size(1000,1000);
 
     //toca inicializar el jugador aca si no manda un error raro
-    int posicionInicialX = anchoPantalla/2;
-    int posicionInicialY = int(altoPantalla*0.9);
+    int posicionInicialXJugador = anchoPantalla/2;
+    int posicionInicialYJugador = int(altoPantalla*0.9);
 
     //crea el jugador(existe pero aun no se ha dibujado)
-    jugador = new Jugador(posicionInicialX,posicionInicialY,altoPantalla,anchoPantalla, "Felipe");
+    jugador = new Jugador(posicionInicialXJugador,posicionInicialYJugador,altoPantalla,anchoPantalla, "Felipe");
     
-    //a~nade listas de enemigos a lista con todas las listas
-    listaTodosLosEnemigos.add(listaEnemigosNivel1);
-    listaTodosLosEnemigos.add(listaEnemigosNivel2);
-    listaTodosLosEnemigos.add(listaEnemigosNivel3);
-    listaTodosLosEnemigos.add(listaEnemigosNivel4);
+    int posicionInicialYEnemigos = int(altoPantalla*0.1);
+
+    int posicionInicialXEnemigoN1 = int(anchoPantalla*0.1);
+    EnemigoNivel1 eneN1 = new EnemigoNivel1( posicionInicialXEnemigoN1,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
+    listaEnemigosNivel1.add(eneN1);
+
+    int posicionInicialXEnemigoN2 = int(anchoPantalla*0.2);
+    EnemigoNivel2 eneN2 = new EnemigoNivel2( posicionInicialXEnemigoN2,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
+    listaEnemigosNivel2.add(eneN2);
+
+    int posicionInicialXEnemigoN3 = int(anchoPantalla*0.3);
+    EnemigoNivel3 eneN3 = new EnemigoNivel3( posicionInicialXEnemigoN3,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
+    listaEnemigosNivel3.add(eneN3);
+
+    int posicionInicialXEnemigoN4 = int(anchoPantalla*0.4);
+    EnemigoNivel4 eneN4 = new EnemigoNivel4( posicionInicialXEnemigoN4,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
+    listaEnemigosNivel4.add(eneN4);
+
+
 }
 
 
 void draw(){
-    
-    
 
     dibujarFondo();
-    
-   
     
     //Menu Principal
     if(modo == MENU_PRINCIPAL){
@@ -91,10 +99,6 @@ void drawJuego(){
     //Dibuja el boton de pausa
     fill(color(100));
     ellipse(anchoPantalla-30,30,20,20);
-
-
-    
-        
 
     //Revisa si se esta oprimiendo el boton de pausa 
     //AUN NO SE COMO VOY A HACER QUE ESTO PAUSE TODO 
@@ -145,17 +149,20 @@ void drawJuego(){
 
     //Enemigos
 
+    //mueve a todos los enemigos
+    dibujarYAvanzarEnemigos();
 
     //MANEJO BALAS
     
+    //dibujar balas en lista de balas activas y avanzarlas
+    dibujarYAvanzarTodasLasBalasActivas();
     //revisa que balas impactaron , hace lo que tiene que hacer(vidas y todo eso) y vuelve invisibles a las balas que impactaron
     revisarImpactosBalas();
     //revisa que balas se salieron del rango
     revisarBalasFueraDeRango();
     //sacar balas inactivas (que ya le pegaron a algo o se salieron del espacio)
     sacarBalasInactivas();
-    //dibujar balas en lista de balas activas y avanzarlas
-    dibujarYAvanzarTodasLasBalasActivas();
+    
 
 }
 
@@ -203,9 +210,49 @@ void revisarImpactosBalas(){
        
         balaQueImpacto.setVisible(false);//vuelve invisibles o inactivas a las balas que impactaron
     }
+}
 
-    
-    
+void dibujarYAvanzarEnemigos(){
+    for(int i = 0; i < listaEnemigosNivel1.size();i++){
+        EnemigoNivel1 enemigo = listaEnemigosNivel1.get(i);
+        enemigo.render();
+        if(contadorVecesFondoGenerado%500==0){
+            enemigo.avanzar();
+
+            //TODO: poner un if para revisar si se llego al final o ver que hago
+        }
+    }
+
+     for(int i = 0; i < listaEnemigosNivel2.size();i++){
+        EnemigoNivel2 enemigo = listaEnemigosNivel2.get(i);
+        enemigo.render();
+        if(contadorVecesFondoGenerado%500==0){
+            enemigo.avanzar();
+
+            //TODO: poner un if para revisar si se llego al final o ver que hago
+        }
+    }
+
+     for(int i = 0; i < listaEnemigosNivel3.size();i++){
+        EnemigoNivel3 enemigo = listaEnemigosNivel3.get(i);
+        enemigo.render();
+        if(contadorVecesFondoGenerado%500==0){
+            enemigo.avanzar();
+
+            //TODO: poner un if para revisar si se llego al final o ver que hago
+        }
+    }
+
+     for(int i = 0; i < listaEnemigosNivel4.size();i++){
+        EnemigoNivel4 enemigo = listaEnemigosNivel4.get(i);
+        enemigo.render();
+        if(contadorVecesFondoGenerado%500==0){
+            enemigo.avanzar();
+
+            //TODO: poner un if para revisar si se llego al final o ver que hago
+        }
+    }
+
 }
 
 /*
@@ -245,11 +292,6 @@ void dibujarFondo(){
 //Se ejecuta despues de avanzar balas
 void escanearPorGolpesBala(){
     //TODO: se tiene que sacar de la lista de balas las balas que ya se salieron de la pantalla y las que ya impactaron
-}
-
-//Esta funcion esta encargada de avanzar las balas activas
-void avanzarTodasLasBalas(){
-    //TODO: avanzar solamente las balas activas
 }
 
 //revisa si una tecla es WASD

@@ -203,10 +203,6 @@ class Jugador extends BaseEntidad{
         this.puntajeActual = puntajeActual;
     }
 
-    void setVidas(int vidas){
-        this.vidas = vidas;
-    }
-
     void setNombreJugador(String nombre){
         this.nombreJugador = nombre;
     }
@@ -218,10 +214,6 @@ class Jugador extends BaseEntidad{
 
     int getPuntajeActual(){
         return this.puntajeActual;
-    }
-
-    int getVidas(){
-        return this.vidas;
     }
 
     String getNombreJugador(){
