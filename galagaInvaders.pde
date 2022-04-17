@@ -7,11 +7,15 @@ boolean primeraIteracion = true;
 int contadorVecesFondoGenerado = 0;
 ArrayList<PShape> estrellas = new ArrayList<PShape>();
 
-int nivelActual = 0;
 
+int nivelActual = 0;
 
 //Modo de ejecucion ayuda a diferenciar entre si se esta en el menu principal , el menu de pausa o el juego en si 
 int modo = 0;
+int MENU_PRINCIPAL = 0;
+int JUEGO = 1;
+int MENU_PAUSA = 2;
+
 
 
 void setup(){
@@ -23,17 +27,17 @@ void draw(){
     dibujarFondo();
 
     //Menu Principal
-    if(modo == 0){
+    if(modo == MENU_PRINCIPAL){
         drawMenuPrincipal();
     }
 
     //Juego
-    else if(modo == 1){
+    else if(modo == JUEGO){
         drawJuego();
     }
 
     //Menu de Pausa
-    else if(modo == 2){
+    else if(modo == MENU_PAUSA){
         drawMenuPausa();
     }
 
@@ -76,7 +80,7 @@ void drawMenuPrincipal(){
             text("Iniciar",4*(anchoPantalla/10),5.65*(altoPantalla/10));
             if(mousePressed && mouseButton == LEFT ){
                 //Cambiar modo
-                modo = 1;
+                modo = JUEGO;
 
                 //Re dibujar el fonodo para borrar el menu
                 contadorVecesFondoGenerado = 500;
@@ -110,7 +114,7 @@ void drawMenuPausa(){
             textSize(50);
             text("retornar",anchoPantalla*0.4 + 15, altoPantalla*0.675);
             if(mousePressed && mouseButton == LEFT){
-                modo = 1;
+                modo = JUEGO;
                 //Re dibujar el fonodo para borrar el menu
                 contadorVecesFondoGenerado = 500;
                 dibujarFondo();
@@ -134,7 +138,7 @@ void drawJuego(){
             fill(color(200));
             ellipse(anchoPantalla-30,30,20,20);
             if(mousePressed && mouseButton == LEFT){
-                modo = 2;
+                modo = MENU_PAUSA;
                 //Re dibujar el fonodo para borrar el menu
                 contadorVecesFondoGenerado = 500;
                 dibujarFondo();
@@ -178,4 +182,15 @@ void dibujarFondo(){
         }
     }
     
+}
+
+//Esta funcion esta encargado de revisar si alguna bala existente le pego a algun enemico o si alguna bala le pego al jugador
+//Se ejecuta despues de avanzar balas
+void escanearPorGolpesBala(){
+    //TODO: se tiene que sacar de la lista de balas las balas que ya se salieron de la pantalla y las que ya impactaron
+}
+
+//Esta funcion esta encargada de avanzar las balas activas
+void avanzarTodasLasBalas(){
+    //TODO: avanzar solamente las balas activas
 }

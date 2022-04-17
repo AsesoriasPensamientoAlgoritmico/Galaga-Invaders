@@ -4,16 +4,16 @@ class Jugador extends BaseEntidad{
     //-----------
 
     //velocidad en la que se va a mover en el eje x 
-    static final VELOCIDAD_MOVIMIENTO_BASE = 5;
+    static final int VELOCIDAD_MOVIMIENTO_BASE = 5;
 
     //numero de vidas con las que inicia un jugador
-    static final NUMERO_VIDAS_INICIAL = 3;
+    static final int NUMERO_VIDAS_INICIAL = 3;
 
     //ancho de la figura del jugador
-    static final ANCHO_JUGADOR = 20;
+    static final int ANCHO_JUGADOR = 20;
 
     //alto de la figura del jugador
-    static final ALTO_JUGADOR = 20;
+    static final int ALTO_JUGADOR = 20;
 
     //-----------
     //ATRIBUTOS
