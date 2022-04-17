@@ -163,7 +163,7 @@ void drawJuego(){
     //revisa que balas se salieron del rango
     revisarBalasFueraDeRango();
     //revisar que balas colisionaron entre si
-    //revisarBalasColisonaron();//POR ALGUNA RAZON CUANDO LO PRENDO SE CRASHEA PERO EL METODO EN SI ESTA BIEN, PREGUNTAR MONITOR COMO PODRIA ARREGLAR ESTO
+    revisarBalasColisonaron();//POR ALGUNA RAZON CUANDO LO PRENDO SE CRASHEA PERO EL METODO EN SI ESTA BIEN, PREGUNTAR MONITOR COMO PODRIA ARREGLAR ESTO
     //sacar balas inactivas (que ya le pegaron a algo o se salieron del espacio)
     sacarBalasInactivas();
     
@@ -173,7 +173,7 @@ void drawJuego(){
 //recorre la lista de balas para revisar cuales estan inactivas (visible == false)
 // comom reviarImpactoBalas y revisarBalasFueraDeRango ya volvieron invisibles a las balas que debian es solo revisar en la lista cuales estan invisibles
 void sacarBalasInactivas(){
-
+System.out.println("entro aqui");
     for(int i = 0 ; i < listaBalas.size();i++){
         Bala balaActual = listaBalas.get(i);
         if(balaActual.getVisible()==false){
@@ -195,7 +195,7 @@ void revisarBalasColisonaron(){
     System.out.println("start");
   for(int i = 0 ; i < listaBalas.size();i++){
       Bala balaI = listaBalas.get(i);
-      for(int j = 0 ; j < listaBalas.size();i++){
+      for(int j = 0 ; j < listaBalas.size();j++){
         Bala balaJ = listaBalas.get(j);
 
         //ver si rango X bala I se cruza con bala J
@@ -204,6 +204,7 @@ void revisarBalasColisonaron(){
         if(balaI.getX() < balaJ.getX() && balaJ.getX() < balaI.getX() + balaI.getAnchoBala()){
             if(balaI.getY() < balaJ.getY() && balaJ.getY() < balaI.getY() + balaI.getAltoBala()){
                 balaJ.setVisible(false);
+                balaI.setVisible(false);
             }
         }
     }

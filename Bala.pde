@@ -7,7 +7,7 @@ class Bala{
     static final int ALTO_BALA = 20;
 
     //ancho del objeto de la bala
-    static final int ANCHO_BALA = 2;
+    static final int ANCHO_BALA = 20;
 
     //velocidad de movimiento base de la bala normal de un jugador
     static final int VELOCIDAD_BAJA_JUGADOR_BASE = 3;
