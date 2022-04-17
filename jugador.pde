@@ -10,10 +10,10 @@ class Jugador extends BaseEntidad{
     static final int NUMERO_VIDAS_INICIAL = 3;
 
     //ancho de la figura del jugador
-    static final int ANCHO_JUGADOR = 20;
+    static final int ANCHO_JUGADOR = 40;
 
     //alto de la figura del jugador
-    static final int ALTO_JUGADOR = 20;
+    static final int ALTO_JUGADOR = 40;
 
     //-----------
     //ATRIBUTOS
@@ -152,7 +152,7 @@ class Jugador extends BaseEntidad{
 
         //crea la bala y la retorna
         //le añado 10 a Y para que no se pegue a si mismo el jugador
-        Bala bala = new Bala(true,getX(),getY()+10,getAltoPantalla(),getAnchoPantalla(),danio);
+        Bala bala = new Bala(true,getX()-1,getY()-templateBala.ALTO_BALA-25,getAltoPantalla(),getAnchoPantalla(),danio);
 
 
         return bala;
