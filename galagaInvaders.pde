@@ -90,12 +90,6 @@ void draw(){
 */
 void drawJuego(){
     
-
-    //AAAA 
-    if(contadorVecesFondoGenerado%100==0){
-        System.out.println(listaBalas);//estoy revisando si se a`naden las balas  
-    }
-    
     //Dibuja el boton de pausa
     fill(color(100));
     ellipse(anchoPantalla-30,30,20,20);
@@ -173,7 +167,6 @@ void drawJuego(){
 //recorre la lista de balas para revisar cuales estan inactivas (visible == false)
 // comom reviarImpactoBalas y revisarBalasFueraDeRango ya volvieron invisibles a las balas que debian es solo revisar en la lista cuales estan invisibles
 void sacarBalasInactivas(){
-System.out.println("entro aqui");
     for(int i = 0 ; i < listaBalas.size();i++){
         Bala balaActual = listaBalas.get(i);
         if(balaActual.getVisible()==false){
@@ -192,7 +185,6 @@ void revisarBalasFueraDeRango(){
 
 
 void revisarBalasColisonaron(){
-    System.out.println("start");
   for(int i = 0 ; i < listaBalas.size();i++){
       Bala balaI = listaBalas.get(i);
       for(int j = 0 ; j < listaBalas.size();j++){
@@ -209,7 +201,6 @@ void revisarBalasColisonaron(){
         }
     }
   }
-  System.out.println("end");
 }
 
 void enemigosDisparan(){
