@@ -3,6 +3,9 @@ class BaseEntidad{
     //ATRIBUTOS
     //-----------
 
+    //El numero de vidas que tienen actualmente un jugador
+    int vidas;//se inicializa en las sub clases
+
     //Posicion inicial en la que se genera la entidad en la pantalla en el eje X
     int posicionInicialX;
 
