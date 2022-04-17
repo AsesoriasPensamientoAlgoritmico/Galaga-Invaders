@@ -192,13 +192,11 @@ void revisarBalasFueraDeRango(){
 
 
 void revisarBalasColisonaron(){
+    System.out.println("start");
   for(int i = 0 ; i < listaBalas.size();i++){
       Bala balaI = listaBalas.get(i);
       for(int j = 0 ; j < listaBalas.size();i++){
         Bala balaJ = listaBalas.get(j);
-        
-
-        System.out.println("here");
 
         //ver si rango X bala I se cruza con bala J
         //ver si rango Y bala I se cruza con bala J
@@ -210,6 +208,7 @@ void revisarBalasColisonaron(){
         }
     }
   }
+  System.out.println("end");
 }
 
 void enemigosDisparan(){
