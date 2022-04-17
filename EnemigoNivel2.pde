@@ -1,13 +1,10 @@
 class EnemigoNivel2 extends Enemigo{
-    //-----------
-    //CONSTANTES
-    //-----------
-
-   
 
     //-----------
-    //ATRIBUTOS
+    //CONSTANTE
     //-----------
+
+    color colorEnemigoN2= color(201, 201, 201);
 
     //-----------
     //CONSTRUCTOR
@@ -23,6 +20,19 @@ class EnemigoNivel2 extends Enemigo{
     //-----------
     //FUNCIONES
     //-----------
+
+    void renderEnemigo(){
+        sprite = sprite = createShape(GROUP);
+
+        int puntoX = getX() - ANCHO_ENEMIGO/2;
+        int puntoY = getY() - ALTO_ENEMIGO/2;
+
+        PShape cuerpoEnemigo = createShape(RECT,puntoX,puntoY,ANCHO_ENEMIGO,ALTO_ENEMIGO);
+        cuerpoEnemigo.setFill(colorEnemigoN2);
+        sprite.addChild(cuerpoEnemigo);
+        shape(sprite);
+
+    }
 
     
 }

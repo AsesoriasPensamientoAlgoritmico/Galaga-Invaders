@@ -22,10 +22,6 @@ class Enemigo extends BaseEntidad{
     static final int ALTO_ENEMIGO = 40;
 
     //-----------
-    //ATRIBUTOS
-    //-----------
-
-    //-----------
     //CONSTRUCTOR
     //-----------
 
@@ -73,8 +69,4 @@ class Enemigo extends BaseEntidad{
         return false;
     }
 
-
-    //-------
-    // GET y set
-    //-------
 }
