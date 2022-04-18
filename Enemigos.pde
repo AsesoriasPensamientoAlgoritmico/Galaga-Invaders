@@ -19,10 +19,10 @@ super( pix,  piy, altoP,  anchoP);
     velocidadDeMovimiento = velMovimientoE;
     }
 
-    Bala disparar(){
+    void disparar(){
         sonido();
-    Bala bala = new Bala(false,x-1,y+templateBala.altoBala-25,altoPantalla,anchoPantalla,templateBala.danioBalaNE);
-    return bala;
+
+        //disp[arar ] objeto bala cuando este listo
     }
 
     //Sonido del enemigo cuando dispara

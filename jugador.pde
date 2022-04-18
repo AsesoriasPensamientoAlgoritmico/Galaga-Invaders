@@ -50,21 +50,19 @@ class Jugador extends BaseEntidad{
         velocidadDeMovimiento -= v;
     }
 
-    Bala disparar(){
+    void disparar(){
         //Imprime sonido pew en consola
         sonido();
 
-        Bala bala = new Bala(true,x-1,y-templateBala.altoBala-25,altoPantalla,anchoPantalla,templateBala.danioBalaNJ);
-        return bala;
+        //Disparar objeto bala
     }
 
     //dispara un proyectil especial con mas daño(a mitad de velocidad de uno normal)
-    Bala dispararEspecial(){
+    void dispararEspecial(){
         //Imprime sonido pew en consola
         sonido();
 
-        Bala bala = new Bala(true,x,y+10,altoPantalla,anchoPantalla,templateBala.danioBalaEJ);
-        return bala;
+        //Disparar objeto bala
     }
 
     //sonido del jugador cuando dispara

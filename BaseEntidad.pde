@@ -13,9 +13,6 @@ class BaseEntidad{
     int anchoPantalla;
     int velocidadDeMovimiento;
 
-    //ESTO NO ES UNA BALA BALA ES MAS COMO QUE PA ACCEDER A LAS CONSTANTES DE BALA ME TOCA COMO TENEER UN OBJETO (NO SE EN GOOGLE NO ENCONTRE COMO SOLO ACCEDER A LAS CONSTANTES SIN UN OBJETO YA CREADO) ESTA BALA NO SE USARA PARA NADA POR ESO TODO EN CERO
-    Bala templateBala = new Bala(true,0,0,0,0,0);
-
    
     //El constructor de un objeto de baseentidad (instancia de la clase)
     BaseEntidad(int pix, int piy,int altoP, int anchoP ){

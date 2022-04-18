@@ -20,9 +20,6 @@ int modo = modomenuprincipal;
 //el jugador tiene que poderse acceder desde todos lados
 Jugador jugador;
 
-//Manejo de balas
-ArrayList<Bala> listaBalas = new ArrayList<Bala>();
-
 //Listas de enemigos
 ArrayList<EnemigoNivel1> listaEnemigosNivel1 = new ArrayList<EnemigoNivel1>();
 ArrayList<EnemigoNivel2> listaEnemigosNivel2 = new ArrayList<EnemigoNivel2>();
@@ -113,8 +110,7 @@ void drawmodojuego(){
         }
         if(key != CODED && !esTeclaAD()){
             if(contadorVecesFondoGenerado%10==0){
-                Bala nuevaBala = jugador.disparar();//crea bala    
-                listaBalas.add(nuevaBala);//añade bala a lista de balas activas
+                //disparar
             }
         }
     }
@@ -122,133 +118,40 @@ void drawmodojuego(){
     //Enemigos
 
     dibujarYAvanzarEnemigos();
-    enemigosDisparan();
 
     //MANEJO BALAS
     
-    dibujarYAvanzarTodasLasBalasActivas();
-     revisarImpactosBalas();
-    revisarBalasFueraDeRango();
-    revisarBalasColisonaron();
-    sacarBalasInactivas();
-}
-
-void sacarBalasInactivas(){
-    for(int i = 0 ; i < listaBalas.size();i++){
-        Bala balaActual = listaBalas.get(i);
-        if(balaActual.visible==false){
-            listaBalas.remove(i);// https://beginnersbook.com/2013/12/java-arraylist-remove-method-example/#:~:text=Method%20remove(int%20index)%20is,(index%20size%20of%20ArrayList).
-        }
-    }
-}
-
-void revisarBalasFueraDeRango(){
-  for(int i = 0 ; i < listaBalas.size();i++){
-      Bala bala = listaBalas.get(i);
-      bala.volverInvisibleSiFueraDeRangoPantalla();
-  }
-}
-
-
-void revisarBalasColisonaron(){
-  for(int i = 0 ; i < listaBalas.size();i++){
-      Bala balaI = listaBalas.get(i);
-      for(int j = 0 ; j < listaBalas.size();j++){
-        Bala balaJ = listaBalas.get(j);
-if(balaI.x < balaJ.x && balaJ.x < balaI.x + balaI.anchoBala){
-            if(balaI.y < balaJ.y && balaJ.y < balaI.y + balaI.altoBala){
-                balaJ.visible = false;
-                balaI.visible = false;
-            }
-        }
-    }
-  }
-}
-
-//toca cambiar esto para que sea aleatorio
-void enemigosDisparan(){
-    for(int i = 0; i < listaEnemigosNivel1.size();i++){
-        EnemigoNivel1 enemigo = listaEnemigosNivel1.get(i);
-        if(contadorVecesFondoGenerado%100==0){
-            Bala bala = enemigo.disparar();
-            listaBalas.add(bala);
-        }
-    }
-
-     for(int i = 0; i < listaEnemigosNivel2.size();i++){
-        EnemigoNivel2 enemigo = listaEnemigosNivel2.get(i);
-        if(contadorVecesFondoGenerado%100==0){
-            Bala bala = enemigo.disparar();
-            listaBalas.add(bala);
-        }
-    }
-
-     for(int i = 0; i < listaEnemigosNivel3.size();i++){
-        EnemigoNivel3 enemigo = listaEnemigosNivel3.get(i);
-        if(contadorVecesFondoGenerado%100==0){
-            Bala bala = enemigo.disparar();
-            listaBalas.add(bala);
-        }
-    }
-
-     for(int i = 0; i < listaEnemigosNivel4.size();i++){
-        EnemigoNivel4 enemigo = listaEnemigosNivel4.get(i);
-        if(contadorVecesFondoGenerado%100==0){
-            Bala bala = enemigo.disparar();
-            listaBalas.add(bala);
-        }
-    }
-
-}
-
-void dibujarYAvanzarTodasLasBalasActivas(){
-    for(int i = 0 ; i < listaBalas.size();i++){
-        Bala bala = listaBalas.get(i);
-        bala.render();
-        bala.avanzar();
-    }
-}
-
-//Revisa si alguna de las balas en la lista de balas le impacto a alguien
-void revisarImpactosBalas(){
-    ArrayList<Bala> listaBalasQueImpactaron = new ArrayList<Bala>();
-
-    for(int i = 0; i < listaBalasQueImpactaron.size();i++){
-        Bala balaQueImpacto = listaBalasQueImpactaron.get(i);//saca una de las balas que impacto
-       
-        balaQueImpacto.visible = false;
-    }
 }
 
 void dibujarYAvanzarEnemigos(){
-    for(int i = 0; i < listaEnemigosNivel1.size();i++){
-        EnemigoNivel1 enemigo = listaEnemigosNivel1.get(i);
+    for(int a = 0; a < listaEnemigosNivel1.size();a++){
+        EnemigoNivel1 enemigo = listaEnemigosNivel1.get(a);
         enemigo.render();
-        if(contadorVecesFondoGenerado==500){
+        if(contadorVecesFondoGenerado==100){
             enemigo.avanzar();
         }
     }
 
-     for(int i = 0; i < listaEnemigosNivel2.size();i++){
-        EnemigoNivel2 enemigo = listaEnemigosNivel2.get(i);
+     for(int a = 0; a < listaEnemigosNivel2.size();a++){
+        EnemigoNivel2 enemigo = listaEnemigosNivel2.get(a);
         enemigo.render();
-        if(contadorVecesFondoGenerado==500){
+        if(contadorVecesFondoGenerado==100){
             enemigo.avanzar();
         }
     }
 
-     for(int i = 0; i < listaEnemigosNivel3.size();i++){
-        EnemigoNivel3 enemigo = listaEnemigosNivel3.get(i);
+     for(int a = 0; a < listaEnemigosNivel3.size();a++){
+        EnemigoNivel3 enemigo = listaEnemigosNivel3.get(a);
         enemigo.render();
-        if(contadorVecesFondoGenerado==500){
+        if(contadorVecesFondoGenerado==100){
             enemigo.avanzar();
         }
     }
 
-     for(int i = 0; i < listaEnemigosNivel4.size();i++){
-        EnemigoNivel4 enemigo = listaEnemigosNivel4.get(i);
+     for(int a = 0; a < listaEnemigosNivel4.size();a++){
+        EnemigoNivel4 enemigo = listaEnemigosNivel4.get(a);
         enemigo.render();
-        if(contadorVecesFondoGenerado==500){
+        if(contadorVecesFondoGenerado==100){
             enemigo.avanzar();
         }
     }
