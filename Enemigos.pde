@@ -50,16 +50,16 @@ class EnemigoNivel1 extends Enemigo{
 
     color colorEnemigoN1= color(255,255,255);
 
-EnemigoNivel1(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla){
-super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
+    EnemigoNivel1(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla){
+        super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
 
         //inicializa vidas
         vidas = vidasN1;
-}
+    }
 
-void render()
-{
-sprite = createShape(GROUP);
+    void render()
+    {
+        sprite = createShape(GROUP);
 
         PShape cuerpoEnemigo = createShape(RECT,x - anchoEnemigo/2,y - altoEnemigo/2,anchoEnemigo,altoEnemigo);
         cuerpoEnemigo.setFill(colorEnemigoN1);
@@ -82,15 +82,16 @@ class EnemigoNivel2 extends Enemigo{
             vidas = vidasN2;
             }
 
-    void render(){
-    sprite = createShape(GROUP);
-        PShape cuerpoEnemigo = createShape(RECT,x - anchoEnemigo/2,altoEnemigo/2,anchoEnemigo,altoEnemigo);
-    cuerpoEnemigo.setFill(colorEnemigoN2);
-    sprite.addChild(cuerpoEnemigo);
-    shape(sprite);
+    void render()
+    {
+        sprite = createShape(GROUP);
 
-}
+        PShape cuerpoEnemigo = createShape(RECT,x - anchoEnemigo/2,y - altoEnemigo/2,anchoEnemigo,altoEnemigo);
+        cuerpoEnemigo.setFill(colorEnemigoN2);
+        sprite.addChild(cuerpoEnemigo);
+        shape(sprite);
 
+    }
     
 }
 
@@ -106,13 +107,15 @@ class EnemigoNivel3 extends Enemigo{
         vidas = vidasN3;
     }
 
-    void render(){
+    void render()
+    {
         sprite = createShape(GROUP);
 
-        PShape cuerpoEnemigo = createShape(RECT,puntoX,puntoY,anchoEnemigo,altoEnemigo);
+        PShape cuerpoEnemigo = createShape(RECT,x - anchoEnemigo/2,y - altoEnemigo/2,anchoEnemigo,altoEnemigo);
         cuerpoEnemigo.setFill(colorEnemigoN3);
         sprite.addChild(cuerpoEnemigo);
         shape(sprite);
+
     }
 }
 
@@ -126,13 +129,11 @@ class EnemigoNivel4 extends Enemigo{
         vidas = vidasN4;
     }
 
-    void render(){
+    void render()
+    {
         sprite = createShape(GROUP);
 
-        int puntoX = x - anchoEnemigo/2;
-        int puntoY = y - altoEnemigo/2;
-
-        PShape cuerpoEnemigo = createShape(RECT,puntoX,puntoY,anchoEnemigo,altoEnemigo);
+        PShape cuerpoEnemigo = createShape(RECT,x - anchoEnemigo/2,y - altoEnemigo/2,anchoEnemigo,altoEnemigo);
         cuerpoEnemigo.setFill(colorEnemigoN4);
         sprite.addChild(cuerpoEnemigo);
         shape(sprite);
