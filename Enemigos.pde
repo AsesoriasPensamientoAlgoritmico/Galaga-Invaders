@@ -118,7 +118,6 @@ class EnemigoNivel3 extends Enemigo{
 
     }
 }
-
 class EnemigoNivel4 extends Enemigo{
 
     color colorEnemigoN4= color(94, 94, 94);
