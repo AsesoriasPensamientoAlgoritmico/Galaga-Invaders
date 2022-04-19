@@ -3,10 +3,12 @@ int anchoPantalla = 1000;
 
 int contadorPerdidas = 0;
 
-boolean primeraIteracion = true;
-int contadorVecesFondoGenerado = 0;//muchas cosas dependeran de este contador (como el avanze de los enemigos)
-ArrayList<PShape> estrellas = new ArrayList<PShape>();
 
+boolean primera = true;
+int contadorVecesFondoGenerado = 0;//muchas cosas dependeran de este contador (como el avanze de los enemigos)
+//ArrayList<PShape> estrellas = new ArrayList<PShape>();
+
+int fondo;//dice que fondo esta seleccionado activamente
 
 int nivelActual = 0;
 
@@ -36,6 +38,7 @@ void setup(){
 
     int posicionInicialXJugador = anchoPantalla/2;
     int posicionInicialYJugador = int(altoPantalla*0.9);
+    
 
     jugador = new Jugador(posicionInicialXJugador,posicionInicialYJugador,altoPantalla,anchoPantalla, "Felipe");
     
@@ -61,6 +64,7 @@ void setup(){
 
 void draw(){
 
+    //dibujarFondoViejo();
     dibujarFondo();
     
     //Menu Principal
@@ -92,7 +96,12 @@ void drawmodojuego(){
                 modo = modomenupausa;
                 //Re dibujar el fonodo para borrar el menu
                 contadorVecesFondoGenerado = 500;
+
+                //Se selecciona 1 de 3 fondos
                 dibujarFondo();
+
+                //Dibuja noche con estrellas
+                //dibujarFondoViejo();
             }          
         }
     }
@@ -127,7 +136,7 @@ void drawmodojuego(){
     //MANEJO BALAS
     
     dibujarYAvanzarTodasLasBalasActivas();
-     revisarImpactosBalas();
+    revisarImpactosBalas();
     revisarBalasFueraDeRango();
     revisarBalasColisonaron();
     sacarBalasInactivas();
@@ -248,42 +257,313 @@ void dibujarYAvanzarEnemigos(){
      for(int i = 0; i < listaEnemigosNivel4.size();i++){
         EnemigoNivel4 enemigo = listaEnemigosNivel4.get(i);
         enemigo.render();
+        //cada 5 segundos(como 500 draws) avanza
         if(contadorVecesFondoGenerado==500){
             enemigo.avanzar();
         }
     }
-
 }
 
+
 void dibujarFondo(){
-
-    //cada 500 iteraciones del draw dibuja un set de nuevas estrellas en el espacio
-    if(contadorVecesFondoGenerado == 500 || primeraIteracion == true){
+    //si esta en menu principal solo poner negro
+    if(modo == modomenuprincipal){
         background(color(0));
+    }
+    
+    //cambia de fondo
+    else if(contadorVecesFondoGenerado == 500 || primera == true){
+        //selecciona aleatoriamente uno de los tres fondos
+        //float seleccionado = random(0,3);
+        float seleccionado = 0;
+        background(color(132, 153, 232));
 
-        estrellas = new ArrayList<>();
-        for(int i = 0 ; i < 100 ; i++){
-            float x = random(anchoPantalla);
-            float y = random(altoPantalla);
-            float size = random(5);
-            fill(color(255));
-            PShape estrellaActual = createShape(ELLIPSE,x, y, size, size);
-            estrellas.add(estrellaActual);
+        if(seleccionado == 0){
+            fondo = 0;
+            fondoCiudad();
+        }
+        if(seleccionado == 1){
+            fondo = 1;
+            fondoParque();
+        }
+        if(seleccionado == 2){
+            fondo = 2;
+            fondoCarnaval();
         }
 
         contadorVecesFondoGenerado = 0;
-        primeraIteracion = false;
+        primera = false;
+        
     }
-    //Si no se esta en la iteracion 500 se sigue dibujando las estrellas que se guardaron antes
     else{
         contadorVecesFondoGenerado += 1;
-        background(color(0));
-        for(int i = 0;i < estrellas.size();i++){
-            shape(estrellas.get(i));
+        background(color(132, 153, 232));
+
+        if(fondo == 0){
+            fondoCiudad();
+        }
+        if(fondo == 1){
+            fondoParque();
+        }
+        if(fondo == 2){
+            fondoCarnaval();
+        }
+    }
+    //toca meter esto aqui si no todos los rectangulos cambian
+    rectMode(CORNER);
+}
+
+float nubeax=-anchoPantalla;//asi nos e corta
+float nubebx=-anchoPantalla;
+float nubecx = -anchoPantalla;
+float nubeay = altoPantalla*0.2;
+float nubeby = altoPantalla*0.2;
+float nubecy = altoPantalla*0.2;
+float solx = anchoPantalla*0.1;
+float soly = altoPantalla*0.1;
+float brillo = 50;
+boolean ade = true;
+
+void fondoCiudad(){
+    //fondo gris azul
+    background(color(132, 153, 232));
+
+    //crea sol
+    //resplandece sol
+    if(contadorVecesFondoGenerado/500 == 0){
+        if(ade == true){
+            if(brillo ==75){
+                ade = false;
+            }else{
+                
+                brillo+=1;
+            }
+            
+        }
+        else if(ade == false){
+            
+            if(brillo == 50){
+                ade = true;
+            }else{
+                brillo-=1;
+            }
+            
         }
     }
     
+    fill(color(255, 150, 38));
+    ellipse(solx,soly,brillo,brillo);
+    fill(color(255, 247, 38));
+    ellipse(solx,soly,50,50);
+
+    //crea nubes
+    //mueve nubes
+    rectMode(CENTER);
+    
+    if(contadorVecesFondoGenerado/500 == 0){
+        nubeax+=1;
+        nubebx+=1;
+        nubecx+=1; 
+    }
+    if(nubeax == anchoPantalla){
+        nubeax=100;
+        nubebx=100;
+        nubecx = 100;
+    }
+    fill(color(255));
+
+    rect(nubeax,nubeay,anchoPantalla*0.1,20);
+    rect(nubebx,nubeby,anchoPantalla*0.05,40);
+    rect(nubecx+15,nubecy-10,anchoPantalla*0.02,30);
+
+    rect(nubeax+150,nubeay-100,anchoPantalla*0.1,20);
+    rect(nubebx+150,nubeby-100,anchoPantalla*0.05,40);
+    rect(nubecx-15+150,nubecy-10-100,anchoPantalla*0.02,40);
+        
+    rect(nubeax+400,nubeay,anchoPantalla*0.01,50);
+    rect(nubebx+400,nubeby,anchoPantalla*0.06,40);
+    rect(nubecx-15+400,nubecy-10,anchoPantalla*0.02,30);
+
+    rect(nubeax+200,nubeay+150,anchoPantalla*0.1,50);
+    rect(nubebx+200,nubeby+150,anchoPantalla*0.06,60);
+    rect(nubecx-15+200,nubecy-10+150,anchoPantalla*0.05,70);
+
+    rect(nubeax+660,nubeay+100,anchoPantalla*0.1,20);
+    rect(nubebx+660,nubeby+100,anchoPantalla*0.05,40);
+    rect(nubecx-15+660,nubecy-10+100,anchoPantalla*0.02,40);
+
+    rect(nubeax+900,nubeay+100,anchoPantalla*0.01,50);
+    rect(nubebx+900,nubeby+100,anchoPantalla*0.07,30);
+    rect(nubecx-15+900,nubecy-10+100,anchoPantalla*0.02,20);
+    
+    rect(nubeax+800,nubeay-50,anchoPantalla*0.1,20);
+    rect(nubebx+800,nubeby-50,anchoPantalla*0.05,40);
+    rect(nubecx+15+800,nubecy-50-10,anchoPantalla*0.02,30);
+
+    
+
+    //crea fondo atras
+    fill(color(73, 53, 71));
+    rect(0,altoPantalla-300,100,350);
+    rect(200,altoPantalla-300,100,350);
+    rect(400,altoPantalla-300,100,350);
+    rect(600,altoPantalla-300,150,350);
+    rect(800,altoPantalla-300,100,320);
+    rect(1000,altoPantalla-300,100,350);
+
+    rect(100,altoPantalla-250,150,300);
+    rect(300,altoPantalla-250,100,200);
+    rect(700,altoPantalla-250,150,300);
+    rect(900,altoPantalla-250,100,110);
+
+    fill(color(200));
+    rect(10,altoPantalla-300,13,13);
+    fill(color(250));
+    rect(10,altoPantalla-300,10,10);
+
+    fill(color(200));
+    rect(50,altoPantalla-300-20,13,13);
+    fill(color(250));
+    rect(50,altoPantalla-300-20,10,10);
+
+    fill(color(200));
+    rect(150,altoPantalla-300-20,23,23);
+    fill(color(250));
+    rect(150,altoPantalla-300-20,20,20);
+
+    fill(color(200));
+    rect(400,altoPantalla-300-20,13,13);
+    fill(color(250));
+    rect(400,altoPantalla-300-20,10,10);
+
+    fill(color(200));
+    rect(600,altoPantalla-300-50,13,13);
+    fill(color(250));
+    rect(600,altoPantalla-300-50,10,10);
+
+    fill(color(200));
+    rect(630,altoPantalla-300-20,23,23);
+    fill(color(250));
+    rect(630,altoPantalla-300-20,20,20);
+
+    fill(color(200));
+    rect(800,altoPantalla-300-20,13,13);
+    fill(color(250));
+    rect(800,altoPantalla-300-20,10,10);
+
+    fill(color(200));
+    rect(830,altoPantalla-300-105,13,13);
+    fill(color(250));
+    rect(830,altoPantalla-300-105,10,10);
+
+    fill(color(200));
+    rect(230,altoPantalla-300-105,13,13);
+    fill(color(250));
+    rect(230,altoPantalla-300-105,10,10);
+
+    fill(color(200));
+    rect(390,altoPantalla-300-120,13,13);
+    fill(color(250));
+    rect(390,altoPantalla-300-120,10,10);
+
+    fill(color(200));
+    rect(590,altoPantalla-300-120,13,13);
+    fill(color(250));
+    rect(590,altoPantalla-300-120,10,10);
+    
+    //crea fondo adelante
+    fill(color(168, 151, 166));
+    rect(anchoPantalla/2,altoPantalla-100,anchoPantalla,200);
+    rect(anchoPantalla/2,altoPantalla-200,200,250);
+    rect(50,altoPantalla-150,130,150);
+    rect(150,altoPantalla-200,150,170);
+    rect(200,altoPantalla-150,130,150);
+    rect(350,altoPantalla-200,150,170);
+    rect(420,altoPantalla-150,130,150);
+    rect(650,altoPantalla-200,150,170);
+    rect(800,altoPantalla-150,130,150);
+    rect(1000,altoPantalla-200,150,170);
+
+    for(int i = 0;i<anchoPantalla;i++){
+        if(i%70==0){
+            fill(color(200));
+            rect(i,altoPantalla-120,15,15);
+            fill(color(250));
+            rect(i+15,altoPantalla-170,13,13);
+
+            if(!(200<i && i < 290)){
+                if(!(885<i&&i<945)){
+                    fill(color(200));
+                rect(i,altoPantalla-210,15,15);
+                }
+                
+                if(!(735<i&&i<945)){
+                    fill(color(250));
+                    rect(i+15,altoPantalla-260,13,13);
+                }
+                
+            }
+
+            
+        }
+    }
+    fill(color(200));
+                rect(295,altoPantalla-210,15,15);
+                ;
+    fill(color(200));
+                rect(210,altoPantalla-210,15,15);
+                fill(color(250));
+                rect(305,altoPantalla-260,15,15);
+                rect(210,altoPantalla-260,13,13);
+
+    
+
+
+    //crea piso
+    fill(color(123, 206, 139));
+    rect(anchoPantalla/2,altoPantalla-30,anchoPantalla,100);
+
+
 }
+
+void fondoCarnaval(){
+    background(color(132, 153, 232));
+}
+
+void fondoParque(){
+    background(color(132, 153, 232));
+}
+
+//Tenia este fondo antes cuando era del espacio
+//void dibujarFondoViejo(){
+
+    //cada 500 iteraciones del draw dibuja un set de nuevas estrellas en el espacio
+    //if(contadorVecesFondoGenerado == 500 || primera == true){
+      //  background(color(0));
+
+        //estrellas = new ArrayList<>();
+        //for(int i = 0 ; i < 100 ; i++){
+          //  float x = random(anchoPantalla);
+            //float y = random(altoPantalla);
+            //float size = random(5);
+            //fill(color(255));
+            //PShape estrellaActual = createShape(ELLIPSE,x, y, size, size);
+            //estrellas.add(estrellaActual);
+        //}
+
+        //contadorVecesFondoGenerado = 0;
+        //primera = false;
+    //}
+    //Si no se esta en la iteracion 500 se sigue dibujando las estrellas que se guardaron antes
+    //else{
+        //contadorVecesFondoGenerado += 1;
+        //background(color(0));
+        //for(int i = 0;i < estrellas.size();i++){
+          //  shape(estrellas.get(i));
+        //}
+    //}
+    
+//}
 
 //revisa si una tecla es WASD
 boolean esTeclaAD(){
@@ -299,33 +579,11 @@ boolean esTeclaAD(){
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void drawmodomenuprincipal(){
+    rectMode(CORNER);
     //Base menu
     fill(color(200));
+    
     rect(0, altoPantalla/10, anchoPantalla, altoPantalla*0.8);
 
     //Titulo
@@ -359,6 +617,7 @@ void drawmodomenuprincipal(){
 
                 //Re dibujar el fonodo para borrar el menu
                 contadorVecesFondoGenerado = 500;
+                //dibujarFondoViejo();
                 dibujarFondo();
             }
         }
@@ -367,6 +626,7 @@ void drawmodomenuprincipal(){
 
 
 void drawMenuPausa(){
+    rectMode(CORNER);
     //Base menu
     fill(color(200));
     rect(2*anchoPantalla/10, 2*altoPantalla/10, anchoPantalla*0.6, altoPantalla*0.6);
@@ -390,6 +650,7 @@ void drawMenuPausa(){
                 modo = modojuego;
                 //Re dibujar el fonodo para borrar el menu
                 contadorVecesFondoGenerado = 500;
+                //dibujarFondoViejo();
                 dibujarFondo();
             }
 

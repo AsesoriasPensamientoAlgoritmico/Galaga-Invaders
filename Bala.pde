@@ -3,9 +3,11 @@ class Bala{
     int altoBala = 20;
     int anchoBala = 20;
 
-    int velJugador = 3;
+    //velocidad bala jugador
+    int velJ = 3;
 
-    int velEnemigo = 2;
+    //velocidad bala enemigo
+    int velE = 2;
 
     color verde = color(0,255,0);
 
@@ -14,16 +16,16 @@ class Bala{
     color azul = color(0,0,255);
 
     //daño bala normal (jugador)
-    int danioBalaNJ = 5;
+    int danioNJ = 5;
 
     //daño bala especial (jugador)
-    int danioBalaEJ = 10;
+    int danioEJ = 10;
 
     //daño bala enemiga
-    int danioBalaNE = 1;
+    int danioNE = 1;
 
     PShape figura ;
-    color colorBala;
+    color c;
 
     //Posicion bala en el eje x(la poscion inicial sera la de la entidad que lo lanze)
     int x;
@@ -41,7 +43,7 @@ class Bala{
     int anchoPantalla;
 
     //la direccion de la bala. Si es 1(positiva) ira de arriba a abajo, si es -1(negativa) ira de abajo a arriba
-    int direccionBala;
+    int direccion;
 
     int vel;
 
@@ -59,31 +61,31 @@ class Bala{
 
         //Es jugador
         if(esJugador == true){
-            direccionBala =  -1;//van de abajo a arriba (en direccion de los enemigos)
-            vel = velJugador;
+            direccion =  -1;//van de abajo a arriba (en direccion de los enemigos)
+            vel = velJ;
 
-            if(danio == danioBalaNJ){
-                colorBala = verde ;
-                danio = danioBalaNJ;
+            if(danio == danioNJ){
+                c = verde ;
+                danio = danioNJ;
             }
-            else if(danio == danioBalaEJ){
-                colorBala = azul;
-                danio = danioBalaEJ;
+            else if(danio == danioEJ){
+                c = azul;
+                danio = danioEJ;
             }
         }
         //Es enemigo
         else if(esJugador == false){
-            direccionBala =  1;//van de arriba a abajo (en direccion al jugador)
-            colorBala = rojo;
-            danio = danioBalaNE;//por default es uno (no me importa que pasen por parametro por que siempre quitara solo una vida)
-            vel = velEnemigo;//un poco mas lenta que la de jugador por default
+            direccion =  1;//van de arriba a abajo (en direccion al jugador)
+            c = rojo;
+            danio = danioNE;//por default es uno (no me importa que pasen por parametro por que siempre quitara solo una vida)
+            vel = velE;//un poco mas lenta que la de jugador por default
         }
     }
 
 
     //avanza la posicion de la bala dependiendo de su vel y direccion
     void avanzar(){
-        int avance = direccionBala * vel;//se multiplica para que tenga la direccion correcta sin importar que tipo de bala sea
+        int avance = direccion * vel;//se multiplica para que tenga la direccion correcta sin importar que tipo de bala sea
         y += avance;
     }
 
@@ -109,7 +111,7 @@ class Bala{
         figura = createShape(GROUP);
 
         PShape cuerpo = createShape(RECT,x,y , anchoBala,altoBala);
-        cuerpo.setFill(colorBala);
+        cuerpo.setFill(c);
 
         figura.addChild(cuerpo);
         

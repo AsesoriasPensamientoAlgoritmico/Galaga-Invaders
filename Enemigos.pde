@@ -1,7 +1,5 @@
 class Enemigo extends BaseEntidad{
     
-
-
 int vidasN1 = 1;
 int vidasN2 = 2;
 int vidasN3 = 3;
@@ -13,15 +11,15 @@ int altoEnemigo = 40;
 
 
 Enemigo(int pix, int piy,int altoP, int anchoP){
-super( pix,  piy, altoP,  anchoP);
+    super( pix,  piy, altoP,  anchoP);
 
     //resto de cosas
     velocidadDeMovimiento = velMovimientoE;
-    }
+}
 
     Bala disparar(){
         sonido();
-    Bala bala = new Bala(false,x-1,y+templateBala.altoBala-25,altoPantalla,anchoPantalla,templateBala.danioBalaNE);
+    Bala bala = new Bala(false,x-1,y+templateBala.altoBala-25,altoPantalla,anchoPantalla,templateBala.danioNE);
     return bala;
     }
 
@@ -37,6 +35,7 @@ super( pix,  piy, altoP,  anchoP);
         }
     }
 
+    //No funciona :(
     boolean estaAlFinalDePantalla(){
         if(y > altoPantalla){
             return true;
