@@ -3,9 +3,9 @@ class Bala{
     int altoBala = 20;
     int anchoBala = 20;
 
-    int velocidadBalaJugador = 3;
+    int velJugador = 3;
 
-    int velocidadBalaEnemigo = 2;
+    int velEnemigo = 2;
 
     color verde = color(0,255,0);
 
@@ -43,9 +43,7 @@ class Bala{
     //la direccion de la bala. Si es 1(positiva) ira de arriba a abajo, si es -1(negativa) ira de abajo a arriba
     int direccionBala;
 
-    int velocidadBala;
-
-    
+    int vel;
 
     //esJugador , si es true es una bala de jugador , si es false 
     Bala(boolean esJugador ,int pix, int piy, int altoP, int anchoP, int danio){
@@ -62,7 +60,7 @@ class Bala{
         //Es jugador
         if(esJugador == true){
             direccionBala =  -1;//van de abajo a arriba (en direccion de los enemigos)
-            velocidadBala = velocidadBalaJugador;
+            vel = velJugador;
 
             if(danio == danioBalaNJ){
                 colorBala = verde ;
@@ -78,14 +76,14 @@ class Bala{
             direccionBala =  1;//van de arriba a abajo (en direccion al jugador)
             colorBala = rojo;
             danio = danioBalaNE;//por default es uno (no me importa que pasen por parametro por que siempre quitara solo una vida)
-            velocidadBala = velocidadBalaEnemigo;//un poco mas lenta que la de jugador por default
+            vel = velEnemigo;//un poco mas lenta que la de jugador por default
         }
     }
 
 
-    //avanza la posicion de la bala dependiendo de su velocidad y direccion
+    //avanza la posicion de la bala dependiendo de su vel y direccion
     void avanzar(){
-        int avance = direccionBala * velocidadBala;//se multiplica para que tenga la direccion correcta sin importar que tipo de bala sea
+        int avance = direccionBala * vel;//se multiplica para que tenga la direccion correcta sin importar que tipo de bala sea
         y += avance;
     }
 
