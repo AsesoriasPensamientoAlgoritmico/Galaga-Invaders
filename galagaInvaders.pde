@@ -1,4 +1,4 @@
-int altoPantalla = 1000;
+int altoPantalla = 900;
 int anchoPantalla = 1000;
 
 int contadorPerdidas = 0;
