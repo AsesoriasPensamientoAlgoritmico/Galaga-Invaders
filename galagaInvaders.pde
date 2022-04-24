@@ -385,7 +385,7 @@ void revisarBalasColisonaron(){
       Bala balaI = listaBalas.get(i);
       for(int j = 0 ; j < listaBalas.size();j++){
         Bala balaJ = listaBalas.get(j);
-if(balaI.x < balaJ.x && balaJ.x < balaI.x + balaI.anchoBala){
+if(balaI.x <= balaJ.x && balaJ.x <= balaI.x + balaI.anchoBala){
             if(balaI.y < balaJ.y && balaJ.y < balaI.y + balaI.altoBala){
                 balaJ.visible = false;
                 balaI.visible = false;
@@ -455,6 +455,7 @@ void enemigosDisparan(){
     ArrayList<Object> eneDisp = new ArrayList<Object>();
 
     //añaden los que pueden disparar y los mete a una lista
+    
     for(int a = 0 ; a < listaEnemigosNivel.size();a++){
         EnemigoNivel1 e = listaEnemigosNivel.get(a);
         if(e.puedeDisparar == true){
@@ -483,33 +484,36 @@ void enemigosDisparan(){
     }
 
     //entrer los available para disparar selecciona uno aleatoriamente
+    //no se como mas hacer que revise si son de como la clase enemigo X
+        
+    //con esto dicen que uno puede crear un arreglo de objetos de diferentes clases
+    //https://forum.processing.org/two/discussion/12216/how-to-create-an-array-of-different-classes.html
+    //el codigo lo saque de un ejemplo en el foro
     if(contadorVecesFondoGenerado % 100 == 0){
-        Enemigo eee = new Enemigo(0,0,0,0);
 
         int ene = int(random(0,eneDisp.size()));
+        
+        Object o = eneDisp.get(ene);
+        
+        if (o instanceof EnemigoNivel1) {
+            Bala b= ((EnemigoNivel1)o).disparar();
+            listaBalas.add(b);
+        } 
+        else if (o instanceof EnemigoNivel2) {
+            Bala b= ((EnemigoNivel2)o).disparar();
+            listaBalas.add(b);
+        }
+        else if (o instanceof EnemigoNivel3) {
+            Bala b= ((EnemigoNivel3)o).disparar();
+            listaBalas.add(b);
+        }
+        else if (o instanceof EnemigoNivel4) {
+            Bala b= ((EnemigoNivel4)o).disparar();
+            listaBalas.add(b);
+        }
 
-        //no se como mas hacer que revise si son de como la clase enemigo X
-        System.out.println(eneDisp.get(ene));
-        Enemigo e = eneDisp.get(ene);
-        e.disparar();
-        /*
-        if(eneDisp.get(ene).vidas == vidasN1 ){
-            EnemigoNivel1 e = eneDisp.get(ene);
-            e.disparar();
-        }
-        if(eneDisp.get(ene).vidas == vidasN2 ){
-            EnemigoNivel2 e = eneDisp.get(ene);
-            e.disparar();
-        }
-        if(eneDisp.get(ene).vidas == vidasN3 ){
-            EnemigoNivel3 e = eneDisp.get(ene);
-            e.disparar();
-        }
-        if(eneDisp.get(ene).vidas == vidasN4 ){
-            EnemigoNivel4 e = eneDisp.get(ene);
-            e.disparar();
-        }
-        */
+
+        
     }
     
 
