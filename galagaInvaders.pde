@@ -397,52 +397,121 @@ if(balaI.x < balaJ.x && balaJ.x < balaI.x + balaI.anchoBala){
 
 //toca cambiar esto para que sea aleatorio
 void enemigosDisparan(){
+
+    //resetear todos a que pueden disparar
+    for(int a = 0 ; a < listaEnemigosNivel.size();a++){
+        EnemigoNivel1 e = listaEnemigosNivel.get(a);
+        e.puedeDisparar = true;
+    }
+    for(int a = 0 ; a < listaEnemigosNivel2.size();a++){
+        EnemigoNivel2 e = listaEnemigosNivel2.get(a);
+        e.puedeDisparar = true;
+    }
+
+    for(int a = 0 ; a < listaEnemigosNivel3.size();a++){
+        EnemigoNivel3 e = listaEnemigosNivel3.get(a);
+        e.puedeDisparar = true;
+    }
+
+    for(int a = 0 ; a < listaEnemigosNivel4.size();a++){
+        EnemigoNivel4 e = listaEnemigosNivel4.get(a);
+        e.puedeDisparar = true;
+    }
+
+
+    //quita a todos los que no pueden disparar
+    for(int a = 0 ; a < listaEnemigosNivel2.size();a++){
+        EnemigoNivel2 eN2 = listaEnemigosNivel2.get(a);
+        for(int b = 0 ; b < listaEnemigosNivel.size();b++){
+            EnemigoNivel1 eN1 = listaEnemigosNivel.get(b);
+            if(eN2.x == eN1.x){
+                eN2.puedeDisparar = false;
+            }
+        }   
+    }
+
+    for(int a = 0 ; a < listaEnemigosNivel3.size();a++){
+        EnemigoNivel3 eN3 = listaEnemigosNivel3.get(a);
+        for(int b = 0 ; b < listaEnemigosNivel2.size();b++){
+            EnemigoNivel2 eN2 = listaEnemigosNivel2.get(b);
+            if(eN3.x == eN2.x){
+                eN3.puedeDisparar = false;
+            }
+        }   
+    }
+
+    for(int a = 0 ; a < listaEnemigosNivel4.size();a++){
+        EnemigoNivel4 eN4 = listaEnemigosNivel4.get(a);
+        for(int b = 0 ; b < listaEnemigosNivel3.size();b++){
+            EnemigoNivel3 eN3 = listaEnemigosNivel3.get(b);
+            if(eN4.x == eN3.x){
+                eN4.puedeDisparar = false;
+            }
+        }   
+    }
+
+    //revisa quien esta clear para disparar y los añade a una lista
+
+    ArrayList<Object> eneDisp = new ArrayList<Object>();
+
+    //añaden los que pueden disparar y los mete a una lista
+    for(int a = 0 ; a < listaEnemigosNivel.size();a++){
+        EnemigoNivel1 e = listaEnemigosNivel.get(a);
+        if(e.puedeDisparar == true){
+            eneDisp.add(e);
+        }
+    }
+    for(int a = 0 ; a < listaEnemigosNivel2.size();a++){
+        EnemigoNivel2 e = listaEnemigosNivel2.get(a);
+        if(e.puedeDisparar == true){
+            eneDisp.add(e);
+        }
+    }
+
+    for(int a = 0 ; a < listaEnemigosNivel3.size();a++){
+        EnemigoNivel3 e = listaEnemigosNivel3.get(a);
+        if(e.puedeDisparar == true){
+            eneDisp.add(e);
+        }
+    }
+
+    for(int a = 0 ; a < listaEnemigosNivel4.size();a++){
+        EnemigoNivel4 e = listaEnemigosNivel4.get(a);
+        if(e.puedeDisparar == true){
+            eneDisp.add(e);
+        }
+    }
+
+    //entrer los available para disparar selecciona uno aleatoriamente
+    if(contadorVecesFondoGenerado % 100 == 0){
+        Enemigo eee = new Enemigo(0,0,0,0);
+
+        int ene = int(random(0,eneDisp.size()));
+
+        //no se como mas hacer que revise si son de como la clase enemigo X
+        System.out.println(eneDisp.get(ene));
+        Enemigo e = eneDisp.get(ene);
+        e.disparar();
+        /*
+        if(eneDisp.get(ene).vidas == vidasN1 ){
+            EnemigoNivel1 e = eneDisp.get(ene);
+            e.disparar();
+        }
+        if(eneDisp.get(ene).vidas == vidasN2 ){
+            EnemigoNivel2 e = eneDisp.get(ene);
+            e.disparar();
+        }
+        if(eneDisp.get(ene).vidas == vidasN3 ){
+            EnemigoNivel3 e = eneDisp.get(ene);
+            e.disparar();
+        }
+        if(eneDisp.get(ene).vidas == vidasN4 ){
+            EnemigoNivel4 e = eneDisp.get(ene);
+            e.disparar();
+        }
+        */
+    }
     
-    int w = int(random(1,5));//quien dispara
-
-    if(w == 1){
-        for(int i = 0; i < listaEnemigosNivel.size();i++){
-        EnemigoNivel1 enemigo = listaEnemigosNivel.get(i);
-        if(contadorVecesFondoGenerado%60==0){
-            Bala bala = enemigo.disparar();
-            listaBalas.add(bala);
-        }
-    }
-    }
-    if(w == 2){
-        for(int i = 0; i < listaEnemigosNivel2.size();i++){
-        EnemigoNivel2 enemigo = listaEnemigosNivel2.get(i);
-        if(contadorVecesFondoGenerado%60==0){
-            Bala bala = enemigo.disparar();
-            listaBalas.add(bala);
-        }
-    }
-    }
-    if(w == 3){
-        for(int i = 0; i < listaEnemigosNivel3.size();i++){
-        EnemigoNivel3 enemigo = listaEnemigosNivel3.get(i);
-        if(contadorVecesFondoGenerado%60==0){
-            Bala bala = enemigo.disparar();
-            listaBalas.add(bala);
-        }
-    }
-    }
-    if(w == 4){
-        for(int i = 0; i < listaEnemigosNivel4.size();i++){
-        EnemigoNivel4 enemigo = listaEnemigosNivel4.get(i);
-        if(contadorVecesFondoGenerado%60==0){
-            Bala bala = enemigo.disparar();
-            listaBalas.add(bala);
-        }
-    }
-    }
-    
-
-     
-
-     
-
-     
 
 }
 
