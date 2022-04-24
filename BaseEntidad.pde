@@ -14,7 +14,6 @@ class BaseEntidad{
     int velocidadDeMovimiento;
     Bala templateBala = new Bala(true,0,0,0,0,0);
 
-   
     //El constructor de un objeto de baseentidad (instancia de la clase)
     BaseEntidad(int pix, int piy,int alto, int ancho ){
         posicionInicialX = pix;

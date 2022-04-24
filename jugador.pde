@@ -20,7 +20,7 @@ class Jugador extends BaseEntidad{
 
     void renderJugador(){
         sprite = createShape(GROUP);
-
+        
         PShape cuerpoJugador = createShape(RECT,x - anchoJugador/2,y - altoJugador/2,anchoJugador,altoJugador);
         cuerpoJugador.setFill(color(226, 194, 167));
         PShape oreja1 = createShape(RECT,x - anchoJugador/2-7,y - altoJugador/2 + 15,altoJugador/5,altoJugador/5);

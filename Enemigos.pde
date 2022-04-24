@@ -19,7 +19,7 @@ Enemigo(int pix, int piy,int altoP, int anchoP){
 
     Bala disparar(){
         sonido();
-    Bala bala = new Bala(false,x-1,y+templateBala.altoBala-25,altoPantalla,anchoPantalla,templateBala.danioNE);
+    Bala bala = new Bala(false,x-1,y+templateBala.altoBala+10,altoPantalla,anchoPantalla,templateBala.danioNE);
     return bala;
     }
 

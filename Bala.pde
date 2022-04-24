@@ -16,10 +16,10 @@ class Bala{
     color azul = color(0,0,255);
 
     //daño bala normal (jugador)
-    int danioNJ = 5;
+    int danioNJ = 1;
 
     //daño bala especial (jugador)
-    int danioEJ = 10;
+    int danioEJ = 2;
 
     //daño bala enemiga
     int danioNE = 1;
