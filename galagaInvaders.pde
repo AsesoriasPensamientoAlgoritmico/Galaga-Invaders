@@ -1,5 +1,5 @@
-int altoPantalla = 900;
-int anchoPantalla = 1000;
+int altoPantalla = 800;
+int anchoPantalla = 800;
 
 int contadorPerdidas = 0;
 
@@ -33,7 +33,7 @@ ArrayList<EnemigoNivel4> listaEnemigosNivel4 = new ArrayList<EnemigoNivel4>();
 
 
 void setup(){
-    size(1000,1000);
+    size(800,800);
 
     int posicionInicialXJugador = anchoPantalla/2;
     int posicionInicialYJugador = int(altoPantalla*0.9);
