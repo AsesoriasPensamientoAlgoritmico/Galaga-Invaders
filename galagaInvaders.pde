@@ -92,9 +92,6 @@ void setup(){
     EnemigoNivel1 e4n1 = new EnemigoNivel1( posicionInicialXEnemigoB4 ,posicionInicialYEnemigosA1,altoPantalla,anchoPantalla );
     listaEnemigosNivel.add(e4n1);
 
-
-
-
 }
 
 
