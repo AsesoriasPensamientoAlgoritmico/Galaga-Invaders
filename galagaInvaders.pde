@@ -1,23 +1,11 @@
-int altoPantalla = 1000;
-int anchoPantalla = 1000;
-
-int contadorPerdidas = 0;
-
+int altoPantalla = 800;
+int anchoPantalla = 800;
 
 boolean primera = true;
 int contadorVecesFondoGenerado = 0;//muchas cosas dependeran de este contador (como el avanze de los enemigos)
 //ArrayList<PShape> estrellas = new ArrayList<PShape>();
 
 int fondo;//dice que fondo esta seleccionado activamente
-
-int nivelActual = 0;
-
-//Modo de ejecucion
-int modomenuprincipal = 0;
-int modojuego = 1;
-int modomenupausa = 2;
-
-int modo = modomenuprincipal;
 
 //el jugador tiene que poderse acceder desde todos lados
 Jugador jugador;
@@ -31,15 +19,12 @@ ArrayList<EnemigoNivel2> listaEnemigosNivel2 = new ArrayList<EnemigoNivel2>();
 ArrayList<EnemigoNivel3> listaEnemigosNivel3 = new ArrayList<EnemigoNivel3>();
 ArrayList<EnemigoNivel4> listaEnemigosNivel4 = new ArrayList<EnemigoNivel4>();
 
-
-
 void setup(){
-    size(1000,1000);
+    size(800,800);
 
     int posicionInicialXJugador = anchoPantalla/2;
     int posicionInicialYJugador = int(altoPantalla*0.9);
     
-
     jugador = new Jugador(posicionInicialXJugador,posicionInicialYJugador,altoPantalla,anchoPantalla, "Felipe");
     
     int posicionInicialYEnemigos = int(altoPantalla*0.1);
@@ -61,82 +46,38 @@ void setup(){
     listaEnemigosNivel4.add(eneN4);
 }
 
-
 void draw(){
-
-    //dibujarFondoViejo();
     dibujarFondo();
-    
-    //Menu Principal
-    if(modo == modomenuprincipal){
-        drawmodomenuprincipal();
-    }
-    //modojuego
-    else if(modo == modojuego){
-        drawmodojuego();
-        
-    }
-    //Menu de Pausa
-    else if(modo == modomenupausa){
-        drawMenuPausa();
-    }    
+    drawjuego();
 }
 
-void drawmodojuego(){
+void drawjuego(){
     
-    //Dibuja el boton de pausa
-    fill(color(100));
-    ellipse(anchoPantalla-30,30,20,20);
-
-    if(mouseY>0 && mouseY < 60){
-        if(mouseX > anchoPantalla-30 && mouseX < anchoPantalla ){
-            fill(color(200));
-            ellipse(anchoPantalla-30,30,20,20);
-            if(mousePressed && mouseButton == LEFT){
-                modo = modomenupausa;
-                //Re dibujar el fonodo para borrar el menu
-                contadorVecesFondoGenerado = 500;
-
-                //Se selecciona 1 de 3 fondos
-                dibujarFondo();
-
-                //Dibuja noche con estrellas
-                //dibujarFondoViejo();
-            }          
-        }
-    }
-
-
-    //Dibujar jugador
-    jugador.renderJugador();
+    jugador.renderJugador();//Dibujar jugador
 
     //https://processing.org/reference/keyCode.html
     if(keyPressed == true){
-        if(key == CODED || esTeclaAD()){
-            if(keyCode == LEFT || key == 'a' || key == 'A'){
+        if(key == CODED ){
+            if(keyCode == LEFT ){
                 jugador.moverIzquierda();
             }
-            if(keyCode == RIGHT || key == 'd' || key == 'D'){
+            if(keyCode == RIGHT){
                 jugador.moverDerecha();
             }
         }
-        if(key != CODED && !esTeclaAD()){
+        if(key != CODED ){
             if(contadorVecesFondoGenerado%10==0){
                 Bala nuevaBala = jugador.disparar();//crea bala    
                 listaBalas.add(nuevaBala);//añade bala a lista de balas activas
             }
         }
     }
-
     //Enemigos
-
     dibujarYAvanzarEnemigos();
     enemigosDisparan();
 
     //MANEJO BALAS
-    
     dibujarYAvanzarTodasLasBalasActivas();
-    revisarImpactosBalas();
     revisarBalasFueraDeRango();
     revisarBalasColisonaron();
     sacarBalasInactivas();
@@ -158,13 +99,12 @@ void revisarBalasFueraDeRango(){
   }
 }
 
-
 void revisarBalasColisonaron(){
   for(int i = 0 ; i < listaBalas.size();i++){
       Bala balaI = listaBalas.get(i);
       for(int j = 0 ; j < listaBalas.size();j++){
         Bala balaJ = listaBalas.get(j);
-if(balaI.x < balaJ.x && balaJ.x < balaI.x + balaI.anchoBala){
+        if(balaI.x < balaJ.x && balaJ.x < balaI.x + balaI.anchoBala){
             if(balaI.y < balaJ.y && balaJ.y < balaI.y + balaI.altoBala){
                 balaJ.visible = false;
                 balaI.visible = false;
@@ -218,16 +158,6 @@ void dibujarYAvanzarTodasLasBalasActivas(){
     }
 }
 
-//Revisa si alguna de las balas en la lista de balas le impacto a alguien
-void revisarImpactosBalas(){
-    ArrayList<Bala> listaBalasQueImpactaron = new ArrayList<Bala>();
-
-    for(int i = 0; i < listaBalasQueImpactaron.size();i++){
-        Bala balaQueImpacto = listaBalasQueImpactaron.get(i);//saca una de las balas que impacto
-       
-        balaQueImpacto.visible = false;
-    }
-}
 
 void dibujarYAvanzarEnemigos(){
     for(int i = 0; i < listaEnemigosNivel1.size();i++){
@@ -265,32 +195,16 @@ void dibujarYAvanzarEnemigos(){
 }
 
 
-void dibujarFondo(){
-    //si esta en menu principal solo poner negro
-    if(modo == modomenuprincipal){
-        background(color(0));
-    }
-    
+void dibujarFondo(){   
+    noStroke(); 
     //cambia de fondo
-    else if(contadorVecesFondoGenerado == 500 || primera == true){
+    if(contadorVecesFondoGenerado == 500 || primera == true){
         //selecciona aleatoriamente uno de los tres fondos
         //float seleccionado = random(0,3);
         float seleccionado = 0;
         background(color(132, 153, 232));
-
-        if(seleccionado == 0){
-            fondo = 0;
-            fondoCiudad();
-        }
-        if(seleccionado == 1){
-            fondo = 1;
-            fondoParque();
-        }
-        if(seleccionado == 2){
-            fondo = 2;
-            fondoCarnaval();
-        }
-
+        fondoCiudad();
+        
         contadorVecesFondoGenerado = 0;
         primera = false;
         
@@ -299,15 +213,7 @@ void dibujarFondo(){
         contadorVecesFondoGenerado += 1;
         background(color(132, 153, 232));
 
-        if(fondo == 0){
-            fondoCiudad();
-        }
-        if(fondo == 1){
-            fondoParque();
-        }
-        if(fondo == 2){
-            fondoCarnaval();
-        }
+        fondoCiudad();
     }
     //toca meter esto aqui si no todos los rectangulos cambian
     rectMode(CORNER);
@@ -526,135 +432,3 @@ void fondoCiudad(){
 
 }
 
-void fondoCarnaval(){
-    background(color(132, 153, 232));
-}
-
-void fondoParque(){
-    background(color(132, 153, 232));
-}
-
-//Tenia este fondo antes cuando era del espacio
-//void dibujarFondoViejo(){
-
-    //cada 500 iteraciones del draw dibuja un set de nuevas estrellas en el espacio
-    //if(contadorVecesFondoGenerado == 500 || primera == true){
-      //  background(color(0));
-
-        //estrellas = new ArrayList<>();
-        //for(int i = 0 ; i < 100 ; i++){
-          //  float x = random(anchoPantalla);
-            //float y = random(altoPantalla);
-            //float size = random(5);
-            //fill(color(255));
-            //PShape estrellaActual = createShape(ELLIPSE,x, y, size, size);
-            //estrellas.add(estrellaActual);
-        //}
-
-        //contadorVecesFondoGenerado = 0;
-        //primera = false;
-    //}
-    //Si no se esta en la iteracion 500 se sigue dibujando las estrellas que se guardaron antes
-    //else{
-        //contadorVecesFondoGenerado += 1;
-        //background(color(0));
-        //for(int i = 0;i < estrellas.size();i++){
-          //  shape(estrellas.get(i));
-        //}
-    //}
-    
-//}
-
-//revisa si una tecla es WASD
-boolean esTeclaAD(){
-    if(keyPressed == true){
-        if(key == 'a' || key == 'A'){
-            return true;
-        }
-        if(key == 'd' || key == 'D'){
-            return true;
-        }
-    }
-    return false;
-
-}
-
-void drawmodomenuprincipal(){
-    rectMode(CORNER);
-    //Base menu
-    fill(color(200));
-    
-    rect(0, altoPantalla/10, anchoPantalla, altoPantalla*0.8);
-
-    //Titulo
-    fill(color(0));
-    textSize(128);
-    text("Titulo", 3*(anchoPantalla/10) , 4*(altoPantalla/10)); 
-
-    //Boton iniciar
-    noStroke();
-    fill(color(100));
-    rect(3*(anchoPantalla/10),5*(altoPantalla/10), 3.2*(anchoPantalla/10), (altoPantalla/10));
-    fill(color(50));
-    textSize(40);
-    text("Iniciar",4*(anchoPantalla/10),5.65*(altoPantalla/10)); 
-
-    //Revisar si se esta presionando el boton de inicio
-    
-    
-    if( 3*(anchoPantalla/10) < mouseX && mouseX < 6.2*(anchoPantalla/10)){
-        if(mouseY < 5*(altoPantalla/10) + (altoPantalla/10) && 5*(altoPantalla/10) < mouseY){
-            //Colorear boton
-            noStroke();
-            fill(color(10));
-            rect(3*(anchoPantalla/10),5*(altoPantalla/10), 3.2*(anchoPantalla/10), (altoPantalla/10));
-            fill(color(30));
-            textSize(40);
-            text("Iniciar",4*(anchoPantalla/10),5.65*(altoPantalla/10));
-            if(mousePressed && mouseButton == LEFT ){
-                //Cambiar modo
-                modo = modojuego;
-
-                //Re dibujar el fonodo para borrar el menu
-                contadorVecesFondoGenerado = 500;
-                //dibujarFondoViejo();
-                dibujarFondo();
-            }
-        }
-    }
-}
-
-
-void drawMenuPausa(){
-    rectMode(CORNER);
-    //Base menu
-    fill(color(200));
-    rect(2*anchoPantalla/10, 2*altoPantalla/10, anchoPantalla*0.6, altoPantalla*0.6);
-
-    //Boton retornar
-    fill(color(100));
-    rect(anchoPantalla*0.4, altoPantalla*0.6, anchoPantalla*0.2, altoPantalla*0.1);
-    fill(color(0));
-    textSize(50);
-    text("retornar",anchoPantalla*0.4 + 15, altoPantalla*0.675);
-
-    if(mouseY>altoPantalla*0.6 && mouseY < altoPantalla*0.6 + altoPantalla*0.1){
-        if(mouseX >anchoPantalla*0.4 && mouseX <anchoPantalla*0.4  + anchoPantalla*0.2 ){
-            fill(color(150));
-            rect(anchoPantalla*0.4, altoPantalla*0.6, anchoPantalla*0.2, altoPantalla*0.1);
-
-            fill(color(0));
-            textSize(50);
-            text("retornar",anchoPantalla*0.4 + 15, altoPantalla*0.675);
-            if(mousePressed && mouseButton == LEFT){
-                modo = modojuego;
-                //Re dibujar el fonodo para borrar el menu
-                contadorVecesFondoGenerado = 500;
-                //dibujarFondoViejo();
-                dibujarFondo();
-            }
-
-            
-        }
-    }
-}

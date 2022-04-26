@@ -1,9 +1,6 @@
 class Jugador extends BaseEntidad{
     
     String nombreJugador;
-    int puntajeActual;
-    int maximoPuntajeHistorico;
-    int numeroVidasComienzo = 3;
     int anchoJugador = 40;
     int altoJugador = 40;
 
@@ -12,13 +9,11 @@ class Jugador extends BaseEntidad{
         super(pix,piy,altoPantalla,anchoPantalla);
 
         nombreJugador = nombre;
-        vidas = numeroVidasComienzo;
-        puntajeActual = 0; //el puntaje de un jugador siempre inicia en cero
-        maximoPuntajeHistorico = 0; //al crear un jugador su puntaje maximo inicia en cero
         velocidadDeMovimiento = velMovimientoJ;
     }
 
     void renderJugador(){
+        //agrupa las formas que componen el jugador
         sprite = createShape(GROUP);
 
         PShape cuerpoJugador = createShape(RECT,x - anchoJugador/2,y - altoJugador/2,anchoJugador,altoJugador);
@@ -60,46 +55,10 @@ class Jugador extends BaseEntidad{
         }
     }
 
-    //Cuando algun bono se alcanze se aplica un acelere enla velocidad de movimiento base
-    void boostVelocidadMovimiento(int v){
-        velocidadDeMovimiento += v;
-    }
-
-    //Cuando alguna penalizacion se de se da un acelere enla velocidad de movimiento base
-    void penalizacionVelocidadMovimiento(int v){
-        velocidadDeMovimiento -= v;
-    }
-
     Bala disparar(){
-        //Imprime sonido pew en consola
-        sonido();
 
         Bala bala = new Bala(true,x-1,y-templateBala.altoBala-25,altoPantalla,anchoPantalla,templateBala.danioNJ);
         return bala;
     }
 
-    //dispara un proyectil especial con mas daño(a mitad de velocidad de uno normal)
-    Bala dispararEspecial(){
-        //Imprime sonido pew en consola
-        sonido();
-
-        Bala bala = new Bala(true,x,y+10,altoPantalla,anchoPantalla,templateBala.danioEJ);
-        return bala;
-    }
-
-    //sonido del jugador cuando dispara
-    void sonido(){
-       System.out.println("Pew");//imprime esto
-    }
-
-    void sumarAPuntajeActual(int puntos){
-        puntajeActual = puntajeActual+puntos;
-    }
-
-    void actualizarMaximoPuntajeHistorico(){
-        if(puntajeActual>maximoPuntajeHistorico){
-            maximoPuntajeHistorico=puntajeActual;
-        }
-    }
-    
 }

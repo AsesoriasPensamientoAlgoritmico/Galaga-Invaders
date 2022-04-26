@@ -15,11 +15,8 @@ class Bala{
 
     color azul = color(0,0,255);
 
-    //daño bala normal (jugador)
+    //daño bala  (jugador)
     int danioNJ = 5;
-
-    //daño bala especial (jugador)
-    int danioEJ = 10;
 
     //daño bala enemiga
     int danioNE = 1;
@@ -67,10 +64,6 @@ class Bala{
             if(danio == danioNJ){
                 c = verde ;
                 danio = danioNJ;
-            }
-            else if(danio == danioEJ){
-                c = azul;
-                danio = danioEJ;
             }
         }
         //Es enemigo

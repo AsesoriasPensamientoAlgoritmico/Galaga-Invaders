@@ -18,14 +18,8 @@ Enemigo(int pix, int piy,int altoP, int anchoP){
 }
 
     Bala disparar(){
-        sonido();
-    Bala bala = new Bala(false,x-1,y+templateBala.altoBala-25,altoPantalla,anchoPantalla,templateBala.danioNE);
-    return bala;
-    }
-
-    //Sonido del enemigo cuando dispara
-    void sonido(){
-        System.out.println("Pow");
+        Bala bala = new Bala(false,x-1,y+templateBala.altoBala-25,altoPantalla,anchoPantalla,templateBala.danioNE);
+        return bala;
     }
 
     //Mueve el enemigo X posiciones abajo despues de que cierto tiempo ha pasado
@@ -33,14 +27,6 @@ Enemigo(int pix, int piy,int altoP, int anchoP){
         if(0 < y && y < altoPantalla){
             y += velocidadDeMovimiento;
         }
-    }
-
-    //No funciona :(
-    boolean estaAlFinalDePantalla(){
-        if(y > altoPantalla){
-            return true;
-        }
-        return false;
     }
 
 }
