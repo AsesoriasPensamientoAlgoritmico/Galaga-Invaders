@@ -31,4 +31,30 @@ class BaseEntidad{
         //Saque lo de PShape de la documentacion de processing en -> https://processing.org/reference/PShape.html
         sprite = createShape(ELLIPSE, x, y, 80, 80);//circulo 80 diametro en la posicion inicial
     }
+
+    //mata a la entidad al cambiar su estatus(que indica si esta viva o no) a falso para indicar que esta muerta
+    void morir(){
+        estatus=false;
+    }
+
+    //resetea la posicion de la entidad a su posicon inicial
+    void resetearAPosicionInicial(){
+        x=posicionInicialX;
+        y=posicionInicialY;
+    }
+
+    //le quita una vida a la entidad cuando le pegan o deja pasar a un invasor
+    void quitarVida(){
+        vidas -= 1;
+    }
+
+    //revisa si se ha llegado a 0 vidas
+    boolean revisarSiMuerto(){
+         if(vidas==0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

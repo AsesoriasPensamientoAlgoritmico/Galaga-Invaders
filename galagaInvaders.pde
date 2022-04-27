@@ -67,20 +67,25 @@ void drawjuego(){
             }
         }
         if(key != CODED ){
-            if(contadorVecesFondoGenerado%10==0){
+            if(contadorVecesFondoGenerado%20==0){
                 Bala nuevaBala = jugador.disparar();//crea bala    
                 listaBalas.add(nuevaBala);//añade bala a lista de balas activas
             }
         }
     }
     //Enemigos
+    revisarSiEnemigoImpactado();
     dibujarYAvanzarEnemigos();
     enemigosDisparan();
 
     //MANEJO BALAS
     dibujarYAvanzarTodasLasBalas();
     revisarBalasFueraDeRango();
+    revisarBalasColisonaron();
+
+    //Borrar cosas que ya no existen
     sacarBalasInactivas();
+    sacarEnemigosInactivos();
 }
 
 void sacarBalasInactivas(){
@@ -96,6 +101,161 @@ void revisarBalasFueraDeRango(){
   for(int i = 0 ; i < listaBalas.size();i++){
       Bala bala = listaBalas.get(i);
       bala.volverInvisibleSiFueraDeRangoPantalla();
+  }
+}
+
+void sacarEnemigosInactivos(){
+    for(int i = 0; i < listaEnemigosNivel1.size(); i++){
+        EnemigoNivel1 e = listaEnemigosNivel1.get(i);
+        if(e.estatus == false){
+            listaEnemigosNivel1.remove(e);
+        }
+    }
+
+    for(int i = 0; i < listaEnemigosNivel2.size(); i++){
+        EnemigoNivel2 e = listaEnemigosNivel2.get(i);
+        if(e.estatus == false){
+            listaEnemigosNivel2.remove(e);
+        }
+    }
+
+    for(int i = 0; i < listaEnemigosNivel3.size(); i++){
+        EnemigoNivel3 e = listaEnemigosNivel3.get(i);
+        if(e.estatus == false){
+            listaEnemigosNivel3.remove(e);
+        }
+    }
+
+    for(int i = 0; i < listaEnemigosNivel4.size(); i++){
+        EnemigoNivel4 e = listaEnemigosNivel4.get(i);
+        if(e.estatus == false){
+            listaEnemigosNivel4.remove(e);
+        }
+    }
+
+}
+
+void revisarSiEnemigoImpactado(){
+    for(int i = 0 ; i < listaEnemigosNivel1.size();i++){
+        EnemigoNivel1 enemigo = listaEnemigosNivel1.get(i); 
+        int posienx = enemigo.x;
+        int posieny = enemigo.y;
+        for(int j = 0 ; j < listaBalas.size(); j++){
+            Bala b = listaBalas.get(j);
+            
+            if((posienx - enemigo.anchoEnemigo/2 <= b.x && b.x <= posienx + enemigo.anchoEnemigo/2) || (posienx - enemigo.anchoEnemigo/2 <= b.x+b.anchoBala/2 && b.x+b.anchoBala/2 <= posienx + enemigo.anchoEnemigo/2 )|| (posienx - enemigo.anchoEnemigo/2 <= b.x-b.anchoBala/2 && b.x-b.anchoBala/2 <= posienx + enemigo.anchoEnemigo/2 )){
+                
+                if((posieny - enemigo.altoEnemigo/2  <= b.y && b.y <= posieny + enemigo.altoEnemigo/2)){
+                    //reduce la visibilidad de la bala que impacto
+                    b.visible = false;
+
+                    //quitar vida
+                    enemigo.quitarVida();
+
+                    //revisa si esta muerto
+                    if(enemigo.revisarSiMuerto()== true){
+                        enemigo.estatus = false;
+                    }
+
+                }
+            }
+        }
+
+    }
+
+    for(int i = 0 ; i < listaEnemigosNivel2.size();i++){
+        EnemigoNivel2 enemigo = listaEnemigosNivel2.get(i); 
+        int posienx = enemigo.x;
+        int posieny = enemigo.y;
+        for(int j = 0 ; j < listaBalas.size(); j++){
+            Bala b = listaBalas.get(j);
+        
+            if((posienx - enemigo.anchoEnemigo/2 <= b.x && b.x <= posienx + enemigo.anchoEnemigo/2) || (posienx - enemigo.anchoEnemigo/2 <= b.x+b.anchoBala/2 && b.x+b.anchoBala/2 <= posienx + enemigo.anchoEnemigo/2 )|| (posienx - enemigo.anchoEnemigo/2 <= b.x-b.anchoBala/2 && b.x-b.anchoBala/2 <= posienx + enemigo.anchoEnemigo/2 )){
+                if(posieny - enemigo.altoEnemigo/2  <= b.y && b.y <= posieny + enemigo.altoEnemigo/2){
+                    
+                    //reduce la visibilidad de la bala que impacto
+                    b.visible = false;
+
+                    //quitar vida
+                    enemigo.quitarVida();
+
+                    //revisa si esta muerto
+                    if(enemigo.revisarSiMuerto()== true){
+                        enemigo.estatus = false;
+                    }
+
+                }
+            }
+        }
+
+    }
+
+    for(int i = 0 ; i < listaEnemigosNivel3.size();i++){
+        EnemigoNivel3 enemigo = listaEnemigosNivel3.get(i); 
+        int posienx = enemigo.x;
+        int posieny = enemigo.y;
+        for(int j = 0 ; j < listaBalas.size(); j++){
+            Bala b = listaBalas.get(j);
+            
+            if((posienx - enemigo.anchoEnemigo/2 <= b.x && b.x <= posienx + enemigo.anchoEnemigo/2) || (posienx - enemigo.anchoEnemigo/2 <= b.x+b.anchoBala/2 && b.x+b.anchoBala/2 <= posienx + enemigo.anchoEnemigo/2 )|| (posienx - enemigo.anchoEnemigo/2 <= b.x-b.anchoBala/2 && b.x-b.anchoBala/2 <= posienx + enemigo.anchoEnemigo/2 )){
+                if(posieny - enemigo.altoEnemigo/2  <= b.y && b.y <= posieny + enemigo.altoEnemigo/2){
+                    //reduce la visibilidad de la bala que impacto
+                    b.visible = false;
+
+                    //quitar vida
+                    enemigo.quitarVida();
+
+                    //revisa si esta muerto
+                    if(enemigo.revisarSiMuerto()== true){
+                        enemigo.estatus = false;
+                    }
+
+                }
+            }
+        }
+
+    }
+
+    for(int i = 0 ; i < listaEnemigosNivel4.size();i++){
+        EnemigoNivel4 enemigo = listaEnemigosNivel4.get(i); 
+        int posienx = enemigo.x;
+        int posieny = enemigo.y;
+        for(int j = 0 ; j < listaBalas.size(); j++){
+            Bala b = listaBalas.get(j);
+            
+            if((posienx - enemigo.anchoEnemigo/2 <= b.x && b.x <= posienx + enemigo.anchoEnemigo/2) || (posienx - enemigo.anchoEnemigo/2 <= b.x+b.anchoBala/2 && b.x+b.anchoBala/2 <= posienx + enemigo.anchoEnemigo/2 )|| (posienx - enemigo.anchoEnemigo/2 <= b.x-b.anchoBala/2 && b.x-b.anchoBala/2 <= posienx + enemigo.anchoEnemigo/2 )){
+                if(posieny - enemigo.altoEnemigo/2  <= b.y && b.y <= posieny + enemigo.altoEnemigo/2){
+                    //reduce la visibilidad de la bala que impacto
+                    b.visible = false;
+
+                    //quitar vida
+                    enemigo.quitarVida();
+
+                    //revisa si esta muerto
+                    if(enemigo.revisarSiMuerto()== true){
+                        enemigo.estatus = false;
+                    }
+
+                }
+            }
+        }
+
+    }
+}
+
+
+void revisarBalasColisonaron(){
+  for(int i = 0 ; i < listaBalas.size();i++){
+      Bala balaI = listaBalas.get(i);
+      for(int j = 0 ; j < listaBalas.size();j++){
+        Bala balaJ = listaBalas.get(j);
+            if(balaI.x < balaJ.x && balaJ.x < balaI.x + balaI.anchoBala){
+                if(balaI.y < balaJ.y && balaJ.y < balaI.y + balaI.altoBala){
+                balaJ.visible = false;
+                balaI.visible = false;
+            }
+        }
+    }
   }
 }
 
