@@ -3,8 +3,7 @@ int altoPantalla = 800;
 int anchoPantalla = 800;
 
 boolean primera = true;
-int contadorVecesFondoGenerado = 0;//muchas cosas dependeran de este contador (como el avanze de los enemigos)
-//ArrayList<PShape> estrellas = new ArrayList<PShape>();
+int contadorVecesFondoGenerado = 0;
 
 int fondo;//dice que fondo esta seleccionado activamente
 
