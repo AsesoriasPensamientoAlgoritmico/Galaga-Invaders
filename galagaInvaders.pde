@@ -41,10 +41,9 @@ void setup(){
 
     jugador = new Jugador(posicionInicialXJugador,posicionInicialYJugador,altoPantalla,anchoPantalla, "Felipe");
     
+
+
     int posicionInicialYEnemigosA4 = int(altoPantalla*0.1);//Y mas arriba
-    int posicionInicialYEnemigosA3 = int(altoPantalla*0.2);
-    int posicionInicialYEnemigosA2 = int(altoPantalla*0.3);
-    int posicionInicialYEnemigosA1 = int(altoPantalla*0.4);//Y mas abajo
 
 
     int posicionInicialXEnemigoB1 = int(anchoPantalla*1/5);//X mas a la izquierda
@@ -55,42 +54,20 @@ void setup(){
     //Enemigos nivel 4
     EnemigoNivel4 e1n4 = new EnemigoNivel4( posicionInicialXEnemigoB1 ,posicionInicialYEnemigosA4,altoPantalla,anchoPantalla );
     listaEnemigosNivel4.add(e1n4);
-    EnemigoNivel4 e2n4 = new EnemigoNivel4( posicionInicialXEnemigoB2 ,posicionInicialYEnemigosA4,altoPantalla,anchoPantalla );
-    listaEnemigosNivel4.add(e2n4);
-    EnemigoNivel4 e3n4 = new EnemigoNivel4( posicionInicialXEnemigoB3 ,posicionInicialYEnemigosA4,altoPantalla,anchoPantalla );
-    listaEnemigosNivel4.add(e3n4);
-    EnemigoNivel4 e4n4 = new EnemigoNivel4( posicionInicialXEnemigoB4 ,posicionInicialYEnemigosA4,altoPantalla,anchoPantalla );
-    listaEnemigosNivel4.add(e4n4);
 
     //Enemigos nivel 3
-    EnemigoNivel3 e1n3 = new EnemigoNivel3( posicionInicialXEnemigoB1 ,posicionInicialYEnemigosA3,altoPantalla,anchoPantalla );
+    EnemigoNivel3 e1n3 = new EnemigoNivel3( posicionInicialXEnemigoB2 ,posicionInicialYEnemigosA4,altoPantalla,anchoPantalla );
     listaEnemigosNivel3.add(e1n3);
-    EnemigoNivel3 e2n3 = new EnemigoNivel3( posicionInicialXEnemigoB2 ,posicionInicialYEnemigosA3,altoPantalla,anchoPantalla );
-    listaEnemigosNivel3.add(e2n3);
-    EnemigoNivel3 e3n3 = new EnemigoNivel3( posicionInicialXEnemigoB3 ,posicionInicialYEnemigosA3,altoPantalla,anchoPantalla );
-    listaEnemigosNivel3.add(e3n3);
-    EnemigoNivel3 e4n3 = new EnemigoNivel3( posicionInicialXEnemigoB4 ,posicionInicialYEnemigosA3,altoPantalla,anchoPantalla );
-    listaEnemigosNivel3.add(e4n3);
+    
 
     //Enemigos nivel 2
-    EnemigoNivel2 e1n2 = new EnemigoNivel2( posicionInicialXEnemigoB1 ,posicionInicialYEnemigosA2,altoPantalla,anchoPantalla );
+    EnemigoNivel2 e1n2 = new EnemigoNivel2( posicionInicialXEnemigoB3 ,posicionInicialYEnemigosA4,altoPantalla,anchoPantalla );
     listaEnemigosNivel2.add(e1n2);
-    EnemigoNivel2 e2n2 = new EnemigoNivel2( posicionInicialXEnemigoB2 ,posicionInicialYEnemigosA2,altoPantalla,anchoPantalla );
-    listaEnemigosNivel2.add(e2n2);
-    EnemigoNivel2 e3n2 = new EnemigoNivel2( posicionInicialXEnemigoB3 ,posicionInicialYEnemigosA2,altoPantalla,anchoPantalla );
-    listaEnemigosNivel2.add(e3n2);
-    EnemigoNivel2 e4n2 = new EnemigoNivel2( posicionInicialXEnemigoB4 ,posicionInicialYEnemigosA2,altoPantalla,anchoPantalla );
-    listaEnemigosNivel2.add(e4n2);
+    
 
     //Enemigos nivel 1
-    EnemigoNivel1 e1n1 = new EnemigoNivel1( posicionInicialXEnemigoB1 ,posicionInicialYEnemigosA1,altoPantalla,anchoPantalla );
+    EnemigoNivel1 e1n1 = new EnemigoNivel1( posicionInicialXEnemigoB4 ,posicionInicialYEnemigosA4,altoPantalla,anchoPantalla );
     listaEnemigosNivel.add(e1n1);
-    EnemigoNivel1 e2n1 = new EnemigoNivel1( posicionInicialXEnemigoB2 ,posicionInicialYEnemigosA1,altoPantalla,anchoPantalla );
-    listaEnemigosNivel.add(e2n1);
-    EnemigoNivel1 e3n1 = new EnemigoNivel1( posicionInicialXEnemigoB3 ,posicionInicialYEnemigosA1,altoPantalla,anchoPantalla );
-    listaEnemigosNivel.add(e3n1);
-    EnemigoNivel1 e4n1 = new EnemigoNivel1( posicionInicialXEnemigoB4 ,posicionInicialYEnemigosA1,altoPantalla,anchoPantalla );
-    listaEnemigosNivel.add(e4n1);
 
 }
 
@@ -137,9 +114,6 @@ void drawmodojuego(){
 
                 //Se selecciona 1 de 3 fondos
                 dibujarFondo();
-
-                //Dibuja noche con estrellas
-                //dibujarFondoViejo();
             }          
         }
     }
@@ -185,20 +159,9 @@ void drawmodojuego(){
 
     dibujarYAvanzarTodasLasBalasActivas();
 
-    revisarSiGano();//revisar si todos los enemigos murieron
-    revisarSiPerdio();//revisa si se llego a cero vidas y muestra una pantalla o algo
-
-
     
 }
 
-void revisarSiPerdio(){
-    
-}
-
-void revisarSiGano(){
-
-}
 
 
 void revisarSiJugadorImpactado(){
