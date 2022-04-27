@@ -1,3 +1,4 @@
+//guardo esta variable para que cambiar el tamaño de la pantalla sea facil
 int altoPantalla = 800;
 int anchoPantalla = 800;
 
@@ -77,9 +78,8 @@ void drawjuego(){
     enemigosDisparan();
 
     //MANEJO BALAS
-    dibujarYAvanzarTodasLasBalasActivas();
+    dibujarYAvanzarTodasLasBalas();
     revisarBalasFueraDeRango();
-    revisarBalasColisonaron();
     sacarBalasInactivas();
 }
 
@@ -96,21 +96,6 @@ void revisarBalasFueraDeRango(){
   for(int i = 0 ; i < listaBalas.size();i++){
       Bala bala = listaBalas.get(i);
       bala.volverInvisibleSiFueraDeRangoPantalla();
-  }
-}
-
-void revisarBalasColisonaron(){
-  for(int i = 0 ; i < listaBalas.size();i++){
-      Bala balaI = listaBalas.get(i);
-      for(int j = 0 ; j < listaBalas.size();j++){
-        Bala balaJ = listaBalas.get(j);
-        if(balaI.x < balaJ.x && balaJ.x < balaI.x + balaI.anchoBala){
-            if(balaI.y < balaJ.y && balaJ.y < balaI.y + balaI.altoBala){
-                balaJ.visible = false;
-                balaI.visible = false;
-            }
-        }
-    }
   }
 }
 
@@ -150,14 +135,13 @@ void enemigosDisparan(){
 
 }
 
-void dibujarYAvanzarTodasLasBalasActivas(){
+void dibujarYAvanzarTodasLasBalas(){
     for(int i = 0 ; i < listaBalas.size();i++){
         Bala bala = listaBalas.get(i);
         bala.render();
         bala.avanzar();
     }
 }
-
 
 void dibujarYAvanzarEnemigos(){
     for(int i = 0; i < listaEnemigosNivel1.size();i++){
@@ -431,4 +415,3 @@ void fondoCiudad(){
 
 
 }
-
