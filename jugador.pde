@@ -3,11 +3,16 @@ class Jugador extends BaseEntidad{
     String nombreJugador;
     int anchoJugador = 40;
     int altoJugador = 40;
+    int NUMEROVIDAS = 3;
+    int puntajeActual = 0;
+    int puntajeMaximo = 0;
 
     Jugador(int pix, int piy,int altoPantalla, int anchoPantalla, String nombre ){
         //Hereda de la clase padre que es baseEntidaad
         super(pix,piy,altoPantalla,anchoPantalla);
 
+        vidas = NUMEROVIDAS;
+        vidasIniciales = NUMEROVIDAS;
         nombreJugador = nombre;
         velocidadDeMovimiento = velMovimientoJ;
     }
@@ -59,6 +64,28 @@ class Jugador extends BaseEntidad{
 
         Bala bala = new Bala(true,x-1,y-templateBala.altoBala-25,altoPantalla,anchoPantalla,templateBala.danioNJ);
         return bala;
+    }
+
+    //resetea la posicion y vidas de una entidad
+    void resetearStats(){
+        resetearAPosicionInicial();
+        resetearVidas();
+        resetearPuntajeActual();
+
+    }
+
+    void resetearVidas(){
+        vidas = vidasIniciales;
+    }
+
+    void resetearPuntajeActual(){
+        puntajeActual = 0;
+    }
+
+    void revisarSiNuevoPuntajeMaximo(){
+        if(puntajeActual > puntajeMaximo){
+            puntajeMaximo = puntajeActual;
+        }
     }
 
 }

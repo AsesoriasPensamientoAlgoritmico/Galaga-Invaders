@@ -35,23 +35,8 @@ void setup(){
     
     jugador = new Jugador(posicionInicialXJugador,posicionInicialYJugador,altoPantalla,anchoPantalla, "Felipe");
     
-    int posicionInicialYEnemigos = int(altoPantalla*0.1);
-
-    int posicionInicialXEnemigoN1 = int(anchoPantalla*1/5);
-    EnemigoNivel1 eneN1 = new EnemigoNivel1( posicionInicialXEnemigoN1,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
-    listaEnemigosNivel1.add(eneN1);
-
-    int posicionInicialXEnemigoN2 = int(anchoPantalla*2/5);
-    EnemigoNivel2 eneN2 = new EnemigoNivel2( posicionInicialXEnemigoN2,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
-    listaEnemigosNivel2.add(eneN2);
-
-    int posicionInicialXEnemigoN3 = int(anchoPantalla*3/5);
-    EnemigoNivel3 eneN3 = new EnemigoNivel3( posicionInicialXEnemigoN3,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
-    listaEnemigosNivel3.add(eneN3);
-
-    int posicionInicialXEnemigoN4 = int(anchoPantalla*4/5);
-    EnemigoNivel4 eneN4 = new EnemigoNivel4( posicionInicialXEnemigoN4,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
-    listaEnemigosNivel4.add(eneN4);
+    generarEnemigos();
+    
 }
 
 void draw(){
@@ -87,11 +72,24 @@ void drawGameOver(){
     gameOver = loadImage("GameOver.jpg");
     image(gameOver,0,0);
 
+    resetearEstadoJuego();
+
+
+    if(mousePressed){
+        if(210 < mouseX && mouseX < 615){
+            if(405 < mouseY && mouseY < 540){
+                
+                modo = JUEGO;
+            }
+        }
+    }
+
 }
 
 void drawjuego(){
     
     jugador.renderJugador();//Dibujar jugador
+    jugador.revisarSiNuevoPuntajeMaximo();
 
     //https://processing.org/reference/keyCode.html
     if(keyPressed == true){
@@ -110,6 +108,9 @@ void drawjuego(){
             }
         }
     }
+
+    revisarSiJugadorImpactado();
+
     //Enemigos
     revisarSiEnemigoImpactado();
     dibujarYAvanzarEnemigos();
@@ -124,6 +125,26 @@ void drawjuego(){
     sacarBalasInactivas();
     sacarEnemigosInactivos();
 }
+
+void revisarSiJugadorImpactado(){
+    for(int i = 0 ; i < listaBalas.size();i++){
+        Bala b = listaBalas.get(i);
+        if(jugador.x - jugador.anchoJugador/2 <= b.x && b.x <= jugador.x + jugador.anchoJugador/2 ){
+            if(jugador.y - jugador.altoJugador/2  <= b.y && b.y <= jugador.y+ jugador.altoJugador/2){
+                jugador.quitarVida();
+                b.visible = false;
+                //revisa si esta muerto
+                if(jugador.revisarSiMuerto()== true){
+                    modo = GAMEOVER;
+                    resetearEstadoJuego();
+                }
+            }
+        }
+    }
+}
+
+
+
 
 void sacarBalasInactivas(){
     for(int i = 0 ; i < listaBalas.size();i++){
@@ -373,6 +394,36 @@ void dibujarYAvanzarEnemigos(){
             enemigo.avanzar();
         }
     }
+}
+
+
+void generarEnemigos(){
+    int posicionInicialYEnemigos = int(altoPantalla*0.1);
+
+    int posicionInicialXEnemigoN1 = int(anchoPantalla*1/5);
+    EnemigoNivel1 eneN1 = new EnemigoNivel1( posicionInicialXEnemigoN1,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
+    listaEnemigosNivel1.clear();
+    listaEnemigosNivel1.add(eneN1);
+
+    int posicionInicialXEnemigoN2 = int(anchoPantalla*2/5);
+    EnemigoNivel2 eneN2 = new EnemigoNivel2( posicionInicialXEnemigoN2,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
+    listaEnemigosNivel2.clear();
+    listaEnemigosNivel2.add(eneN2);
+
+    int posicionInicialXEnemigoN3 = int(anchoPantalla*3/5);
+    EnemigoNivel3 eneN3 = new EnemigoNivel3( posicionInicialXEnemigoN3,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
+    listaEnemigosNivel3.clear();
+    listaEnemigosNivel3.add(eneN3);
+
+    int posicionInicialXEnemigoN4 = int(anchoPantalla*4/5);
+    EnemigoNivel4 eneN4 = new EnemigoNivel4( posicionInicialXEnemigoN4,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
+    listaEnemigosNivel4.clear();
+    listaEnemigosNivel4.add(eneN4);
+}
+
+void resetearEstadoJuego(){
+    generarEnemigos();
+    jugador.resetearStats();
 }
 
 

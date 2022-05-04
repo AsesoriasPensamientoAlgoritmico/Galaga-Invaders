@@ -2,6 +2,7 @@ class BaseEntidad{
 
     int velMovimientoJ = 5;//velocidad de un jugador(cuantos pixeles se mueve cuando se oprime derecha o izquierda)
     int velMovimientoE = 50;//velocidad de un enemigo(cuantos pixeles se mueve para abajo cada 5 segundos)
+    int vidasIniciales;
     int vidas;
     int posicionInicialX;
     int posicionInicialY;
@@ -42,6 +43,8 @@ class BaseEntidad{
         x=posicionInicialX;
         y=posicionInicialY;
     }
+
+    
 
     //le quita una vida a la entidad cuando le pegan o deja pasar a un invasor
     void quitarVida(){
