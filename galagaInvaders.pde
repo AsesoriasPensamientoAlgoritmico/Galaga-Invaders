@@ -5,8 +5,6 @@ int anchoPantalla = 800;
 boolean primera = true;
 int contadorVecesFondoGenerado = 0;
 
-int fondo;//dice que fondo esta seleccionado activamente
-
 //el jugador tiene que poderse acceder desde todos lados
 Jugador jugador;
 
@@ -18,6 +16,16 @@ ArrayList<EnemigoNivel1> listaEnemigosNivel1 = new ArrayList<EnemigoNivel1>();
 ArrayList<EnemigoNivel2> listaEnemigosNivel2 = new ArrayList<EnemigoNivel2>();
 ArrayList<EnemigoNivel3> listaEnemigosNivel3 = new ArrayList<EnemigoNivel3>();
 ArrayList<EnemigoNivel4> listaEnemigosNivel4 = new ArrayList<EnemigoNivel4>();
+
+//Variable para cambiar de pantalla
+int modo = 0;
+int INICIO = 0;
+int JUEGO = 1;
+int GAMEOVER = 2;
+
+PImage imagenInicio;
+PImage gameOver;
+PImage fondo;
 
 void setup(){
     size(800,800);
@@ -47,8 +55,38 @@ void setup(){
 }
 
 void draw(){
-    dibujarFondo();
-    drawjuego();
+    
+    if(modo==INICIO){
+        drawInicio();
+    }
+    if(modo == JUEGO){
+        dibujarFondo();
+        drawjuego();
+    }
+    if(modo == GAMEOVER){
+        drawGameOver();
+    }
+}
+
+
+void drawInicio(){
+    imagenInicio = loadImage("StartScreen.jpg");
+    image(imagenInicio,-15,0);
+    if(mousePressed){
+        if(290 < mouseX && mouseX < 500){
+            if(370 < mouseY && mouseY < 430){
+                modo = JUEGO;
+            }
+        }
+    }
+    //290  a 500 X
+    //370 a 430 Y
+}
+
+void drawGameOver(){
+    gameOver = loadImage("GameOver.jpg");
+    image(gameOver,0,0);
+
 }
 
 void drawjuego(){
@@ -339,14 +377,14 @@ void dibujarYAvanzarEnemigos(){
 
 
 void dibujarFondo(){   
+    fondoCiudad();
     noStroke(); 
     //cambia de fondo
     if(contadorVecesFondoGenerado == 500 || primera == true){
         //selecciona aleatoriamente uno de los tres fondos
         //float seleccionado = random(0,3);
         float seleccionado = 0;
-        background(color(132, 153, 232));
-        fondoCiudad();
+        
         
         contadorVecesFondoGenerado = 0;
         primera = false;
@@ -354,9 +392,6 @@ void dibujarFondo(){
     }
     else{
         contadorVecesFondoGenerado += 1;
-        background(color(132, 153, 232));
-
-        fondoCiudad();
     }
     //toca meter esto aqui si no todos los rectangulos cambian
     rectMode(CORNER);
@@ -374,8 +409,9 @@ float brillo = 50;
 boolean ade = true;
 
 void fondoCiudad(){
-    //fondo gris azul
-    background(color(132, 153, 232));
+    //pone fondo
+    fondo = loadImage("GameScreen.jpg");
+    image(fondo,0,0);
 
     //crea sol
     //resplandece sol
@@ -448,129 +484,4 @@ void fondoCiudad(){
     rect(nubeax+800,nubeay-50,anchoPantalla*0.1,20);
     rect(nubebx+800,nubeby-50,anchoPantalla*0.05,40);
     rect(nubecx+15+800,nubecy-50-10,anchoPantalla*0.02,30);
-
-    
-
-    //crea fondo atras
-    fill(color(73, 53, 71));
-    rect(0,altoPantalla-300,100,350);
-    rect(200,altoPantalla-300,100,350);
-    rect(400,altoPantalla-300,100,350);
-    rect(600,altoPantalla-300,150,350);
-    rect(800,altoPantalla-300,100,320);
-    rect(1000,altoPantalla-300,100,350);
-
-    rect(100,altoPantalla-250,150,300);
-    rect(300,altoPantalla-250,100,200);
-    rect(700,altoPantalla-250,150,300);
-    rect(900,altoPantalla-250,100,110);
-
-    fill(color(200));
-    rect(10,altoPantalla-300,13,13);
-    fill(color(250));
-    rect(10,altoPantalla-300,10,10);
-
-    fill(color(200));
-    rect(50,altoPantalla-300-20,13,13);
-    fill(color(250));
-    rect(50,altoPantalla-300-20,10,10);
-
-    fill(color(200));
-    rect(150,altoPantalla-300-20,23,23);
-    fill(color(250));
-    rect(150,altoPantalla-300-20,20,20);
-
-    fill(color(200));
-    rect(400,altoPantalla-300-20,13,13);
-    fill(color(250));
-    rect(400,altoPantalla-300-20,10,10);
-
-    fill(color(200));
-    rect(600,altoPantalla-300-50,13,13);
-    fill(color(250));
-    rect(600,altoPantalla-300-50,10,10);
-
-    fill(color(200));
-    rect(630,altoPantalla-300-20,23,23);
-    fill(color(250));
-    rect(630,altoPantalla-300-20,20,20);
-
-    fill(color(200));
-    rect(800,altoPantalla-300-20,13,13);
-    fill(color(250));
-    rect(800,altoPantalla-300-20,10,10);
-
-    fill(color(200));
-    rect(830,altoPantalla-300-105,13,13);
-    fill(color(250));
-    rect(830,altoPantalla-300-105,10,10);
-
-    fill(color(200));
-    rect(230,altoPantalla-300-105,13,13);
-    fill(color(250));
-    rect(230,altoPantalla-300-105,10,10);
-
-    fill(color(200));
-    rect(390,altoPantalla-300-120,13,13);
-    fill(color(250));
-    rect(390,altoPantalla-300-120,10,10);
-
-    fill(color(200));
-    rect(590,altoPantalla-300-120,13,13);
-    fill(color(250));
-    rect(590,altoPantalla-300-120,10,10);
-    
-    //crea fondo adelante
-    fill(color(168, 151, 166));
-    rect(anchoPantalla/2,altoPantalla-100,anchoPantalla,200);
-    rect(anchoPantalla/2,altoPantalla-200,200,250);
-    rect(50,altoPantalla-150,130,150);
-    rect(150,altoPantalla-200,150,170);
-    rect(200,altoPantalla-150,130,150);
-    rect(350,altoPantalla-200,150,170);
-    rect(420,altoPantalla-150,130,150);
-    rect(650,altoPantalla-200,150,170);
-    rect(800,altoPantalla-150,130,150);
-    rect(1000,altoPantalla-200,150,170);
-
-    for(int i = 0;i<anchoPantalla;i++){
-        if(i%70==0){
-            fill(color(200));
-            rect(i,altoPantalla-120,15,15);
-            fill(color(250));
-            rect(i+15,altoPantalla-170,13,13);
-
-            if(!(200<i && i < 290)){
-                if(!(885<i&&i<945)){
-                    fill(color(200));
-                rect(i,altoPantalla-210,15,15);
-                }
-                
-                if(!(735<i&&i<945)){
-                    fill(color(250));
-                    rect(i+15,altoPantalla-260,13,13);
-                }
-                
-            }
-
-            
-        }
-    }
-    fill(color(200));
-                rect(295,altoPantalla-210,15,15);
-                ;
-    fill(color(200));
-                rect(210,altoPantalla-210,15,15);
-                fill(color(250));
-                rect(305,altoPantalla-260,15,15);
-                rect(210,altoPantalla-260,13,13);
-
-    
-
-
-    //crea piso
-    fill(color(123, 206, 139));
-    rect(anchoPantalla/2,altoPantalla-30,anchoPantalla,100);
-
-
 }
