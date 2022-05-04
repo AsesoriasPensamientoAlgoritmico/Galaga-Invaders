@@ -20,12 +20,17 @@ ArrayList<EnemigoNivel4> listaEnemigosNivel4 = new ArrayList<EnemigoNivel4>();
 //Variable para cambiar de pantalla
 int modo = 0;
 int INICIO = 0;
-int JUEGO = 1;
-int GAMEOVER = 2;
+int INSTRUCCIONES = 1;
+int CONTROLES = 2;
+int JUEGO = 3;
+int GAMEOVER = 4;
+
 
 PImage imagenInicio;
 PImage gameOver;
 PImage fondo;
+PImage instrucciones;
+PImage controles;
 
 void setup(){
     size(800,800);
@@ -44,6 +49,12 @@ void draw(){
     if(modo==INICIO){
         drawInicio();
     }
+    if(modo == INSTRUCCIONES){
+        drawInstrucciones();
+    }
+    if(modo == CONTROLES){
+        drawControles();
+    }
     if(modo == JUEGO){
         dibujarFondo();
         drawjuego();
@@ -60,7 +71,7 @@ void drawInicio(){
     if(mousePressed){
         if(290 < mouseX && mouseX < 500){
             if(370 < mouseY && mouseY < 430){
-                modo = JUEGO;
+                modo = INSTRUCCIONES;
             }
         }
     }
@@ -68,17 +79,38 @@ void drawInicio(){
     //370 a 430 Y
 }
 
+void drawInstrucciones(){
+    imagenInicio = loadImage("Instrucciones.jpg");
+    image(imagenInicio,0,0);
+    if(mousePressed){
+        if(330 < mouseX && mouseX < 505){
+            if(700 < mouseY && mouseY < 760){
+                modo = CONTROLES;
+            }
+        }
+    }
+}
+
+void drawControles(){
+    imagenInicio = loadImage("Controles.jpg");
+    image(imagenInicio,0,0);
+    if(mousePressed){
+        if(330 < mouseX && mouseX < 510){
+            if(580 < mouseY && mouseY < 640){
+                modo = JUEGO;
+            }
+        }
+    }
+}
+
 void drawGameOver(){
     gameOver = loadImage("GameOver.jpg");
     image(gameOver,0,0);
 
     resetearEstadoJuego();
-
-
     if(mousePressed){
-        if(210 < mouseX && mouseX < 615){
-            if(405 < mouseY && mouseY < 540){
-                
+        if(215 < mouseX && mouseX < 490){
+            if(410 < mouseY && mouseY < 550){
                 modo = JUEGO;
             }
         }
