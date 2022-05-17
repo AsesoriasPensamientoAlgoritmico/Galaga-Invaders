@@ -351,37 +351,124 @@ void revisarBalasColisonaron(){
 
 //toca cambiar esto para que sea aleatorio
 void enemigosDisparan(){
-    for(int i = 0; i < listaEnemigosNivel1.size();i++){
-        EnemigoNivel1 enemigo = listaEnemigosNivel1.get(i);
-        if(contadorVecesFondoGenerado%100==0){
-            Bala bala = enemigo.disparar();
-            listaBalas.add(bala);
+    //resetear todos a que pueden disparar
+    for(int a = 0 ; a < listaEnemigosNivel1.size();a++){
+        EnemigoNivel1 e = listaEnemigosNivel1.get(a);
+        e.puedeDisparar = true;
+    }
+    for(int a = 0 ; a < listaEnemigosNivel2.size();a++){
+        EnemigoNivel2 e = listaEnemigosNivel2.get(a);
+        e.puedeDisparar = true;
+    }
+
+    for(int a = 0 ; a < listaEnemigosNivel3.size();a++){
+        EnemigoNivel3 e = listaEnemigosNivel3.get(a);
+        e.puedeDisparar = true;
+    }
+
+    for(int a = 0 ; a < listaEnemigosNivel4.size();a++){
+        EnemigoNivel4 e = listaEnemigosNivel4.get(a);
+        e.puedeDisparar = true;
+    }
+
+
+    //quita a todos los que no pueden disparar
+    for(int a = 0 ; a < listaEnemigosNivel2.size();a++){
+        EnemigoNivel2 eN2 = listaEnemigosNivel2.get(a);
+        for(int b = 0 ; b < listaEnemigosNivel1.size();b++){
+            EnemigoNivel1 eN1 = listaEnemigosNivel1.get(b);
+            if(eN2.x == eN1.x){
+                eN2.puedeDisparar = false;
+            }
+        }   
+    }
+
+    for(int a = 0 ; a < listaEnemigosNivel3.size();a++){
+        EnemigoNivel3 eN3 = listaEnemigosNivel3.get(a);
+        for(int b = 0 ; b < listaEnemigosNivel2.size();b++){
+            EnemigoNivel2 eN2 = listaEnemigosNivel2.get(b);
+            if(eN3.x == eN2.x){
+                eN3.puedeDisparar = false;
+            }
+        }   
+    }
+
+    for(int a = 0 ; a < listaEnemigosNivel4.size();a++){
+        EnemigoNivel4 eN4 = listaEnemigosNivel4.get(a);
+        for(int b = 0 ; b < listaEnemigosNivel3.size();b++){
+            EnemigoNivel3 eN3 = listaEnemigosNivel3.get(b);
+            if(eN4.x == eN3.x){
+                eN4.puedeDisparar = false;
+            }
+        }   
+    }
+
+    //revisa quien esta clear para disparar y los añade a una lista
+
+    ArrayList<Object> eneDisp = new ArrayList<Object>();
+
+    //añaden los que pueden disparar y los mete a una lista
+    
+    for(int a = 0 ; a < listaEnemigosNivel1.size();a++){
+        EnemigoNivel1 e = listaEnemigosNivel1.get(a);
+        if(e.puedeDisparar == true){
+            eneDisp.add(e);
+        }
+    }
+    for(int a = 0 ; a < listaEnemigosNivel2.size();a++){
+        EnemigoNivel2 e = listaEnemigosNivel2.get(a);
+        if(e.puedeDisparar == true){
+            eneDisp.add(e);
         }
     }
 
-     for(int i = 0; i < listaEnemigosNivel2.size();i++){
-        EnemigoNivel2 enemigo = listaEnemigosNivel2.get(i);
-        if(contadorVecesFondoGenerado%100==0){
-            Bala bala = enemigo.disparar();
-            listaBalas.add(bala);
+    for(int a = 0 ; a < listaEnemigosNivel3.size();a++){
+        EnemigoNivel3 e = listaEnemigosNivel3.get(a);
+        if(e.puedeDisparar == true){
+            eneDisp.add(e);
         }
     }
 
-     for(int i = 0; i < listaEnemigosNivel3.size();i++){
-        EnemigoNivel3 enemigo = listaEnemigosNivel3.get(i);
-        if(contadorVecesFondoGenerado%100==0){
-            Bala bala = enemigo.disparar();
-            listaBalas.add(bala);
+    for(int a = 0 ; a < listaEnemigosNivel4.size();a++){
+        EnemigoNivel4 e = listaEnemigosNivel4.get(a);
+        if(e.puedeDisparar == true){
+            eneDisp.add(e);
         }
     }
 
-     for(int i = 0; i < listaEnemigosNivel4.size();i++){
-        EnemigoNivel4 enemigo = listaEnemigosNivel4.get(i);
-        if(contadorVecesFondoGenerado%100==0){
-            Bala bala = enemigo.disparar();
-            listaBalas.add(bala);
-        }
+    //entrer los available para disparar selecciona uno aleatoriamente
+    //no se como mas hacer que revise si son de como la clase enemigo X
+        
+    //con esto dicen que uno puede crear un arreglo de objetos de diferentes clases
+    //https://forum.processing.org/two/discussion/12216/how-to-create-an-array-of-different-classes.html
+    //el codigo lo saque de un ejemplo en el foro
+    if(contadorVecesFondoGenerado % 100 == 0){
+
+        if(eneDisp.size()!=0){
+            int ene = int(random(0,eneDisp.size()));
+        
+            Object o = eneDisp.get(ene);
+            
+            if (o instanceof EnemigoNivel1) {
+                Bala b= ((EnemigoNivel1)o).disparar();
+                listaBalas.add(b);
+            } 
+            else if (o instanceof EnemigoNivel2) {
+                Bala b= ((EnemigoNivel2)o).disparar();
+                listaBalas.add(b);
+            }
+            else if (o instanceof EnemigoNivel3) {
+                Bala b= ((EnemigoNivel3)o).disparar();
+                listaBalas.add(b);
+            }
+            else if (o instanceof EnemigoNivel4) {
+                Bala b= ((EnemigoNivel4)o).disparar();
+                listaBalas.add(b);
+            }
+        }        
     }
+    
+
 
 }
 

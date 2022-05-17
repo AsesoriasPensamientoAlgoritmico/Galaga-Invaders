@@ -5,6 +5,9 @@ int vidasN2 = 2;
 int vidasN3 = 3;
 int vidasN4 = 4;
 
+
+boolean puedeDisparar = true;
+
 int anchoEnemigo = 40;
 int altoEnemigo = 40;
 
