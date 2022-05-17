@@ -41,9 +41,14 @@ Table tablaDatos;
 String nombreTabla = "datos.csv" ;
 String ruta = "data/" + nombreTabla;
 
+//Font
+PFont font;
 
 void setup(){
     size(800,800);
+
+    font = createFont("LoRes15OTAltOakland-Bold.ttf",20);
+    
 
     tablaDatos = loadTable(nombreTabla,"header");
     cargarDatos();
@@ -123,7 +128,7 @@ void drawGameOver(){
 
     cargarDatos();//actualiza para ver si el puntaje actual es el nuevo puntaje maximo
 
-    textSize(20);
+    textFont(font,20);
     text(puntajeActual,425,338);
     text(puntajeMaximo,425,378);
 
