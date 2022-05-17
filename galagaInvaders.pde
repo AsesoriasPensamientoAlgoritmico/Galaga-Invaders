@@ -25,15 +25,29 @@ int CONTROLES = 2;
 int JUEGO = 3;
 int GAMEOVER = 4;
 
-
+//Pantallas
 PImage imagenInicio;
 PImage gameOver;
 PImage fondo;
 PImage instrucciones;
 PImage controles;
 
+//Puntaje
+int puntajeActual = 0;
+int puntajeMaximo = 0;
+
+//Tabla
+Table tablaDatos;
+String nombreTabla = "datos.csv" ;
+String ruta = "data/" + nombreTabla;
+
+
 void setup(){
     size(800,800);
+
+    tablaDatos = loadTable(nombreTabla,"header");
+    cargarDatos();
+
 
     int posicionInicialXJugador = anchoPantalla/2;
     int posicionInicialYJugador = int(altoPantalla*0.9);
@@ -134,7 +148,7 @@ void drawjuego(){
             }
         }
         if(key != CODED ){
-            if(contadorVecesFondoGenerado%20==0){
+            if(contadorVecesFondoGenerado%30==0){
                 Bala nuevaBala = jugador.disparar();//crea bala    
                 listaBalas.add(nuevaBala);//añade bala a lista de balas activas
             }
@@ -156,7 +170,63 @@ void drawjuego(){
     //Borrar cosas que ya no existen
     sacarBalasInactivas();
     sacarEnemigosInactivos();
+
+    //revisar si enemigo llego a linea final (game over)
+    revisarEnemigoLineaFinal();
 }
+
+void cargarDatos(){
+  tablaDatos.sort("Puntaje");
+  TableRow tr = tablaDatos.getRow(tablaDatos.getRowCount()-1);
+  puntajeMaximo = tr.getInt("Puntaje");
+  saveTable(tablaDatos, ruta);
+}
+
+void meterNuevoPuntaje(){
+  TableRow newRow = tablaDatos.addRow();
+  newRow.setInt("Puntaje", puntajeActual);
+  saveTable(tablaDatos, ruta);
+}
+
+void revisarEnemigoLineaFinal(){
+    boolean breached = false;
+
+    for(int i = 0;i < listaEnemigosNivel1.size();i++){
+        EnemigoNivel1 e = listaEnemigosNivel1.get(i);
+        if(e.y == (altoPantalla - 20)){
+            breached = true;
+        }
+    }
+    
+    for(int i = 0;i < listaEnemigosNivel2.size();i++){
+        EnemigoNivel2 e = listaEnemigosNivel2.get(i);
+        if(e.y == (altoPantalla - 20)){
+            breached = true;
+        }
+    }
+
+    for(int i = 0;i < listaEnemigosNivel3.size();i++){
+        EnemigoNivel3 e = listaEnemigosNivel3.get(i);
+        if(e.y == (altoPantalla - 20)){
+            breached = true;
+        }
+    }
+
+    for(int i = 0;i < listaEnemigosNivel4.size();i++){
+        EnemigoNivel4 e = listaEnemigosNivel4.get(i);
+        if(e.y == (altoPantalla - 20)){
+            breached = true;
+        }
+    }
+
+
+    if(breached){
+        modo = GAMEOVER;
+        meterNuevoPuntaje();
+        resetearEstadoJuego();
+    }
+}
+
 
 void revisarSiJugadorImpactado(){
     for(int i = 0 ; i < listaBalas.size();i++){
@@ -168,6 +238,7 @@ void revisarSiJugadorImpactado(){
                 //revisa si esta muerto
                 if(jugador.revisarSiMuerto()== true){
                     modo = GAMEOVER;
+                    meterNuevoPuntaje();
                     resetearEstadoJuego();
                 }
             }
@@ -198,6 +269,7 @@ void sacarEnemigosInactivos(){
     for(int i = 0; i < listaEnemigosNivel1.size(); i++){
         EnemigoNivel1 e = listaEnemigosNivel1.get(i);
         if(e.estatus == false){
+            puntajeActual += e.valor;
             listaEnemigosNivel1.remove(e);
         }
     }
@@ -205,6 +277,7 @@ void sacarEnemigosInactivos(){
     for(int i = 0; i < listaEnemigosNivel2.size(); i++){
         EnemigoNivel2 e = listaEnemigosNivel2.get(i);
         if(e.estatus == false){
+            puntajeActual += e.valor;
             listaEnemigosNivel2.remove(e);
         }
     }
@@ -212,6 +285,7 @@ void sacarEnemigosInactivos(){
     for(int i = 0; i < listaEnemigosNivel3.size(); i++){
         EnemigoNivel3 e = listaEnemigosNivel3.get(i);
         if(e.estatus == false){
+            puntajeActual += e.valor;
             listaEnemigosNivel3.remove(e);
         }
     }
@@ -219,6 +293,7 @@ void sacarEnemigosInactivos(){
     for(int i = 0; i < listaEnemigosNivel4.size(); i++){
         EnemigoNivel4 e = listaEnemigosNivel4.get(i);
         if(e.estatus == false){
+            puntajeActual += e.valor;
             listaEnemigosNivel4.remove(e);
         }
     }

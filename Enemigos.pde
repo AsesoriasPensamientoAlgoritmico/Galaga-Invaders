@@ -5,6 +5,8 @@ int vidasN2 = 2;
 int vidasN3 = 3;
 int vidasN4 = 4;
 
+int valor;
+
 
 boolean puedeDisparar = true;
 
@@ -40,6 +42,9 @@ class EnemigoNivel1 extends Enemigo{
 
     EnemigoNivel1(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla){
         super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
+
+        //valor de matar al enemigo
+        valor = 100;
 
         //inicializa vidas
         vidas = vidasN1;
@@ -88,6 +93,9 @@ class EnemigoNivel2 extends Enemigo{
         {
             super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
 
+            //valor de matar al enemigo
+            valor = 200;
+
             vidas = vidasN2;
             }
 
@@ -131,6 +139,9 @@ class EnemigoNivel3 extends Enemigo{
     EnemigoNivel3(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla)
     {
     super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
+        
+        //valor de matar al enemigo
+        valor = 300;
 
         //inicializa vidas
         vidas = vidasN3;
@@ -174,6 +185,9 @@ class EnemigoNivel4 extends Enemigo{
     color colorEnemigoN4= color(247, 76, 76);
     EnemigoNivel4(int posicionInicialX, int posicionInicialY,int altoPantalla, int anchoPantalla){
         super( posicionInicialX,  posicionInicialY, altoPantalla,  anchoPantalla);
+
+        //valor de matar al enemigo
+        valor = 400;
 
         //inicializa vidas
         vidas = vidasN4;
