@@ -192,8 +192,7 @@ void drawjuego(){
 }
 
 void dibujarPuntajeActual(){
-    textSize(40);
-
+    textFont(font,40);
     text("Score: " + puntajeActual, anchoPantalla*0.68, altoPantalla*0.96);
 }
 
