@@ -517,27 +517,56 @@ void dibujarYAvanzarEnemigos(){
 
 
 void generarEnemigos(){
-    int posicionInicialYEnemigos = int(altoPantalla*0.1);
+    int posicionInicialYEnemigosN4 = int(altoPantalla*0.1);
+    int posicionInicialYEnemigosN3 = int(altoPantalla*0.2);
+    int posicionInicialYEnemigosN2 = int(altoPantalla*0.3);
+    int posicionInicialYEnemigosN1 = int(altoPantalla*0.4);
 
-    int posicionInicialXEnemigoN1 = int(anchoPantalla*1/5);
-    EnemigoNivel1 eneN1 = new EnemigoNivel1( posicionInicialXEnemigoN1,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
+    int posicionInicialXEnemigoIzq = int(anchoPantalla*1/5);
+    int posicionInicialXEnemigoMidIzq = int(anchoPantalla*2/5);
+    int posicionInicialXEnemigoMidDer = int(anchoPantalla*3/5);
+    int posicionInicialXEnemigoDer = int(anchoPantalla*4/5);
+
+
+    EnemigoNivel1 eneN1A = new EnemigoNivel1( posicionInicialXEnemigoIzq,  posicionInicialYEnemigosN1, altoPantalla,  anchoPantalla);
+    EnemigoNivel1 eneN1B = new EnemigoNivel1( posicionInicialXEnemigoMidIzq,  posicionInicialYEnemigosN1, altoPantalla,  anchoPantalla);
+    EnemigoNivel1 eneN1C = new EnemigoNivel1( posicionInicialXEnemigoMidDer,  posicionInicialYEnemigosN1, altoPantalla,  anchoPantalla);
+    EnemigoNivel1 eneN1D = new EnemigoNivel1( posicionInicialXEnemigoDer,  posicionInicialYEnemigosN1, altoPantalla,  anchoPantalla);
     listaEnemigosNivel1.clear();
-    listaEnemigosNivel1.add(eneN1);
+    listaEnemigosNivel1.add(eneN1A);
+    listaEnemigosNivel1.add(eneN1B);
+    listaEnemigosNivel1.add(eneN1C);
+    listaEnemigosNivel1.add(eneN1D);
 
-    int posicionInicialXEnemigoN2 = int(anchoPantalla*2/5);
-    EnemigoNivel2 eneN2 = new EnemigoNivel2( posicionInicialXEnemigoN2,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
+    EnemigoNivel2 eneN2A = new EnemigoNivel2( posicionInicialXEnemigoIzq,  posicionInicialYEnemigosN2, altoPantalla,  anchoPantalla);
+    EnemigoNivel2 eneN2B = new EnemigoNivel2( posicionInicialXEnemigoMidIzq,  posicionInicialYEnemigosN2, altoPantalla,  anchoPantalla);
+    EnemigoNivel2 eneN2C = new EnemigoNivel2( posicionInicialXEnemigoMidDer,  posicionInicialYEnemigosN2, altoPantalla,  anchoPantalla);
+    EnemigoNivel2 eneN2D = new EnemigoNivel2( posicionInicialXEnemigoDer,  posicionInicialYEnemigosN2, altoPantalla,  anchoPantalla);
     listaEnemigosNivel2.clear();
-    listaEnemigosNivel2.add(eneN2);
+    listaEnemigosNivel2.add(eneN2A);
+    listaEnemigosNivel2.add(eneN2B);
+    listaEnemigosNivel2.add(eneN2C);
+    listaEnemigosNivel2.add(eneN2D);
 
-    int posicionInicialXEnemigoN3 = int(anchoPantalla*3/5);
-    EnemigoNivel3 eneN3 = new EnemigoNivel3( posicionInicialXEnemigoN3,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
+    EnemigoNivel3 eneN3A = new EnemigoNivel3( posicionInicialXEnemigoIzq,  posicionInicialYEnemigosN3, altoPantalla,  anchoPantalla);
+    EnemigoNivel3 eneN3B = new EnemigoNivel3( posicionInicialXEnemigoMidIzq,  posicionInicialYEnemigosN3, altoPantalla,  anchoPantalla);
+    EnemigoNivel3 eneN3C = new EnemigoNivel3( posicionInicialXEnemigoMidDer,  posicionInicialYEnemigosN3, altoPantalla,  anchoPantalla);
+    EnemigoNivel3 eneN3D = new EnemigoNivel3( posicionInicialXEnemigoDer,  posicionInicialYEnemigosN3, altoPantalla,  anchoPantalla);
     listaEnemigosNivel3.clear();
-    listaEnemigosNivel3.add(eneN3);
+    listaEnemigosNivel3.add(eneN3A);
+    listaEnemigosNivel3.add(eneN3B);
+    listaEnemigosNivel3.add(eneN3C);
+    listaEnemigosNivel3.add(eneN3D);
 
-    int posicionInicialXEnemigoN4 = int(anchoPantalla*4/5);
-    EnemigoNivel4 eneN4 = new EnemigoNivel4( posicionInicialXEnemigoN4,  posicionInicialYEnemigos, altoPantalla,  anchoPantalla);
+    EnemigoNivel4 eneN4A = new EnemigoNivel4( posicionInicialXEnemigoIzq,  posicionInicialYEnemigosN4, altoPantalla,  anchoPantalla);
+    EnemigoNivel4 eneN4B = new EnemigoNivel4( posicionInicialXEnemigoMidIzq,  posicionInicialYEnemigosN4, altoPantalla,  anchoPantalla);
+    EnemigoNivel4 eneN4C = new EnemigoNivel4( posicionInicialXEnemigoMidDer,  posicionInicialYEnemigosN4, altoPantalla,  anchoPantalla);
+    EnemigoNivel4 eneN4D = new EnemigoNivel4( posicionInicialXEnemigoDer,  posicionInicialYEnemigosN4, altoPantalla,  anchoPantalla);
     listaEnemigosNivel4.clear();
-    listaEnemigosNivel4.add(eneN4);
+    listaEnemigosNivel4.add(eneN4A);
+    listaEnemigosNivel4.add(eneN4B);
+    listaEnemigosNivel4.add(eneN4C);
+    listaEnemigosNivel4.add(eneN4D);
 }
 
 void resetearEstadoJuego(){
