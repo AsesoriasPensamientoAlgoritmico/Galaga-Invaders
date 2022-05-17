@@ -24,6 +24,7 @@ int INSTRUCCIONES = 1;
 int CONTROLES = 2;
 int JUEGO = 3;
 int GAMEOVER = 4;
+int SCOREBOARD = 5;
 
 //Pantallas
 PImage imagenInicio;
@@ -31,6 +32,7 @@ PImage gameOver;
 PImage fondo;
 PImage instrucciones;
 PImage controles;
+PImage scoreboard;
 
 //Puntaje
 int puntajeActual = 0;
@@ -64,7 +66,6 @@ void setup(){
 }
 
 void draw(){
-    
     if(modo==INICIO){
         drawInicio();
     }
@@ -80,6 +81,9 @@ void draw(){
     }
     if(modo == GAMEOVER){
         drawGameOver();
+    }
+    if(modo == SCOREBOARD){
+        drawScoreboard();
     }
 }
 
@@ -134,6 +138,84 @@ void drawGameOver(){
 
 
     resetearEstadoJuego();
+
+
+    
+
+    if(mousePressed){
+
+    
+        if(215 < mouseX && mouseX < 490){
+            if(410 < mouseY && mouseY < 550){
+                modo = JUEGO;
+                puntajeActual = 0;
+            }
+        }
+
+        if(245 < mouseX && mouseX < 600){
+            if(580 < mouseY && mouseY < 650){
+                modo = SCOREBOARD;
+                puntajeActual = 0;
+            }
+        }
+
+    }
+
+    
+
+}
+
+
+void drawScoreboard(){
+    scoreboard = loadImage("Scoreboard.jpg");
+    image(scoreboard,0,0);
+
+    cargarDatos();
+
+
+    tablaDatos.sort("Puntaje");
+
+    ArrayList<Integer> listaPuntajesMaximos = new ArrayList<>();
+
+    int num = 5;
+    int index = tablaDatos.getRowCount()-1;//ultimo indice de la lista
+    while(num>0){
+        if(index < 0 ){
+            listaPuntajesMaximos.add(0);
+        }
+        else{
+            listaPuntajesMaximos.add(tablaDatos.getInt(num-1,"Puntaje"));
+        }
+        num--;
+    }
+
+    //reversa lista -> https://www.techiedelight.com/reverse-list-java-inplace/
+    int j = listaPuntajesMaximos.size() - 1;
+    for (int i = 0; i < j; i++) {
+            listaPuntajesMaximos.add(i, listaPuntajesMaximos.remove(j));
+    }
+
+    textFont(font,20);
+
+
+    //Text TOP 1
+    text(listaPuntajesMaximos.get(0),200,200);
+
+    //Text TOP 2
+    text(listaPuntajesMaximos.get(1),200,300);
+
+    //Text TOP 3
+    text(listaPuntajesMaximos.get(2),200,400);
+
+    //Text TOP 4
+    text(listaPuntajesMaximos.get(3),200,500);
+    
+    //Text TOP 5
+    text(listaPuntajesMaximos.get(4),200,600);
+
+
+
+    System.out.println(mouseX);
     if(mousePressed){
         if(215 < mouseX && mouseX < 490){
             if(410 < mouseY && mouseY < 550){
@@ -141,6 +223,7 @@ void drawGameOver(){
                 puntajeActual = 0;
             }
         }
+
     }
 
 }
