@@ -121,11 +121,19 @@ void drawGameOver(){
     gameOver = loadImage("GameOver.jpg");
     image(gameOver,0,0);
 
+    cargarDatos();//actualiza para ver si el puntaje actual es el nuevo puntaje maximo
+
+    textSize(20);
+    text(puntajeActual,425,338);
+    text(puntajeMaximo,425,378);
+
+
     resetearEstadoJuego();
     if(mousePressed){
         if(215 < mouseX && mouseX < 490){
             if(410 < mouseY && mouseY < 550){
                 modo = JUEGO;
+                puntajeActual = 0;
             }
         }
     }
@@ -135,7 +143,6 @@ void drawGameOver(){
 void drawjuego(){
     
     jugador.renderJugador();//Dibujar jugador
-    jugador.revisarSiNuevoPuntajeMaximo();
 
     //https://processing.org/reference/keyCode.html
     if(keyPressed == true){
@@ -155,6 +162,10 @@ void drawjuego(){
         }
     }
 
+    //Dibuja el puntaje actual
+    dibujarPuntajeActual();
+
+    //revisa si el jugador fue impactad
     revisarSiJugadorImpactado();
 
     //Enemigos
@@ -175,10 +186,21 @@ void drawjuego(){
     revisarEnemigoLineaFinal();
 }
 
+void dibujarPuntajeActual(){
+    textSize(40);
+
+    text("Score: " + puntajeActual, anchoPantalla*0.68, altoPantalla*0.96);
+}
+
 void cargarDatos(){
   tablaDatos.sort("Puntaje");
-  TableRow tr = tablaDatos.getRow(tablaDatos.getRowCount()-1);
-  puntajeMaximo = tr.getInt("Puntaje");
+  for(int i = 0;i<tablaDatos.getRowCount();i++){
+      TableRow tr = tablaDatos.getRow(i);
+      int currPuntaje = tr.getInt("Puntaje");
+      if(currPuntaje>puntajeMaximo){
+        puntajeMaximo=currPuntaje;
+      }
+  }
   saveTable(tablaDatos, ruta);
 }
 
@@ -186,6 +208,7 @@ void meterNuevoPuntaje(){
   TableRow newRow = tablaDatos.addRow();
   newRow.setInt("Puntaje", puntajeActual);
   saveTable(tablaDatos, ruta);
+  tablaDatos.sort("Puntaje");
 }
 
 void revisarEnemigoLineaFinal(){
@@ -193,28 +216,28 @@ void revisarEnemigoLineaFinal(){
 
     for(int i = 0;i < listaEnemigosNivel1.size();i++){
         EnemigoNivel1 e = listaEnemigosNivel1.get(i);
-        if(e.y == (altoPantalla - 20)){
+        if(e.y >= (altoPantalla - 20)){
             breached = true;
         }
     }
     
     for(int i = 0;i < listaEnemigosNivel2.size();i++){
         EnemigoNivel2 e = listaEnemigosNivel2.get(i);
-        if(e.y == (altoPantalla - 20)){
+        if(e.y >= (altoPantalla - 20)){
             breached = true;
         }
     }
 
     for(int i = 0;i < listaEnemigosNivel3.size();i++){
         EnemigoNivel3 e = listaEnemigosNivel3.get(i);
-        if(e.y == (altoPantalla - 20)){
+        if(e.y >= (altoPantalla - 20)){
             breached = true;
         }
     }
 
     for(int i = 0;i < listaEnemigosNivel4.size();i++){
         EnemigoNivel4 e = listaEnemigosNivel4.get(i);
-        if(e.y == (altoPantalla - 20)){
+        if(e.y >= (altoPantalla - 20)){
             breached = true;
         }
     }
@@ -559,7 +582,7 @@ void dibujarYAvanzarEnemigos(){
     for(int i = 0; i < listaEnemigosNivel1.size();i++){
         EnemigoNivel1 enemigo = listaEnemigosNivel1.get(i);
         enemigo.render();
-        if(contadorVecesFondoGenerado==500){
+        if(contadorVecesFondoGenerado==400){
             enemigo.avanzar();
         }
     }
@@ -567,7 +590,7 @@ void dibujarYAvanzarEnemigos(){
      for(int i = 0; i < listaEnemigosNivel2.size();i++){
         EnemigoNivel2 enemigo = listaEnemigosNivel2.get(i);
         enemigo.render();
-        if(contadorVecesFondoGenerado==500){
+        if(contadorVecesFondoGenerado==400){
             enemigo.avanzar();
         }
     }
@@ -575,7 +598,7 @@ void dibujarYAvanzarEnemigos(){
      for(int i = 0; i < listaEnemigosNivel3.size();i++){
         EnemigoNivel3 enemigo = listaEnemigosNivel3.get(i);
         enemigo.render();
-        if(contadorVecesFondoGenerado==500){
+        if(contadorVecesFondoGenerado==400){
             enemigo.avanzar();
         }
     }
@@ -583,8 +606,8 @@ void dibujarYAvanzarEnemigos(){
      for(int i = 0; i < listaEnemigosNivel4.size();i++){
         EnemigoNivel4 enemigo = listaEnemigosNivel4.get(i);
         enemigo.render();
-        //cada 5 segundos(como 500 draws) avanza
-        if(contadorVecesFondoGenerado==500){
+        //cada 5 segundos(como 400 draws) avanza
+        if(contadorVecesFondoGenerado==400){
             enemigo.avanzar();
         }
     }
