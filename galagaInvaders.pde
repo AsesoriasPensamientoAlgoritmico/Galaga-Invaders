@@ -8,6 +8,12 @@ int contadorVecesFondoGenerado = 0;
 //el jugador tiene que poderse acceder desde todos lados
 Jugador jugador;
 
+//crea avion
+Avion avion;
+
+//crea pajaro
+Pajaro pajaro;
+
 //Manejo de balas
 ArrayList<Bala> listaBalas = new ArrayList<Bala>();
 
@@ -26,6 +32,7 @@ int JUEGO = 3;
 int GAMEOVER = 4;
 int GANO = 5;
 int PERDIO = 6;
+int NOMBRE = 7; 
 
 //Pantallas
 PImage imagenInicio;
@@ -73,6 +80,10 @@ void setup(){
     
     jugador = new Jugador(posicionInicialXJugador,posicionInicialYJugador,altoPantalla,anchoPantalla, "Felipe");
     
+    avion = new Avion(0,40,altoPantalla,anchoPantalla);
+
+    pajaro = new Pajaro(anchoPantalla,400,altoPantalla,anchoPantalla);
+
     generarEnemigos();
     
 }
@@ -91,6 +102,9 @@ void draw(){
 
     if(modo==INICIO){
         drawInicio();
+    }
+    if(modo==NOMBRE){
+        introducir
     }
     if(modo == INSTRUCCIONES){
         drawInstrucciones();
@@ -788,6 +802,11 @@ void resetearEstadoJuego(){
 
 
 void dibujarFondo(){   
+
+
+    
+
+
     fondoCiudad();
     noStroke(); 
     //cambia de fondo
@@ -804,6 +823,8 @@ void dibujarFondo(){
     else{
         contadorVecesFondoGenerado += 1;
     }
+    avion.loop();
+    pajaro.loop();
     //toca meter esto aqui si no todos los rectangulos cambian
     rectMode(CORNER);
 }
