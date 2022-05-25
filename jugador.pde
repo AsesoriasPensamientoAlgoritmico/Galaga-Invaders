@@ -7,6 +7,8 @@ class Jugador extends BaseEntidad{
     int puntajeActual = 0;
     int puntajeMaximo = 0;
 
+    PShape imagenJugador;
+
     Jugador(int pix, int piy,int altoPantalla, int anchoPantalla, String nombre ){
         //Hereda de la clase padre que es baseEntidaad
         super(pix,piy,altoPantalla,anchoPantalla);
@@ -15,9 +17,16 @@ class Jugador extends BaseEntidad{
         vidasIniciales = NUMEROVIDAS;
         nombreJugador = nombre;
         velocidadDeMovimiento = velMovimientoJ;
+        imagenJugador = loadShape("Jugador.svg");
+        
     }
 
     void renderJugador(){
+        
+         shape(imagenJugador,this.x-40,this.y-40,80,80);
+
+        /*
+        
         //agrupa las formas que componen el jugador
         sprite = createShape(GROUP);
 
@@ -45,6 +54,7 @@ class Jugador extends BaseEntidad{
         sprite.addChild(oreja1);
         sprite.addChild(oreja2);
         shape(sprite);
+        */
     }
 
     void moverDerecha(){

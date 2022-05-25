@@ -4,10 +4,10 @@ class Bala{
     int anchoBala = 20;
 
     //velocidad bala jugador
-    int velJ = 3;
+    int velJ = 2;
 
     //velocidad bala enemigo
-    int velE = 2;
+    int velE = 4;
 
     color verde = color(0,255,0);
 

@@ -24,7 +24,8 @@ int INSTRUCCIONES = 1;
 int CONTROLES = 2;
 int JUEGO = 3;
 int GAMEOVER = 4;
-int SCOREBOARD = 5;
+int GANO = 5;
+int PERDIO = 6;
 
 //Pantallas
 PImage imagenInicio;
@@ -32,7 +33,8 @@ PImage gameOver;
 PImage fondo;
 PImage instrucciones;
 PImage controles;
-PImage scoreboard;
+PImage imagenGano;
+PImage imagenPerdio;
 
 //Puntaje
 int puntajeActual = 0;
@@ -45,6 +47,16 @@ String ruta = "data/" + nombreTabla;
 
 //Font
 PFont font;
+
+
+int velBalaEnemigo = 4;
+
+
+//Otra variable de tiempo para cocntrolar a los enemigos
+int vartiempo = 0;
+
+//Velocidad del juego 
+int velocidadJuego = 100;
 
 void setup(){
     size(800,800);
@@ -66,6 +78,17 @@ void setup(){
 }
 
 void draw(){
+
+    //Hace que la velocidad de las balas vaya aumentando a medidaa que aumenta el tiempo
+    if(millis()%1000==0){
+        if(velocidadJuego<=0){
+            velocidadJuego = 1;
+        }
+        else{
+            velocidadJuego -= 10;
+        }
+    }
+
     if(modo==INICIO){
         drawInicio();
     }
@@ -82,8 +105,37 @@ void draw(){
     if(modo == GAMEOVER){
         drawGameOver();
     }
-    if(modo == SCOREBOARD){
-        drawScoreboard();
+    if(modo == GANO){
+        drawGano();
+    }
+    if(modo == PERDIO){
+        drawPerdio();
+    }
+}
+
+
+
+void drawGano(){
+    imagenGano = loadImage("Win.jpg");
+    image(imagenGano,-15,0);
+    if(mousePressed){
+        if(200 < mouseX && mouseX < 600){
+            if(580 < mouseY && mouseY < 715){
+                modo = GAMEOVER;
+            }
+        }
+    }
+}
+
+void drawPerdio(){
+    imagenPerdio = loadImage("Loss.jpg");
+    image(imagenPerdio,-15,0);
+    if(mousePressed){
+        if(200 < mouseX && mouseX < 600){
+            if(580 < mouseY && mouseY < 715){
+                modo = GAMEOVER;
+            }
+        }
     }
 }
 
@@ -154,71 +206,6 @@ void drawGameOver(){
 
         if(245 < mouseX && mouseX < 600){
             if(580 < mouseY && mouseY < 650){
-                modo = SCOREBOARD;
-                puntajeActual = 0;
-            }
-        }
-
-    }
-
-    
-
-}
-
-
-void drawScoreboard(){
-    scoreboard = loadImage("Scoreboard.jpg");
-    image(scoreboard,0,0);
-
-    cargarDatos();
-
-
-    tablaDatos.sort("Puntaje");
-
-    ArrayList<Integer> listaPuntajesMaximos = new ArrayList<>();
-
-    int num = 5;
-    int index = tablaDatos.getRowCount()-1;//ultimo indice de la lista
-    while(num>0){
-        if(index < 0 ){
-            listaPuntajesMaximos.add(0);
-        }
-        else{
-            listaPuntajesMaximos.add(tablaDatos.getInt(num-1,"Puntaje"));
-        }
-        num--;
-    }
-
-    //reversa lista -> https://www.techiedelight.com/reverse-list-java-inplace/
-    int j = listaPuntajesMaximos.size() - 1;
-    for (int i = 0; i < j; i++) {
-            listaPuntajesMaximos.add(i, listaPuntajesMaximos.remove(j));
-    }
-
-    textFont(font,20);
-
-
-    //Text TOP 1
-    text(listaPuntajesMaximos.get(0),200,200);
-
-    //Text TOP 2
-    text(listaPuntajesMaximos.get(1),200,300);
-
-    //Text TOP 3
-    text(listaPuntajesMaximos.get(2),200,400);
-
-    //Text TOP 4
-    text(listaPuntajesMaximos.get(3),200,500);
-    
-    //Text TOP 5
-    text(listaPuntajesMaximos.get(4),200,600);
-
-
-
-    System.out.println(mouseX);
-    if(mousePressed){
-        if(215 < mouseX && mouseX < 490){
-            if(410 < mouseY && mouseY < 550){
                 modo = JUEGO;
                 puntajeActual = 0;
             }
@@ -226,7 +213,10 @@ void drawScoreboard(){
 
     }
 
+    
+
 }
+
 
 void drawjuego(){
     
@@ -250,12 +240,16 @@ void drawjuego(){
         }
     }
 
+    boolean concl = true;
+
     //Dibuja el puntaje actual
     dibujarPuntajeActual();
 
     //revisa si el jugador fue impactad
-    revisarSiJugadorImpactado();
-
+    if(concl){
+        concl = revisarSiJugadorImpactado();
+    }
+    
     //Enemigos
     revisarSiEnemigoImpactado();
     dibujarYAvanzarEnemigos();
@@ -270,13 +264,22 @@ void drawjuego(){
     sacarBalasInactivas();
     sacarEnemigosInactivos();
 
+    
+
+    //revisar si gano 
+    if(concl){
+        concl = revisarSiGano();
+    }
+
+
     //revisar si enemigo llego a linea final (game over)
     revisarEnemigoLineaFinal();
+    
 }
 
 void dibujarPuntajeActual(){
     textFont(font,40);
-    text("Score: " + puntajeActual, anchoPantalla*0.68, altoPantalla*0.96);
+    text("Puntaje: " + puntajeActual, anchoPantalla*0.67, altoPantalla*0.96);
 }
 
 void cargarDatos(){
@@ -298,47 +301,59 @@ void meterNuevoPuntaje(){
   tablaDatos.sort("Puntaje");
 }
 
+boolean revisarSiGano(){
+    if(listaEnemigosNivel1.size() + listaEnemigosNivel2.size() + listaEnemigosNivel3.size() + listaEnemigosNivel4.size() == 0){
+        modo = GANO;
+        meterNuevoPuntaje();
+        resetearEstadoJuego();
+        return true;
+    }
+
+    return false;
+}
+
 void revisarEnemigoLineaFinal(){
     boolean breached = false;
 
     for(int i = 0;i < listaEnemigosNivel1.size();i++){
         EnemigoNivel1 e = listaEnemigosNivel1.get(i);
-        if(e.y >= (altoPantalla - 20)){
+        if(e.y >= (altoPantalla - 40)){
             breached = true;
         }
     }
     
     for(int i = 0;i < listaEnemigosNivel2.size();i++){
         EnemigoNivel2 e = listaEnemigosNivel2.get(i);
-        if(e.y >= (altoPantalla - 20)){
+        if(e.y >= (altoPantalla - 40)){
             breached = true;
         }
     }
 
     for(int i = 0;i < listaEnemigosNivel3.size();i++){
         EnemigoNivel3 e = listaEnemigosNivel3.get(i);
-        if(e.y >= (altoPantalla - 20)){
+        if(e.y >= (altoPantalla - 40)){
             breached = true;
         }
     }
 
     for(int i = 0;i < listaEnemigosNivel4.size();i++){
         EnemigoNivel4 e = listaEnemigosNivel4.get(i);
-        if(e.y >= (altoPantalla - 20)){
+        if(e.y >= (altoPantalla - 40)){
             breached = true;
         }
     }
 
 
     if(breached){
-        modo = GAMEOVER;
+        modo = PERDIO;
         meterNuevoPuntaje();
         resetearEstadoJuego();
     }
+
 }
 
 
-void revisarSiJugadorImpactado(){
+boolean revisarSiJugadorImpactado(){
     for(int i = 0 ; i < listaBalas.size();i++){
         Bala b = listaBalas.get(i);
         if(jugador.x - jugador.anchoJugador/2 <= b.x && b.x <= jugador.x + jugador.anchoJugador/2 ){
@@ -347,13 +362,15 @@ void revisarSiJugadorImpactado(){
                 b.visible = false;
                 //revisa si esta muerto
                 if(jugador.revisarSiMuerto()== true){
-                    modo = GAMEOVER;
+                    modo = PERDIO;
                     meterNuevoPuntaje();
                     resetearEstadoJuego();
+                    return true;
                 }
             }
         }
     }
+    return false;
 }
 
 
@@ -536,6 +553,7 @@ void revisarBalasColisonaron(){
 
 //toca cambiar esto para que sea aleatorio
 void enemigosDisparan(){
+
     //resetear todos a que pueden disparar
     for(int a = 0 ; a < listaEnemigosNivel1.size();a++){
         EnemigoNivel1 e = listaEnemigosNivel1.get(a);
@@ -621,13 +639,18 @@ void enemigosDisparan(){
         }
     }
 
+    //Revisa cuantos enemigos quedan para aumentar velocidad de las balas
+    if(listaEnemigosNivel1.size()+listaEnemigosNivel2.size()+listaEnemigosNivel3.size()+listaEnemigosNivel4.size()<5){
+        velBalaEnemigo = 6;
+    }
+
     //entrer los available para disparar selecciona uno aleatoriamente
     //no se como mas hacer que revise si son de como la clase enemigo X
         
     //con esto dicen que uno puede crear un arreglo de objetos de diferentes clases
     //https://forum.processing.org/two/discussion/12216/how-to-create-an-array-of-different-classes.html
     //el codigo lo saque de un ejemplo en el foro
-    if(contadorVecesFondoGenerado % 100 == 0){
+    if(contadorVecesFondoGenerado % velocidadJuego == 0){
 
         if(eneDisp.size()!=0){
             int ene = int(random(0,eneDisp.size()));
@@ -636,18 +659,22 @@ void enemigosDisparan(){
             
             if (o instanceof EnemigoNivel1) {
                 Bala b= ((EnemigoNivel1)o).disparar();
+                b.vel = velBalaEnemigo;
                 listaBalas.add(b);
             } 
             else if (o instanceof EnemigoNivel2) {
                 Bala b= ((EnemigoNivel2)o).disparar();
+                b.vel = velBalaEnemigo;
                 listaBalas.add(b);
             }
             else if (o instanceof EnemigoNivel3) {
                 Bala b= ((EnemigoNivel3)o).disparar();
+                b.vel = velBalaEnemigo;
                 listaBalas.add(b);
             }
             else if (o instanceof EnemigoNivel4) {
                 Bala b= ((EnemigoNivel4)o).disparar();
+                b.vel = velBalaEnemigo;
                 listaBalas.add(b);
             }
         }        
@@ -666,10 +693,11 @@ void dibujarYAvanzarTodasLasBalas(){
 }
 
 void dibujarYAvanzarEnemigos(){
+    int tiempoAvanze = 200;//tiempo que se demora un enemigo en avanzar
     for(int i = 0; i < listaEnemigosNivel1.size();i++){
         EnemigoNivel1 enemigo = listaEnemigosNivel1.get(i);
         enemigo.render();
-        if(contadorVecesFondoGenerado==400){
+        if(contadorVecesFondoGenerado%tiempoAvanze==0){
             enemigo.avanzar();
         }
     }
@@ -677,7 +705,7 @@ void dibujarYAvanzarEnemigos(){
      for(int i = 0; i < listaEnemigosNivel2.size();i++){
         EnemigoNivel2 enemigo = listaEnemigosNivel2.get(i);
         enemigo.render();
-        if(contadorVecesFondoGenerado==400){
+        if(contadorVecesFondoGenerado%tiempoAvanze==0){
             enemigo.avanzar();
         }
     }
@@ -685,7 +713,7 @@ void dibujarYAvanzarEnemigos(){
      for(int i = 0; i < listaEnemigosNivel3.size();i++){
         EnemigoNivel3 enemigo = listaEnemigosNivel3.get(i);
         enemigo.render();
-        if(contadorVecesFondoGenerado==400){
+        if(contadorVecesFondoGenerado%tiempoAvanze==0){
             enemigo.avanzar();
         }
     }
@@ -693,8 +721,7 @@ void dibujarYAvanzarEnemigos(){
      for(int i = 0; i < listaEnemigosNivel4.size();i++){
         EnemigoNivel4 enemigo = listaEnemigosNivel4.get(i);
         enemigo.render();
-        //cada 5 segundos(como 400 draws) avanza
-        if(contadorVecesFondoGenerado==400){
+        if(contadorVecesFondoGenerado%tiempoAvanze==0){
             enemigo.avanzar();
         }
     }
