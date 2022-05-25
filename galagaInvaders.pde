@@ -1,3 +1,4 @@
+
 //guardo esta variable para que cambiar el tamaño de la pantalla sea facil
 int altoPantalla = 800;
 int anchoPantalla = 800;
@@ -34,6 +35,11 @@ int GANO = 5;
 int PERDIO = 6;
 int NOMBRE = 7; 
 
+
+//Campo de texto
+String textoNombre;
+boolean enteredNombre=false;
+
 //Pantallas
 PImage imagenInicio;
 PImage gameOver;
@@ -42,10 +48,14 @@ PImage instrucciones;
 PImage controles;
 PImage imagenGano;
 PImage imagenPerdio;
+PImage imagenNombre;
 
 //Puntaje
 int puntajeActual = 0;
 int puntajeMaximo = 0;
+
+
+String jugadorPuntajeMaximo = "";
 
 //Tabla
 Table tablaDatos;
@@ -69,6 +79,9 @@ void setup(){
     size(800,800);
 
     font = createFont("LoRes15OTAltOakland-Bold.ttf",20);
+
+
+    textoNombre =  "";
     
 
     tablaDatos = loadTable(nombreTabla,"header");
@@ -78,7 +91,7 @@ void setup(){
     int posicionInicialXJugador = anchoPantalla/2;
     int posicionInicialYJugador = int(altoPantalla*0.9);
     
-    jugador = new Jugador(posicionInicialXJugador,posicionInicialYJugador,altoPantalla,anchoPantalla, "Felipe");
+    jugador = new Jugador(posicionInicialXJugador,posicionInicialYJugador,altoPantalla,anchoPantalla, "");
     
     avion = new Avion(0,40,altoPantalla,anchoPantalla);
 
@@ -89,6 +102,8 @@ void setup(){
 }
 
 void draw(){
+
+    System.out.println(modo);
 
     //Hace que la velocidad de las balas vaya aumentando a medidaa que aumenta el tiempo
     if(millis()%1000==0){
@@ -104,7 +119,7 @@ void draw(){
         drawInicio();
     }
     if(modo==NOMBRE){
-        introducir
+        drawNombre();
     }
     if(modo == INSTRUCCIONES){
         drawInstrucciones();
@@ -141,17 +156,7 @@ void drawGano(){
     }
 }
 
-void drawPerdio(){
-    imagenPerdio = loadImage("Loss.jpg");
-    image(imagenPerdio,-15,0);
-    if(mousePressed){
-        if(200 < mouseX && mouseX < 600){
-            if(580 < mouseY && mouseY < 715){
-                modo = GAMEOVER;
-            }
-        }
-    }
-}
+
 
 
 void drawInicio(){
@@ -160,12 +165,60 @@ void drawInicio(){
     if(mousePressed){
         if(290 < mouseX && mouseX < 500){
             if(370 < mouseY && mouseY < 430){
-                modo = INSTRUCCIONES;
+                modo = NOMBRE;
+                
             }
         }
     }
     //290  a 500 X
     //370 a 430 Y
+}
+
+void drawNombre(){
+    imagenNombre = loadImage("Nombre.jpg");
+    image(imagenNombre,0,0);
+    
+    textSize(60);
+    text(textoNombre,anchoPantalla/2-100,altoPantalla/2-30);
+    inputLetra();
+
+
+
+    if(mousePressed){
+        if(224 < mouseX && mouseX < 625){
+            if(450 < mouseY && mouseY < 600){
+                modo = INSTRUCCIONES;
+                jugador.nombreJugador = textoNombre.trim();
+                textSize(15);
+            }
+        }
+    }
+}
+
+void inputLetra(){
+    if(millis()%50==0){
+        if(esValido()|| key == CODED){
+        if(key == CODED && keyCode != BACKSPACE ){
+            textoNombre = textoNombre;
+        }
+        else{
+            keyReleased();
+        }
+    }
+    }
+    
+}
+
+void keyReleased() {
+    textoNombre += key;
+}
+
+boolean esValido(){
+    boolean valido = false;
+    if(key >= 'A' && key <= 'z' || key >= '0' && key <= '9'){
+            valido = true;
+    }
+    return valido;
 }
 
 void drawInstrucciones(){
@@ -199,8 +252,10 @@ void drawGameOver(){
     cargarDatos();//actualiza para ver si el puntaje actual es el nuevo puntaje maximo
 
     textFont(font,20);
-    text(puntajeActual,425,338);
-    text(puntajeMaximo,425,378);
+    text(puntajeActual+" ("+ jugador.nombreJugador +")",425,338);
+    text(puntajeMaximo+" ("+ jugadorPuntajeMaximo +")",425,378);
+
+    //jugadorPuntajeMaximo
 
 
     resetearEstadoJuego();
@@ -218,19 +273,23 @@ void drawGameOver(){
             }
         }
 
-        if(245 < mouseX && mouseX < 600){
-            if(580 < mouseY && mouseY < 650){
-                modo = JUEGO;
-                puntajeActual = 0;
-            }
-        }
-
     }
 
     
 
 }
 
+void drawPerdio(){
+    imagenPerdio = loadImage("Loss.jpg");
+    image(imagenPerdio,-15,0);
+    if(mousePressed){
+        if(200 < mouseX && mouseX < 600){
+            if(580 < mouseY && mouseY < 715){
+                modo = GAMEOVER;
+            }
+        }
+    }
+}
 
 void drawjuego(){
     
@@ -301,8 +360,10 @@ void cargarDatos(){
   for(int i = 0;i<tablaDatos.getRowCount();i++){
       TableRow tr = tablaDatos.getRow(i);
       int currPuntaje = tr.getInt("Puntaje");
+      String currJugador = tr.getString("Nombre");
       if(currPuntaje>puntajeMaximo){
         puntajeMaximo=currPuntaje;
+        jugadorPuntajeMaximo = currJugador;
       }
   }
   saveTable(tablaDatos, ruta);
@@ -311,6 +372,7 @@ void cargarDatos(){
 void meterNuevoPuntaje(){
   TableRow newRow = tablaDatos.addRow();
   newRow.setInt("Puntaje", puntajeActual);
+  newRow.setString("Nombre", jugador.nombreJugador);
   saveTable(tablaDatos, ruta);
   tablaDatos.sort("Puntaje");
 }
